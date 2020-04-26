@@ -54,13 +54,15 @@ Several Google Fonts were explored and only those without any lower case l's and
 
 ##### Title Font
 
-[Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 28px.Semi-Bold
-[Orbitron](static/images/documentation/Orbitron-Title-Font.png "Orbitron")
+[Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 32px
+
+![Orbitron](documentation/Orbitron-Title-Font.png "Orbitron")
 
 ##### Base Font
 
-[Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo)
-[Exo](static/images/documentation/Exo-Base-Font.png "Exo")
+[Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) 18px 
+
+![Exo](documentation/Exo-Base-Font.png "Exo")
 
 
 
