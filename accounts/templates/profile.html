@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 {% block page_title %}
-    {{user}}'s Profile Page
+    {{ user.get_full_name }}'s Profile Page
 {% endblock %}
 {% block page_heading %}
-    {{user}}'s Profile
+    {{ user.username }}'s Profile
 {% endblock %}
 {% block main_content %}
-    <p>{{profile.email}}</p>
+    <p>{{ user.email }}</p>
+
+    <ul>
+        <li>Username: {{ user.username }}</li>
+        <li>product_level: {{ profile.product_level }}</li>
+        <li>Birth Date: {{ profile.birth_date }}</li>
+    </ul>
 {% endblock %}

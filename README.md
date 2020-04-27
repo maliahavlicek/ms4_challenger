@@ -126,4 +126,7 @@ Several Google Fonts were explored and only those without any lower case l's and
 ### Media
 
 ### Acknowledgements
+- [ragoli](https://codemyui.com/parallax-pixel-stars-using-pure-css/) star background
+
+
 

@@ -2,14 +2,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import UserLoginForm, UserRegistrationFrom
+from accounts.forms import UserLoginForm, UserRegistrationFrom, UserForm, ProfileForm
+from accounts.models import Profile
 
 
 # Create your views here.
-def index(request):
-    """Return the index.html file"""
-    return render(request, 'index.html')
-
 
 @login_required
 def logout(request):
@@ -64,7 +61,44 @@ def registration(request):
     return render(request, 'registration.html', {"registration_form": registration_form})
 
 
+@login_required
 def user_profile(request):
     """The user's profile page"""
     user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {"profile": user})
+    profile = Profile.objects.get(user=user)
+    return render(request, 'profile.html', {"user": user, "profile": profile})
+
+
+@login_required
+def update_profile(request):
+    if request.method == "POST":
+        user_form = UserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = User.objects.get(email=request.user.email)
+            user.last_name = user_form.data['last_name']
+            user.email = user_form.data['email']
+            user.first_name = user_form.data['first_name']
+            user.save()
+            profile = Profile.objects.get(user=user)
+            profile.profile_pic = profile_form.data['profile_pic']
+            profile.birth_date = profile_form.data['birth_date']
+            profile.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            redirect(reverse('profile'))
+
+    else:
+        user = User.objects.get(email=request.user.email)
+        profile = Profile.objects.get(user=user)
+        user_form = UserForm(initial={
+            'last_name': user.last_name,
+            'first_name': user.first_name,
+            'email': user.email
+        })
+        profile_form = ProfileForm(initial={
+            'profile_pic': profile.profile_pic,
+            'birth_date': profile.birth_date,
+        })
+
+        return render(request, "profile_update.html",
+                      {'user_form': user_form, 'profile_form': profile_form})

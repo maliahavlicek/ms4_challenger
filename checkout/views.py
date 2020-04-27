@@ -1,64 +1,76 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import OrderForm, MakePaymentForm
+from .forms import MakePaymentForm
 from django.conf import settings
-from django.utils import timezone
-from products.models import Product
-from .models import OrderLineItem
+from products.models import ServiceLevel
+from .models import Order
 from django.contrib import messages
+from django.contrib.auth.models import User
+from accounts.models import Profile
 import stripe
-
 
 # Create your views here.
 stripe.api_key = settings.STRIPE_SECRET
 
 
 @login_required()
-def checkout(request):
+def checkout(request, pk):
+    product = ServiceLevel.objects.get(id=pk)
+    user = User.objects.get(email=request.user.email)
     if request.method == "POST":
-        order_form = OrderForm(request.POST)
         payment_form = MakePaymentForm(request.POST)
+        order = Order(
+            user=user,
+            product=product,
+            total=product.price
+        )
 
-        if order_form.is_valid() and payment_form.is_valid():
-            order = order_form.save(commit=False)
-            order.date = timezone.now()
+        # if payment is nothing, save order and go to profile page
+        if product.price == 0:
+            order.payment_status = 'payment_collected'
+            order.save()
+            profile = Profile.objects.get(user=user)
+            profile.product_level = product
+            profile.save()
+            return redirect(reverse('profile'))
+
+        elif payment_form.is_valid():
             order.save()
 
-            cart = request.session.get('cart', {})
-            total = 0
-            for id, quantity in cart.items():
-                product = get_object_or_404(Product, pk=id)
-                total += quantity * product.price
-                order_line_item = OrderLineItem(
-                    order=order,
-                    product=product,
-                    quantity=quantity
-                )
-                order_line_item.save()
-
             try:
+                # stripe takes integer amount so need to multiply from cents up
                 customer = stripe.Charge.create(
-                    amount=int(total * 100),
-                    currency="EUR",
+                    amount=int(product.price * 100),
+                    currency="USD",
                     description=request.user.email,
                     card=payment_form.cleaned_data['stripe_id'],
                 )
             except stripe.error.CardError:
+                # user has not paid, update the Order status
+                order.payment_status = 'payment_rejected'
+                order.save()
                 messages.error(request, "Your card was declined!")
 
             if customer.paid:
+                # user has paid, update the Order status
                 messages.error(request, "You have successfully paid")
-                request.session['cart'] = {}
-                return redirect(reverse('products'))
+                order.payment_status = 'payment_collected'
+                order.save()
+                # user has paid, update the Customer object with the product, so they get more features enabled
+                profile = Profile.objects.get(user=user)
+                profile.product_level = product
+                profile.save()
+                return redirect(reverse('profile'))
             else:
+                # user has not paid, update the Order status
+                order.payment_status = 'payment_rejected'
+                order.save()
                 messages.error(request, "Unable to take payment")
         else:
             print(payment_form.errors)
             messages.error(request, "We were unable to take a payment with that card!")
     else:
         payment_form = MakePaymentForm()
-        order_form = OrderForm()
 
     return render(request, "checkout.html",
-                  {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
-
+                  {'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE, 'product': product, 'customer': user})
