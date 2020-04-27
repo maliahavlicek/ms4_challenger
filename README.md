@@ -85,7 +85,8 @@ Several Google Fonts were explored and only those without any lower case l's and
 
 ### Fonts
 
-### Tolls
+### Tools
+- [favicon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
 
 ### APIs
 
