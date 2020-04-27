@@ -4,10 +4,10 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserLoginForm, UserRegistrationFrom, UserForm, ProfileForm
 from accounts.models import Profile
+from datetime import datetime
 
 
 # Create your views here.
-
 @login_required
 def logout(request):
     """Log the user out"""
@@ -77,6 +77,11 @@ def update_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user = User.objects.get(email=request.user.email)
             user.last_name = user_form.data['last_name']
+            if len(user_form.data['birth_date']) > 0:
+                user.birth_date=user_form.data['birth_date']
+            else:
+                user.birth_date=None
+
             user.email = user_form.data['email']
             user.first_name = user_form.data['first_name']
             user.save()
@@ -85,7 +90,7 @@ def update_profile(request):
             profile.birth_date = profile_form.data['birth_date']
             profile.save()
             messages.success(request, 'Your profile was successfully updated!')
-            redirect(reverse('profile'))
+            return redirect(reverse('profile'))
 
     else:
         user = User.objects.get(email=request.user.email)

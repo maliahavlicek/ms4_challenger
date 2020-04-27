@@ -30,12 +30,6 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.email
 
-    def clean(self):
-        cleaned_data = super(Profile, self).clean()
-        if not cleaned_data['birth_date']:
-            cleaned_data['birth_date'] = None
-        return cleaned_data
-
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

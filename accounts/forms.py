@@ -4,6 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class UserLoginForm(forms.Form):
     """ Form to be used by login """
     username = forms.CharField()
@@ -53,6 +57,7 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+    birth_date = forms.DateField(widget=DateInput)
     class Meta:
         model = Profile
         fields = [
