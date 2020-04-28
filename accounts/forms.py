@@ -96,16 +96,30 @@ class UserRegistrationFrom(UserCreationForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'username']
 
 
 class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(widget=DateInput)
+    profile_pic = forms.ImageField(label="Avatar")
 
     class Meta:
         model = Profile
-        fields = [
-            'profile_pic',
-            'birth_date',
-            'tags',
-        ]
+        fields = '__all__'
+        exclude = ['user']
+
+    def __init__(self, * args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('profile_pic', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('tags', css_class='form-group col-md-6 mb-0'),
+                Column('birth_date', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Save Changes')
+        )

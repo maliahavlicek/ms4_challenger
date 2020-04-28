@@ -1,17 +1,85 @@
 {% extends "base.html" %}
 {% block page_title %}
-    {{ user.get_full_name }}'s Profile Page
+    Account Settings
 {% endblock %}
 {% block page_heading %}
-    {{ user.username }}'s Profile
+    Account Settings
 {% endblock %}
 {% block main_content %}
-    <p>{{ user.email }}</p>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>User Details:</h4>
+        </div>
+    </div>
+    <div class="row profile-outline">
+        <div class="col-md-8">
+            <p>
+                <span class="label">Username: </span>
+                {{ request.user.username }}
+            </p>
+            <p>
+                <span class="label">Email: </span>
+                {{ request.user.email }}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <span class="label">First Name: </span>
+                {% if request.user.first_name %}
+                    {{ request.user.first_name }}
+                {% endif %}
+            </p>
+            <p>
+                <span class="label">Last Name: </span>
+                {% if request.user.last_name %}
+                    {{ request.user.last_name }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Profile:</h4>
+        </div>
+    </div>
+    <div class="row profile-outline">
+        <div class="col-md-8">
+            <p>
+                <span class="label">Birth Date: </span>
+                {% if request.user.profile.birth_date %}
+                    {{ request.profile.birth_date }}
+                {% endif %}
+            </p>
+            <p>
+                <span class="label">Interests: </span>
+                {% if request.user.profile.tags %}
+                    {% for tag in tags %}
+                        {{ tag }}<br>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <span class="label">Avatar: </span>
+            <img class="profile-pic profile-outline" src="{{ request.user.profile.profile_pic.url }}">
+        </div>
+    </div>
 
-    <ul>
-        <li>Username: {{ user.username }}</li>
-        <li>product_level: {{ profile.product_level }}</li>
-        <li>Birth Date: {{ profile.birth_date }}</li>
-        <li><img class="profile-pic" src="{{profile.profile_pic.url}}" ></li>
-    </ul>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Service Level:</h4>
+        </div>
+    </div>
+    <div class="row profile-outline">
+        <div class="col-md-8">
+            <p>
+                <span class="label">Service Level: </span>
+                {% if request.user.profile.product_level %}
+                    {{ request.profile.product_level }}
+                {% else %}
+                    Free
+                {% endif %}
+            </p>
+        </div>
+    </div>
 {% endblock %}

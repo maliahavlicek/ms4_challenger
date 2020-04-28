@@ -64,26 +64,19 @@ def registration(request):
 @login_required
 def user_profile(request):
     """The user's profile page"""
-    user = User.objects.get(email=request.user.email)
-    profile = Profile.objects.get(user=user)
-    return render(request, 'profile.html', {"user": user, "profile": profile})
+    return render(request, 'profile.html')
 
 
 @login_required
 def update_profile(request):
-    user = request.user
-    profile = request.user.profile
-    profile_form = ProfileForm(instance=profile)
-    user_form = UserForm(instance=user)
+    profile_form = ProfileForm(instance=request.user.profile)
 
     if request.method == "POST":
-        user_form = UserForm(request.POST, instance=user)
-        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if profile_form.is_valid():
             profile_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect(reverse('profile'))
 
     return render(request, "profile_update.html",
-                  {'user_form': user_form, 'profile_form': profile_form})
+                  {'profile_form': profile_form})

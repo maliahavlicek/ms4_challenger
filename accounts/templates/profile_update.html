@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
+{% load crispy_forms_tags %}
 {% block page_title %}
     Update Profile
 {% endblock %}
@@ -7,12 +8,10 @@
     Update Profile
 {% endblock %}
 {% block main_content %}
-    <p>Updating Profile for: {{ user.get_full_name }}</p>
+    <p>Updating Profile for: {{ request.user.get_full_name }}</p>
 
     <form method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
-        {{ user_form|as_bootstrap }}
-        {{ profile_form|as_bootstrap }}
-        <button class="btn btn-default" type="submit">Save changes</button>
+        {% crispy profile_form %}
     </form>
 {% endblock %}
