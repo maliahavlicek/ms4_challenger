@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
@@ -10,8 +12,26 @@ class DateInput(forms.DateInput):
 
 class UserLoginForm(forms.Form):
     """ Form to be used by login """
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Email or Username'
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+    def __init__(self, * args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('username', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('password', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Login')
+        )
+
 
 
 class UserRegistrationFrom(UserCreationForm):
@@ -42,7 +62,7 @@ class UserRegistrationFrom(UserCreationForm):
         password2 = self.cleaned_data.get('password2')
 
         if not password1 or not password2:
-            raise forms.ValidationError('Please confrim your password')
+            raise forms.ValidationError('Please confirm your password')
 
         if password1 != password2:
             raise forms.ValidationError('Passwords must match')
@@ -58,6 +78,7 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(widget=DateInput)
+
     class Meta:
         model = Profile
         fields = [

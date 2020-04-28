@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load bootstrap_tags %}
+{% load crispy_forms_tags %}
 {% block page_title %}
     Login Page
 {% endblock %}
@@ -7,11 +7,10 @@
     User Login
 {% endblock %}
 {% block main_content %}
-<form method="POST" class="half-input">
-    {%  csrf_token %}
-    {{ login_form | as_bootstrap }}
-    <button type="submit" class="btn btn-default">Login</button>
+    <form method="POST">
+        {% csrf_token %}
+        {% crispy login_form %}
+    </form>
 
-</form>
     <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
 {% endblock %}

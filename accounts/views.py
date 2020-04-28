@@ -71,39 +71,19 @@ def user_profile(request):
 
 @login_required
 def update_profile(request):
-    if request.method == "POST":
-        user_form = UserForm(request.POST)
-        profile_form = ProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
-            user = User.objects.get(email=request.user.email)
-            user.last_name = user_form.data['last_name']
-            if len(user_form.data['birth_date']) > 0:
-                user.birth_date=user_form.data['birth_date']
-            else:
-                user.birth_date=None
+    user = request.user
+    profile = request.user.profile
+    profile_form = ProfileForm(instance=profile)
+    user_form = UserForm(instance=user)
 
-            user.email = user_form.data['email']
-            user.first_name = user_form.data['first_name']
-            user.save()
-            profile = Profile.objects.get(user=user)
-            profile.profile_pic = profile_form.data['profile_pic']
-            profile.birth_date = profile_form.data['birth_date']
-            profile.save()
+    if request.method == "POST":
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect(reverse('profile'))
 
-    else:
-        user = User.objects.get(email=request.user.email)
-        profile = Profile.objects.get(user=user)
-        user_form = UserForm(initial={
-            'last_name': user.last_name,
-            'first_name': user.first_name,
-            'email': user.email
-        })
-        profile_form = ProfileForm(initial={
-            'profile_pic': profile.profile_pic,
-            'birth_date': profile.birth_date,
-        })
-
-        return render(request, "profile_update.html",
-                      {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, "profile_update.html",
+                  {'user_form': user_form, 'profile_form': profile_form})

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_forms_bootstrap',
+    'crispy_forms',
     "multiselectfield",
     'accounts',
     'home',
@@ -47,7 +48,10 @@ INSTALLED_APPS = [
     'search',
     'checkout',
     'storages',
+    'challenges',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,12 +159,12 @@ STATICFILES_DIRS = [
 ]
 
 MEDIAFILES_LOCATION = 'media'
-
-if os.path.exists('env.py'):
-    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+if os.path.exists('env2py'):
+    # DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
-    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    # DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
