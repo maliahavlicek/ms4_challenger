@@ -7,7 +7,7 @@
     User Login
 {% endblock %}
 {% block main_content %}
-    <form method="POST">
+    <form method="POST" novalidate>
         {% csrf_token %}
         {% crispy login_form %}
     </form>

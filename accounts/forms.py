@@ -33,27 +33,33 @@ class UserLoginForm(forms.Form):
         )
 
 
-
 class UserRegistrationFrom(UserCreationForm):
     """Form used to register a new user"""
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        'placeholder': 'you@example.com'
+    }))
+
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'username'
+    }))
 
     password1 = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
 
     password2 = forms.CharField(
         label="Password Confirmation",
-        widget=forms.PasswordInput)
+        widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
         if User.objects.filter(email=email).exclude(username=username):
-            raise forms.ValidationError(r'Email address must be unique')
+            raise forms.ValidationError('That email address is already registered.')
 
         return email
 
@@ -68,6 +74,23 @@ class UserRegistrationFrom(UserCreationForm):
             raise forms.ValidationError('Passwords must match')
 
         return password2
+
+    def __init__(self, * args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('username', css_class='form-group col-md-6 mb-0'),
+                Column('email', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('password1', css_class='form-group col-md-6 mb-0'),
+                Column('password2', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Register')
+        )
 
 
 class UserForm(forms.ModelForm):

@@ -30,7 +30,7 @@ def login(request):
                 messages.success(request, "You have successfully logged in")
                 return redirect(reverse('index'))
             else:
-                login_form.add_error(None, "user name and password not valid.")
+                login_form.add_error(None, "Username/email and password not valid.")
     else:
         login_form = UserLoginForm()
 
