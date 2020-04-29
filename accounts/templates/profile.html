@@ -74,8 +74,8 @@
         <div class="col-md-8">
             <p>
                 <span class="label">Service Level: </span>
-                {% if request.user.profile.product_level %}
-                    {{ request.profile.product_level }}
+                {% if request.user.profile.product_level.name %}
+                    {{ request.user.profile.product_level.name }}
                 {% else %}
                     Free
                 {% endif %}

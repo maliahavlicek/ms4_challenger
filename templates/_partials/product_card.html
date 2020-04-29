@@ -1,0 +1,31 @@
+<div class="card-header text-center">
+    <h3>{{ product.name }}</h3>
+</div>
+<div class="product-img-wrap">
+    <img class="card-img-top" src="{{ MEDIA_URL }}{{ product.image }}" alt="Image for {{ product.name }}">
+</div>
+<div class="card-body">
+    <div class="card-text product-description">{{ product.description }}</div>
+    <div class="card-text product-features">
+        <h4 class="card-title">Included Features</h4>
+        <ul class="card-text">
+            {% for feature in product.features %}
+                <li>{{ feature }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="card-text limits">
+        <h4 class="card-title">Capacity</h4>
+        <ul>
+            <li class="card-text">
+                <span class="label">Number of Challenges: </span> {{ product.max_number_of_challengers }}
+            </li>
+            <li class="card-text">
+                <span class="label">Members per Challenge: </span> {{ product.max_members_per_challenge }}
+            </li>
+            <li class="card-text">
+                <span class="label">Submission Size: </span> {{ product.max_submission_size_in_MB }} Mb
+            </li>
+        </ul>
+    </div>
+</div>
