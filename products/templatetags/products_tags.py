@@ -12,7 +12,7 @@ def format_price(price):
     """
     if isinstance(price, decimal.Decimal):
         if price == 0.00:
-            content = '<span class="dollar-symbol">Free</span>'
+            content = '<span class="dollars">Free</span>'
             return mark_safe(content)
 
         # split string on period, price comes for a decimal field with 2 decimal fields so it will always have .xx
@@ -24,7 +24,7 @@ def format_price(price):
                 dollars = items[0]
                 cents = items[1]
 
-        content = '<span class="dollar-symbol">$</span><class="dollars">' + dollars + '</span>.<span class="cents">' + cents + '</span>'
+        content = '<span class="dollar-symbol">$</span><span class="dollars">' + dollars + '</span>.<span class="cents">' + cents + '</span>'
         return mark_safe(content)
     else:
         return price

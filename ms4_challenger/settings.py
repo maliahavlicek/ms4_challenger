@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'checkout',
     'storages',
     'challenges',
+    'submissions',
+    'ratings',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

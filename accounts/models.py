@@ -24,7 +24,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(default="profile1.png", upload_to='images/products')
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
-    tags = models.ManyToManyField(Tag, null=True, blank=True)
+    tags = models.ManyToManyField(Tag)
     product_level = models.ForeignKey(ServiceLevel, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
