@@ -4,6 +4,7 @@ from crispy_forms.layout import Layout, Submit, Row, Column
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
+from datetime import date, datetime
 
 
 class DateInput(forms.DateInput):
@@ -17,7 +18,7 @@ class UserLoginForm(forms.Form):
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
-    def __init__(self, * args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -66,16 +67,21 @@ class UserRegistrationFrom(UserCreationForm):
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
-
-        if not password1 or not password2:
-            raise forms.ValidationError('Please confirm your password')
+        username = self.cleaned_data.get('username')
+        email = self.cleaned_data.get('email')
 
         if password1 != password2:
-            raise forms.ValidationError('Passwords must match')
+            raise forms.ValidationError('Passwords must match.')
+
+        if username in password2:
+            raise forms.ValidationError('Your username cannot be part of your password.')
+
+        if email in password2:
+            raise forms.ValidationError('Your email cannot be part of your password.')
 
         return password2
 
-    def __init__(self, * args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -108,7 +114,23 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['user']
 
-    def __init__(self, * args, **kwargs):
+    def clean_birth_date(self):
+        birth_date = self.cleaned_data.get('birth_date')
+
+        # Don't really care if usr is leap year or not, +-2 days does not really matter if usr can sign up or not
+        num_years = int((date.today() - birth_date).days /365)
+
+        # birthdate should be in past
+        if birth_date > date.today():
+            raise forms.ValidationError('Please enter a valid birth date.')
+
+        # user has to be 10 years or older
+        if num_years < 10:
+            raise forms.ValidationError('You must be 10 years or older to use this platform.')
+
+        return birth_date
+
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(

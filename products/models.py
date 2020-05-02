@@ -29,7 +29,7 @@ class ServiceLevel(models.Model):
     features = MultiSelectField(choices=PRODUCT_INCLUDED_FEATURES_CHOICES)
     description = models.TextField(max_length=200)
     max_members_per_challenge = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)])
-    max_number_of_challengers = models.PositiveIntegerField(validators=[MinValueValidator(1),MaxValueValidator(100)])
+    max_number_of_challenges = models.PositiveIntegerField(validators=[MinValueValidator(1),MaxValueValidator(100)])
     video_length_in_seconds = models.PositiveIntegerField(validators=[MaxValueValidator(300)])
     max_submission_size_in_MB = models.PositiveIntegerField(validators=[MaxValueValidator(10000)])
     image = models.ImageField(upload_to='images/products', null=True, blank=True)
