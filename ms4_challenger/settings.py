@@ -153,7 +153,6 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_
 
 STATICFILES_LOCATION = 'static'
 
-
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [

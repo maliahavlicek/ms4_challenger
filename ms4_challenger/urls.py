@@ -16,20 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts import urls as urls_accounts
-from products import urls as urls_products
+from challenges import urls as urls_challenges
 from checkout import urls as urls_checkout
+from products import urls as urls_products
 from search import urls as urls_search
 from home.views import index
 from django.conf.urls.static import static
 from .settings import MEDIA_ROOT, MEDIA_URL
+
 
 urlpatterns = static(MEDIA_URL, document_root=MEDIA_ROOT)
 urlpatterns += [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('accounts/', include(urls_accounts)),
-    path('products/', include(urls_products)),
+    path('challenges/', include(urls_challenges)),
     path('checkout/', include(urls_checkout)),
+    path('products/', include(urls_products)),
     path('search/', include(urls_search)),
 
 ]

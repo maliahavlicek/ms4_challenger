@@ -79,11 +79,11 @@ As a member of Challenger's website, I expect/want/need:
 
 #### Typography
 
-The target age group for this site is rather wide. Children from the ages of 10 to octogenarians could make use of the application. With that in mind, the base font size is 18px to make it easy to read. 
+The target age group for this site is rather wide. Children from the ages of 10 to octogenarians and beyond could make use of the application. With that in mind, the base font size is 18px to make it easy to read. 
 
-The purpose of the site is to allow peers to interact in friendly challenges from wherever they are geographically. Since the tasks depicted as challenges are to highlight the talents and skills one possesses and to try new things, a futuristic font was chosen to roughly match the feel of star trek, and encourage participants to boldly go where they haven't gone before.
+The purpose of the site is to allow peers to interact in friendly challenges from wherever they are geographically. Since the tasks depicted as challenges are aimed to highlight the talents and skills one possesses as well as encourage users to try new things, a futuristic font was chosen to roughly match the feel of star trek, and encourage participants to boldly go where they haven't gone before.
 
-Several Google Fonts were explored and only those without any lower case l's and upper case I's were chosen.
+Several Google Fonts were explored and only those without any lower case l and upper case i differentiation issues were chosen.
 
 ##### Title Font
 
@@ -212,7 +212,7 @@ If any of the following are unfamiliar, please click on their associated links a
    ```bash 
    python -m .venv venv
    ``` 
-   > NOTE: The ```python``` prefix of this command and other steps below assumes you are working with a mac and pycharm's IDE. Your command may differ, such as ```python3``` or ```py```
+   > NOTE: The ```python``` prefix of this command and other steps below assumes you are working with a mac and pycharm's IDE. Your command may differ, such as ```python3 manage.py ...``` or ```py manage.py ...``` or ```.\manage.py ...```
 1. Activate the .venv with the command:
    ```bash 
    .venv\Scripts\activate

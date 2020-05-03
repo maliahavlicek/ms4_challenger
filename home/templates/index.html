@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% block page_heading %}
+    Bring the next level of competition to your group.
+{% endblock %}
 {% block main_content %}
-<h1>HI Ya@!</h1>
+    <div class="container-fluid rocket">
+
+        <a class="btn btn-default" href="{% url 'challenges' %}">Start</a>
+
+    </div>
 {% endblock %}

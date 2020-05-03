@@ -18,8 +18,14 @@ def logout(request):
 
 def login(request):
     """Render login page"""
+    next_page = request.GET['next']
     if request.user.is_authenticated:
-        return redirect(reverse('index'))
+        if next_page:
+            # allow next parameter to be used when user attempts to short cut to a login required page
+            return redirect(next_page)
+        else:
+            # if no next_page then go to products list page
+            return redirect(reverse('index'))
     if request.method == "POST":
         login_form = UserLoginForm(request.POST)
         if login_form.is_valid():
@@ -28,7 +34,13 @@ def login(request):
             if user:
                 auth.login(user=user, request=request)
                 messages.success(request, "You have successfully logged in")
-                return redirect(reverse('index'))
+
+                if next_page:
+                    # allow next parameter to be used when user attempts to short cut to a login required page
+                    return redirect(next_page)
+                else:
+                    # if no next_page then go to products list page
+                    return redirect(reverse('index'))
             else:
                 login_form.add_error(None, "Username/email and password not valid.")
     else:
@@ -69,6 +81,7 @@ def user_profile(request):
 
 @login_required
 def update_profile(request):
+    """Update profile page"""
     profile_form = ProfileForm(instance=request.user.profile)
 
     if request.method == "POST":

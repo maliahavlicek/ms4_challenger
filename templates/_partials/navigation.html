@@ -13,7 +13,7 @@
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end">
             <li class="nav-item"><a class="nav-link" href="{% url 'products' %}"><i class="fas fa-boxes"></i>Products</a></li>
             {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-trophy"></i>Challenges</a>
+                <li class="nav-item"><a class="nav-link" href="{% url 'challenges' %}"><i class="fas fa-trophy"></i>Challenges</a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">
