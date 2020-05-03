@@ -46,7 +46,7 @@ def login(request):
             else:
                 login_form.add_error(None, "Username/email and password not valid.")
     else:
-        login_form = UserLoginForm()
+        login_form = UserLoginForm(initial={'next': next_page})
 
     return render(request, 'login.html', {"login_form": login_form})
 

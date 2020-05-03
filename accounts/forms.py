@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 from datetime import date, datetime
+from django.utils.safestring import mark_safe
 
 
 class DateInput(forms.DateInput):
@@ -17,6 +18,7 @@ class UserLoginForm(forms.Form):
         'placeholder': 'Email or Username'
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    next = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -29,6 +31,9 @@ class UserLoginForm(forms.Form):
             Row(
                 Column('password', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
+            ),
+            Row(
+                Column('next')
             ),
             Submit('submit', 'Login')
         )

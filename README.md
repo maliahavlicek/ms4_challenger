@@ -79,16 +79,16 @@ As a member of Challenger's website, I expect/want/need:
 The intent is to provide a clean, intuitive design to users with subtle imagery and animation to spice up the pages in order to keep users engaged.
 
 #### Color Choice
-To provide a striking contrast between the header and footer vs the body of the page, dark grays and whites with bold highlighting colors were picked. 
+To provide a striking contrast between the header and footer vs the body of the page, onyx and white with bold highlighting colors were picked. 
 [![Final Palette](documentation/challenger_color_palete.png "color palette App")](https://coolors.co/ffffff-007bff-12eccb-343a40-ec4646)
 
-To provide a deeper contrast, the background color of the headers/footers versus the body are inverted. For headers and footers the gray is the background color.
+To provide a deeper contrast, the background color of the headers/footers versus the body are inverted. For headers and footers onyx is the background color while white is the background color for the body.
 
-Green represents forward action and is used for navigation links and buttons.
+Turquoise is a green tone which represents forward action and is used for navigation links and buttons.
 
-For the main body white is the background color while the dray gray is the text color. 
-
-The Salsa Red is used for warnings and the Azure blue is used for textual links.
+Salsa Red is used for warnings.
+ 
+Azure blue was picked to represent textual links to aide older users by staying true to original html link coloration.
 
 #### Typography
 
@@ -100,19 +100,23 @@ Several Google Fonts were explored and only those without any lower case l and u
 
 ##### Title Font
 
-[Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 32px
+[Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 
 
 ![Orbitron](documentation/Orbitron-Title-Font.png "Orbitron")
 
+Titles, navigation links and buttons use the title font. Headings use a base font of 32px and size down.
+
 ##### Base Font
 
-[Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) 18px 
+[Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) 
 
 ![Exo](documentation/Exo-Base-Font.png "Exo")
 
+The base font size is 18px to accommodate for a wider age range of users. Exo is a bit easier to read than Orbitron but it has a futuristic feel to it to help carry out the space travel theme. 
+
 #### Image Choice
 
-This site is to be used by people aged 10 to 80 and beyond. Images are colorful with high contrast.
+This site is to be used by people aged 10 to 80 and beyond. Images were picked in an attempt to be colorful with high contrast and within the chosen color palette.
 
 ##### Service Levels
 Large iconic imagery was selected with bold red colors to help users easily identify with product levels and the price commitment associated with such.
@@ -190,6 +194,7 @@ The wire-frame process identified the need for the following User Interface Comp
 ### Programming Languages
 
 ### Framework & Extensions
+- [bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
 
 ### Fonts
 
@@ -363,7 +368,7 @@ To run this application in a cloud environment to allow visibility to external u
     ```bash
     pip freeze > requirements.txt
     ```
-1. Create a Profile:
+1. Create a Procfile:
     ```bash
     echo web: gunicorn ms4_challenger.wsgi:application > Procfile
     ```
@@ -386,10 +391,15 @@ To run this application in a cloud environment to allow visibility to external u
 ### Content
 
 ### Media
+- [flavicon](https://www.google.com/url?sa=i&url=https%3A%2F%2Fclipartix.com%2Frocket-clipart-image-11754%2F&psig=AOvVaw3osFDBKQwlWi5l_ED0kzix&ust=1588579579787000&source=images&cd=vfe&ved=0CA0QjhxqFwoTCKifqZ6el-kCFQAAAAAdAAAAABAD) rocket falvicon image before recoloring and rotation 
+- [interstellar product image](https://www.stickpng.com/img/cartoons/little-einsteins/little-einsteins-rocket-ship
+) - futuristic space craft
+- [blast off product image](https://www.flaticon.com/free-icon/startup_639373?term=rocket&page=1&position=23) - 1970's rocket ship
+- [free product image'](https://www.flaticon.com/free-icon/hot-air-balloon_2233035?term=hot%20air%20balloon&page=1&position=27) - hot air balloon
 
 ### Acknowledgements
 - [ragoli](https://codemyui.com/parallax-pixel-stars-using-pure-css/) star background
--[coderwall](https://coderwall.com/p/mvsoyg/django-dumpdata-and-loaddata) for examples on how to dump data and load it which saves a bunch of time when deploying the application
+- [coderwall](https://coderwall.com/p/mvsoyg/django-dumpdata-and-loaddata) for examples on how to dump data and load it which saves a bunch of time when deploying the application from a local database to a hosted database
 
 
 
