@@ -295,21 +295,21 @@ To run this application in a cloud environment to allow visibility to external u
     os.environ.setdefault('DATABASE_URL','<your DATABASE_URL value>')
     ```
 1. In heroku for your newly created app, go back to the Settings tab, and click Reveal Config Vars. This time you will be copying the values from your env.py file into heroku. Make sure you load following:
-    >
-    |           Key           |     Value    |
-    |:-----------------------:|:------------:|
-    | STRIPE_PUBLISHABLE      | <your value> |
-    | STRIPE_SECRET           | <your value> |
-    | SECRET_KEY              | <your value> |
-    | AWS_STORAGE_BUCKET_NAME | <your value> |
-    | AWS_S3_REGION_NAME      | <your value> |
-    | AWS_ACCESS_KEY_ID       | <your value> |
-    | AWS_SECRET_ACCESS_KEY   | <your value> |
-    | EMAIL_USER              | <your value> |
-    | EMAIL_PASS              | <your value> |
-    | DATABASE_URL            | <your value> |
-    | DISABLE_COLLECTSTATIC   | 1            |
-    | HOSTNAME                | <your value> |
+    
+    |           Key           |      Value     |
+    |:-----------------------:|:--------------:|
+    | HOSTNAME                | < your value > |
+    | STRIPE_PUBLISHABLE      | < your value > |
+    | STRIPE_SECRET           | < your value > |
+    | SECRET_KEY              | < your value > |
+    | AWS_STORAGE_BUCKET_NAME | < your value > |
+    | AWS_S3_REGION_NAME      | < your value > |
+    | AWS_ACCESS_KEY_ID       | < your value > |
+    | AWS_SECRET_ACCESS_KEY   | < your value > |
+    | EMAIL_USER              | < your value > |
+    | EMAIL_PASS              | < your value > |
+    | DATABASE_URL            | < your value > |
+    | DISABLE_COLLECTSTATIC   | 1              |
 
 1. Because this is a new database, you will to set up the databases by running the following management command in your terminal:
     ```bash
