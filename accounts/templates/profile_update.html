@@ -9,6 +9,7 @@
 {% endblock %}
 {% block main_content %}
     <p>Updating Profile for: {{ request.user.get_full_name }}</p>
+    <img class="profile-pic profile-outline" src="{{ request.user.profile.profile_pic.url }}">
 
     <form method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}

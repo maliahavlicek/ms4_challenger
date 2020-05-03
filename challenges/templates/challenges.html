@@ -1,6 +1,28 @@
 {% extends 'base.html' %}
+{% block page_title %}
+    Challenges
+{% endblock %}
+{% block page_heading %}
+    Challenges
+{% endblock %}
 {% block main_content %}
-    <p>You currently are the Challenge Master of {{owned_challenges|length}} challenges. </p>
-    <p>You currently are a member in  {{member_challenges|length}} challenges. </p>
-
+    <div class="row">
+        <div class="col-md-6">
+            <p>You currently are the Challenge Master of {{ owned_challenges|length }} challenges. </p>
+            {% if owned_challenges|length < owned_product.max_number_of_challenges %}
+                <a href="{% url 'create_challenge' %}" class="btn">Create Challenge</a>
+            {% else %}
+                You have the max number of challenges allowed. Upgrade or delete an existing one.
+            {% endif %}
+            {% for item in owned_challenges %}
+                <p>{{ item.name }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-md-6">
+            <p>You currently are a member in {{ member_challenges|length }} challenges. </p>
+            {% for item in member_challenges %}
+                <p>{{ item.name }}</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

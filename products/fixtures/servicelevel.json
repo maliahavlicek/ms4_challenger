@@ -1,1 +1,50 @@
-[{"model": "products.servicelevel", "pk": 1, "fields": {"name": "Free", "price": "0.00", "features": "group_emails,peer_ratings,submission_image", "description": "Our Free Tier is perfect for a small group that wants to challenge each other. Throw the gauntlet down and see who comes up with the best response.", "max_members_per_challenge": 5, "max_number_of_challenges": 5, "video_length_in_seconds": 0, "max_submission_size_in_MB": 500, "image": "images/products/hot-air-balloon.png", "date_created": "2020-04-27T04:26:18.958Z"}}, {"model": "products.servicelevel", "pk": 2, "fields": {"name": "Blast Off", "price": "60.00", "features": "group_emails,peer_ratings,submission_image,submission_audio", "description": "Challenge your friends and see your skills blast off to new heights. Share videos and imagery for whatever skill sets you have in common.", "max_members_per_challenge": 15, "max_number_of_challenges": 10, "video_length_in_seconds": 90, "max_submission_size_in_MB": 1000, "image": "images/products/startup.png", "date_created": "2020-04-27T05:03:28.848Z"}}, {"model": "products.servicelevel", "pk": 3, "fields": {"name": "Interstellar", "price": "150.00", "features": "group_emails,peer_ratings,submission_image,submission_audio,submission_video,accounts_observers,accounts_managers", "description": "The Interstellar package will boost your abilities to infinity and beyond. Grab your groups and challenge on.", "max_members_per_challenge": 30, "max_number_of_challenges": 20, "video_length_in_seconds": 300, "max_submission_size_in_MB": 10000, "image": "images/products/clipart-rocket-red-rocket-17.png", "date_created": "2020-04-27T05:07:17.778Z"}}]
+[
+  {
+    "model": "products.servicelevel",
+    "pk": 1,
+    "fields": {
+      "name": "Free",
+      "price": "0.00",
+      "features": "group_emails,peer_ratings,submission_image",
+      "description": "Our Free Tier is perfect for a small group that wants to challenge each other. Throw the gauntlet down and see who comes up with the best response.",
+      "max_members_per_challenge": 5,
+      "max_number_of_challenges": 5,
+      "video_length_in_seconds": 0,
+      "max_submission_size_in_MB": 500,
+      "image": "images/products/hot-air-balloon.png",
+      "date_created": "2020-04-27T04:26:18.958Z"
+    }
+  },
+  {
+    "model": "products.servicelevel",
+    "pk": 2,
+    "fields": {
+      "name": "Blast Off",
+      "price": "60.00",
+      "features": "group_emails,peer_ratings,submission_image,submission_audio",
+      "description": "Challenge your friends and see your skills blast off to new heights. Share videos and imagery for whatever skill sets you have in common.",
+      "max_members_per_challenge": 15,
+      "max_number_of_challenges": 10,
+      "video_length_in_seconds": 90,
+      "max_submission_size_in_MB": 1000,
+      "image": "images/products/startup.png",
+      "date_created": "2020-04-27T05:03:28.848Z"
+    }
+  },
+  {
+    "model": "products.servicelevel",
+    "pk": 3,
+    "fields": {
+      "name": "Interstellar",
+      "price": "150.00",
+      "features": "group_emails,peer_ratings,submission_image,submission_audio,submission_video,accounts_observers,accounts_managers",
+      "description": "The Interstellar package will boost your abilities to infinity and beyond. Grab your groups and challenge on.",
+      "max_members_per_challenge": 30,
+      "max_number_of_challenges": 20,
+      "video_length_in_seconds": 300,
+      "max_submission_size_in_MB": 10000,
+      "image": "images/products/clipart-rocket-red-rocket-17.png",
+      "date_created": "2020-04-27T05:07:17.778Z"
+    }
+  }
+]

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap_tags %}
+{% load crispy_forms_tags %}
+{% block page_title %}
+    Create Challenge
+{% endblock %}
+{% block page_heading %}
+    Create Challenge
+{% endblock %}
+
+{% block main_content %}
+    <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% crispy challenge_form %}
+    </form>
+
+{% endblock %}
