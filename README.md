@@ -304,6 +304,8 @@ To run this application in a cloud environment to allow visibility to external u
     | EMAIL_USER              | <your value> |
     | EMAIL_PASS              | <your value> |
     | DATABASE_URL            | <your value> |
+    | DISABLE_COLLECTSTATIC   | 1            |
+    | HOSTNAME                | <your value> |
 
 1. Because this is a new database, you will to set up the databases by running the following management command in your terminal:
     ```bash

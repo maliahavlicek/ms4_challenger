@@ -183,6 +183,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_PASS')
-
-if not os.path.exists('env.py'):
-    DISABLE_COLLECTSTATIC=1

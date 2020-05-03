@@ -1,1 +1,1 @@
-web: python app.py
+web: gunicorn ms4_challenger.wsgi:application
