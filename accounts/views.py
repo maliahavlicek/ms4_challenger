@@ -2,9 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import UserLoginForm, UserRegistrationFrom, UserForm, ProfileForm
-from accounts.models import Profile
-from datetime import datetime
+from accounts.forms import UserLoginForm, UserRegistrationFrom, ProfileForm
 
 
 # Create your views here.
@@ -18,14 +16,18 @@ def logout(request):
 
 def login(request):
     """Render login page"""
-    next_page = request.GET['next']
+    next_page = None
+    if request.method == 'GET' and 'next' in request.GET:
+        next_page = request.GET['next']
+    elif request.method == 'POST' and 'next' in request.POST:
+        next_page = request.POST['next']
     if request.user.is_authenticated:
         if next_page:
             # allow next parameter to be used when user attempts to short cut to a login required page
             return redirect(next_page)
         else:
             # if no next_page then go to products list page
-            return redirect(reverse('index'))
+            return redirect(reverse('products'))
     if request.method == "POST":
         login_form = UserLoginForm(request.POST)
         if login_form.is_valid():
@@ -40,7 +42,7 @@ def login(request):
                     return redirect(next_page)
                 else:
                     # if no next_page then go to products list page
-                    return redirect(reverse('index'))
+                    return redirect(reverse('products'))
             else:
                 login_form.add_error(None, "Username/email and password not valid.")
     else:

@@ -72,10 +72,20 @@ As a member of Challenger's website, I expect/want/need:
 - To delete a challenge
 - To update an existing challenge
 
+### Wireframes
 
 ### Design Choices
 
+The intent is to provide a clean, intuitive design to users with subtle imagery and animation to spice up the pages in order to keep users engaged.
+
 #### Color Choice
+To provide a striking contrast between the header and footer vs the body of the page, the dark grays and whites are inverted. 
+[![Final Pallet](documentation/challenger_color_palete.png "color palette")](![Final Pallet](documentation/images/colors/final_colors.png))
+
+For headers/footers the gray is the background color and Green is used for navigation links.
+For the main body white is the background while the dray gray is the text color. Green again is used to color buttons. 
+
+The Salsa Red is used for warnings and the Azure blue is used for textual links.
 
 #### Typography
 
@@ -99,7 +109,27 @@ Several Google Fonts were explored and only those without any lower case l and u
 
 #### Image Choice
 
-### Wireframes
+This site is to be used by people aged 10 to 80 and beyond. Images are colorful with high contrast.
+
+##### Service Levels
+Large iconic imagery was selected with bold red colors to help users easily identify with product levels and the price commitment associated with such.
+
+The Free product tier is represented by a balloon:
+
+<img src="ms4_challenger/documentation/products/hot-air-balloon.png" width="150" height="auto" alt="Hot air balloon for free product" />
+
+The Blast Off (Medium Tier) Product is represented by a 1960's rocket ship:
+
+<img src="ms4_challenger/documentation/products/startup.png" width="150" height="auto" alt="Rocket Ship for medium product" />
+
+The Intersteller (High End Tier) Product is represented by a futuristic space ship:
+
+<img src="ms4_challenger/documentation/products/clipart-rocket-red-rocket-17.png" width="150" height="auto" alt="Futuristic Rocket Ship for high end product" />
+
+#### Animations & Transitions
+
+Due to the vast age diversity of users targeted for this website, animations are subtle and slower than average.
+If viewed on desktop the rails are filled with a starfield image that slowly transitions up and to the left to tie into the space travel/futuristic theme of the website.
 
 ## Features
 
