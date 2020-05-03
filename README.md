@@ -275,6 +275,10 @@ If any of the following are unfamiliar, please click on their associated links a
     ```bash
     python manage.py runserver
     ```
+1. If you make changes to CSS or Javascript files, be sure to run the management command to collect the static files so they are pulled into the AWS storage:
+    ```bash
+    python manage.py collectstatic
+    ```
 
 ### Heroku
 
@@ -327,13 +331,21 @@ To run this application in a cloud environment to allow visibility to external u
     pip freeze > requirements.txt
     ```
 1. Create a Profile:
-```bash
-echo web:python app.py > Procfile
-```
+    ```bash
+    echo web: gunicorn ms4_challenger.wsgi:application > Procfile
+    ```
+1. Add the files if they changed and push to git hub:
+    ```bash
+   git commit add Procfile
+   git commit add requirements.txt
+   git commit-m 'getting ready to deploy to heroku'
+   git push -u origin
+   ``` 
 1. From the heroku dashboard of your newly created application, click on the "Deploy" tab, then scroll down to the "Deployment method" section and select GitHub.
 1. Use the github linking and type in the name of the repository ex:) ms4_challenger and click the search button. Then connect the heroku app to the desired GitHub repository.
 1. On the Deployment Tab, scroll a bit further down to the "Manual Deploy" section, select the master branch then click "Deploy Branch".
-1. If you have errors, 
+1. If you have errors, look at the logs for your application, most common errors are forgetting to add the hostname and  disabling collectstatic.
+1. Once your application is running, you may want to update the Deployment method from Manual to Automatic.
 
 
 ## Credits
