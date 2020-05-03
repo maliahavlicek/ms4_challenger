@@ -1,0 +1,1 @@
+[{"model": "accounts.tag", "pk": 1, "fields": {"name": "Sports"}}, {"model": "accounts.tag", "pk": 2, "fields": {"name": "Music"}}, {"model": "accounts.tag", "pk": 3, "fields": {"name": "Languages"}}, {"model": "accounts.tag", "pk": 4, "fields": {"name": "Photography"}}]

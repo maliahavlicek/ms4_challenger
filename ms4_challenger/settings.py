@@ -145,8 +145,8 @@ AWS_S3_OBJECTS_PARAMETERS = {
     'Expires': 'Thu, 31, Dec 2099 20:00:00 GMT',
     'CacheControl': 'max-age=9460800',
 }
-AWS_STORAGE_BUCKET_NAME = 'mmh-challenger'
-AWS_S3_REGION_NAME = 'us-east-2'
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
@@ -162,11 +162,9 @@ STATICFILES_DIRS = [
 
 MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-if os.path.exists('env2py'):
-    # DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+if os.path.exists('env.py'):
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
-    # DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
@@ -186,3 +184,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_PASS')
 
+if not os.path.exists('env.py'):
+    DISABLE_COLLECTSTATIC=1
