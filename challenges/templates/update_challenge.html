@@ -3,18 +3,18 @@
 {% load bootstrap_tags %}
 {% load crispy_forms_tags %}
 {% block page_title %}
-    Create Challenge
+    Update Challenge
 {% endblock %}
 {% block page_heading %}
-    Create Challenge
+    Update Challenge
 {% endblock %}
 
 {% block main_content %}
     {% localtime on %}
-    <form method="post" enctype="multipart/form-data" novalidate>
-        {% csrf_token %}
-        {% crispy challenge_form %}
-    </form>
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            {% crispy challenge_form %}
+        </form>
     {% endlocaltime %}
 
 {% endblock %}

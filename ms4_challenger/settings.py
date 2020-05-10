@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_forms_bootstrap',
     'crispy_forms',
     "multiselectfield",
+    "rest_framework",
     'accounts',
     'home',
     'products',
@@ -130,7 +131,7 @@ AUTHENTICATION_BACKENDS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "America/Denver"
 
 USE_I18N = True
 

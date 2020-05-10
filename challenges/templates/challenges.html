@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load filters %}
 {% block page_title %}
     Challenges
 {% endblock %}
@@ -6,23 +7,73 @@
     Challenges
 {% endblock %}
 {% block main_content %}
-    <div class="row">
-        <div class="col-md-6">
-            <p>You currently are the Challenge Master of {{ owned_challenges|length }} challenges. </p>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="master-tab" data-toggle="tab" href="#master" role="tab"
+               aria-controls="master" aria-selected="true">Master</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="member-tab" data-toggle="tab" href="#member" role="tab" aria-controls="profile"
+               aria-selected="false">Member</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create"
+               aria-selected="false">Create</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="master" role="tabpanel" aria-labelledby="master-tab">
+            <div class="col-md-12">
+                <p>You currently are the Challenge Master of {{ owned_challenges|length }} challenges. </p>
+
+                {% for item in owned_challenges %}
+                    <div class="row">
+                        <div class="col-md-2">{{ item.name | title }}</div>
+                        <div class="col-md-2">{{ item.start_date | date }}</div>
+                        <div class="col-md-3">
+                            {% if item.example_image %}
+                                <img class="profile-pic" src="{{ item.example_image.url }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-3">
+                            {% if item.example_video %}
+                                <video width='400' controls>
+                                    <source src='{{ item.example_video.url }}' type='video/mp4'>
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-1">
+                            <a href="{% url 'delete_challenge' id=item.id %}" class="btn">Delete Challenge</a>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="{% url 'update_challenge' id=item.id %}" class="btn">Edit Challenge</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>You currently are a member in {{ member_challenges|length }} challenges. </p>
+                    {% for item in member_challenges %}
+                        <p>{{ item.name }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
             {% if owned_challenges|length < owned_product.max_number_of_challenges %}
                 <a href="{% url 'create_challenge' %}" class="btn">Create Challenge</a>
             {% else %}
                 You have the max number of challenges allowed. Upgrade or delete an existing one.
             {% endif %}
-            {% for item in owned_challenges %}
-                <p>{{ item.name }}</p>
-            {% endfor %}
-        </div>
-        <div class="col-md-6">
-            <p>You currently are a member in {{ member_challenges|length }} challenges. </p>
-            {% for item in member_challenges %}
-                <p>{{ item.name }}</p>
-            {% endfor %}
         </div>
     </div>
+
+
+
+
+
 {% endblock %}

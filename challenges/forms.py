@@ -1,8 +1,9 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from .models import Challenge
 from accounts.forms import DateInput
+from datetime import date
 
 
 class DatetimeInput(forms.DateInput):
@@ -19,14 +20,24 @@ class CreateChallengeForm(forms.Form):
 
     class Meta:
         model = Challenge
-        fields = (
+        fields = [
             'name',
             'description',
             'start_date,'
             'end_date',
             'example_image',
             'example_video',
-        )
+        ]
+
+    def clean_end_date(self):
+        """custom validation for end_date"""
+        start_date = self.cleaned_data.get('start_date')
+        end_date = self.cleaned_data.get('end_date')
+        if end_date < start_date:
+            raise forms.ValidationError('End Date must come after Start Date.')
+
+        if end_date < date.today():
+            raise forms.ValidationError('End Date cannot be in the past.')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -48,5 +59,41 @@ class CreateChallengeForm(forms.Form):
                 css_class='form-row'
             ),
             Submit('submit', 'Create Challenge')
+        )
+
+
+class UpdateChallengeForm(CreateChallengeForm):
+    """
+    Update is basically the Create challenge form with different submit button name
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('example_image', css_class='form-group col-md-6 mb-0'),
+                HTML('<div class="form-group col-md-6 mb-0"><img class="img-preview" src="{{challenge.example_image.url}}" /></div>'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('example_video', css_class='form-group col-md-4 mb-0'),
+                HTML('{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" type= "video/mp4" />Your browser does not support mp4 videos</video></div>{% endif %}'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('description', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('start_date', css_class='form-group col-md-6 mb-0'),
+                Column('end_date', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Save Changes'),
+            Submit('cancel', 'Cancel', css_class='cancel-btn')
         )
 

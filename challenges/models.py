@@ -5,9 +5,8 @@ from django.db import models
 from products.models import ServiceLevel
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
-from django.core.validators import MaxValueValidator, MinValueValidator
 
-SUBMISSION_TYPE_CHOICES = [('iamge', 'Image'), ('audio', 'audio'), ('video', 'video')]
+SUBMISSION_TYPE_CHOICES = [('image', 'Image'), ('audio', 'audio'), ('video', 'video')]
 
 
 class Challenge(models.Model):
@@ -31,7 +30,7 @@ class Challenge(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
     name = models.CharField(max_length=254, default='')
     description = models.TextField(max_length=1000)
-    example_image = models.ImageField(upload_to='challenges/videos', null=True, blank=True)
+    example_image = models.ImageField(upload_to='challenges/images', null=True, blank=True)
     example_video = models.FileField(upload_to='challenges/videos', null=True, blank=True)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(auto_now_add=True)
@@ -41,3 +40,11 @@ class Challenge(models.Model):
     submission_types = MultiSelectField(choices=SUBMISSION_TYPE_CHOICES)
     members = models.ManyToManyField(User,)
 
+    def __str__(self):
+        stringy = self.name
+        if self.example_image:
+            stringy += " - Image: " + str(self.example_image)
+        if self.example_video:
+            stringy += " - Video: " + str(self.example_video)
+
+        return stringy
