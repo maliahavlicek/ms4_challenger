@@ -4,6 +4,27 @@ from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from .models import Challenge
 from accounts.forms import DateInput
 from datetime import date
+from django.forms import BaseFormSet
+
+
+class BaseMemberFormSet(BaseFormSet):
+    def clean(self):
+        """checks that emails in list are unique"""
+        if any(self.errors):
+            # Don't bother validating it since it has errors
+            return
+        members = []
+        for form in self.forms:
+            if self.can_delete and self._should_delete_form(form):
+                continue
+            email = form.cleaned_data.get('email')
+            if email in members:
+                raise forms.ValidationError("Members must have distinct emails.")
+            members.append(email)
+
+
+class MemberForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-contorl"}), required=False)
 
 
 class DatetimeInput(forms.DateInput):
