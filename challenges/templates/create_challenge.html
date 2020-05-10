@@ -13,14 +13,8 @@
     {% localtime on %}
         <form method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
-            {% for form in challenge_form %}
-                {% crispy form %}
-            {% endfor %}
-            {% for member in members %}
-                {{ member.as_table }}
-            {% endfor %}
+            {% crispy challenge_form %}
         </form>
     {% endlocaltime %}
-
 
 {% endblock %}

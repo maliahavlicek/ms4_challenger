@@ -24,7 +24,23 @@ class BaseMemberFormSet(BaseFormSet):
 
 
 class MemberForm(forms.Form):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-contorl"}), required=False)
+    first_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}), max_length=50, required=False,
+                                 label="First Name")
+    last_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}), max_length=50, required=False,
+                                label="Last Name")
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control"}), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('first_name', css_class='form-group col-md-4 mb-0'),
+                Column('last_name', css_class='form-group col-md-4 mb-0'),
+                Column('email', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+        )
 
 
 class DatetimeInput(forms.DateInput):
@@ -38,6 +54,7 @@ class CreateChallengeForm(forms.Form):
     end_date = forms.DateField(widget=DateInput)
     example_image = forms.ImageField(label="Example Image", required=False)
     example_video = forms.FileField(label="Example Video", required=False)
+    members = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Challenge
@@ -48,6 +65,7 @@ class CreateChallengeForm(forms.Form):
             'end_date',
             'example_image',
             'example_video',
+            'members'
         ]
 
     def clean_end_date(self):
@@ -79,7 +97,10 @@ class CreateChallengeForm(forms.Form):
                 Column('end_date', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
-            Submit('submit', 'Create Challenge')
+            Row(Column('members'), css_class='form-row'),
+
+            Submit('submit', 'Save Changes'),
+            Submit('cancel', 'Cancel', css_class='btn-cancel')
         )
 
 
@@ -87,6 +108,7 @@ class UpdateChallengeForm(CreateChallengeForm):
     """
     Update is basically the Create challenge form with different submit button name
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -97,12 +119,14 @@ class UpdateChallengeForm(CreateChallengeForm):
             ),
             Row(
                 Column('example_image', css_class='form-group col-md-6 mb-0'),
-                HTML('<div class="form-group col-md-6 mb-0"><img class="img-preview" src="{{challenge.example_image.url}}" /></div>'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0"><img class="img-preview" src="{{challenge.example_image.url}}" /></div>'),
                 css_class='form-row'
             ),
             Row(
                 Column('example_video', css_class='form-group col-md-4 mb-0'),
-                HTML('{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" type= "video/mp4" />Your browser does not support mp4 videos</video></div>{% endif %}'),
+                HTML(
+                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" type= "video/mp4" />Your browser does not support mp4 videos</video></div>{% endif %}'),
                 css_class='form-row'
             ),
             Row(
@@ -115,6 +139,5 @@ class UpdateChallengeForm(CreateChallengeForm):
                 css_class='form-row'
             ),
             Submit('submit', 'Save Changes'),
-            Submit('cancel', 'Cancel', css_class='cancel-btn')
+            Submit('cancel', 'Cancel', css_class='btn btn-cancel')
         )
-

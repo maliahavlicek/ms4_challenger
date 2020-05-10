@@ -25,8 +25,7 @@ def create_challenge(request):
     """Create Challenge page"""
     owned_product = request.user.profile.get_product_level()
     owned_challenges = request.user.profile.get_owned_challenges()
-    MembersFormset = formset_factory(MemberForm, formset=BaseMemberFormSet, extra=owned_product.max_members_per_challenge)
-    ChallengeFormset = formset_factory(CreateChallengeForm)
+    challenge_form = CreateChallengeForm()
 
     if owned_challenges and len(owned_challenges) == owned_product.max_number_of_challenges:
         # check if user is at challenge limit for product_level
@@ -34,9 +33,8 @@ def create_challenge(request):
         return redirect(reverse('challenges'))
 
     elif request.method == 'POST':
-        challenge_formset = ChallengeFormset(request.POST, request.FILES, prefix='challenge')
-        members_formset = MembersFormset(request.POST, prefix='members')
-        if challenge_formset.is_valid() and members_formset.is_valid():
+        challenge_form = CreateChallengeForm(request.POST, request.FILES)
+        if challenge_form.is_valid():
             # create the challenge object
             submission_types = ['submission_image']
             if 'submission_audio' in owned_product.features:
@@ -46,10 +44,10 @@ def create_challenge(request):
 
             challenge = Challenge.objects.create(
                 owner=request.user,
-                name=challenge_formset.data['name'],
-                description=challenge_formset.data['description'],
-                start_date=challenge_formset.data['start_date'],
-                end_date=challenge_formset.data['end_date'],
+                name=challenge_form.data['name'],
+                description=challenge_form.data['description'],
+                start_date=challenge_form.data['start_date'],
+                end_date=challenge_form.data['end_date'],
                 member_limit=owned_product.max_members_per_challenge,
                 video_time_limit=owned_product.video_length_in_seconds,
                 submission_storage_cap=owned_product.max_submission_size_in_MB,
@@ -62,22 +60,18 @@ def create_challenge(request):
                 challenge.example_video = request.FILES['example_video']
 
             challenge.save()
-            # now need to see if we have a member or not, if not create a fakish one
-            for item in members_formset:
-                user = User.objects.get(email=item.data['member'])
+            # TOOD  need to see if we have a member or not, if not create a fakish one
 
             return redirect(reverse('challenges'))
     else:
         challenge_formset = CreateChallengeForm()
         # need to pull out user's account info and set some defaults for the form
-        challenge_formset = ChallengeFormset(prefix='challenge')
-        member_formset = MembersFormset(prefix='members')
+        challenge_forms = CreateChallengeForm()
 
     return render(request, "create_challenge.html", {
         "owned_challenges": owned_challenges,
         'owned_product': owned_product,
-        'challenge_form': challenge_formset,
-        'members': member_formset,
+        'challenge_form': challenge_form,
     })
 
 
@@ -116,7 +110,7 @@ def update_challenge(request, id):
         })
         if request.method == 'POST':
             challenge_form = UpdateChallengeForm(request.POST, request.FILES)
-            if 'cancel' in  request.POST:
+            if 'cancel' in request.POST:
                 return redirect(reverse('challenges'))
             elif challenge_form.is_valid():
                 challenge.name = challenge_form.data['name']
@@ -150,3 +144,4 @@ def update_challenge(request, id):
         messages.warning(request, "Only the challenge master can update a challenge.")
 
     return redirect(reverse('challenges'))
+

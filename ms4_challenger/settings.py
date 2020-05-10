@@ -162,7 +162,7 @@ STATICFILES_DIRS = [
 
 MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-if os.path.exists('env.py'):
+if os.path.exists('env2.py'):
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
