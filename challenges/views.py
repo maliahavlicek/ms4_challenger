@@ -3,11 +3,13 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateChallengeForm, UpdateChallengeForm
 from django.contrib import messages
 from .models import Challenge
-from django.forms import formset_factory
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import MemberSerializer
+import json
+from .password import random_string
+
 
 
 @login_required
@@ -63,7 +65,43 @@ def create_challenge(request):
                 challenge.example_video = request.FILES['example_video']
 
             challenge.save()
-            # TOOD  need to see if we have a member or not, if not create a fakish one
+            # TOOD  need to see if we have a member or not, if not create a one and flag for special treatment if auto created
+            try:
+                members = json.loads(challenge_form.data['members'])
+            except:
+                members = []
+
+            member_status = []
+            for member in members:
+                user1 = User.objects.filter(email=member['email'])
+                if user1:
+                    user1 = user1[0]
+                    challenge.members.add(user1)
+                    member_status.append({
+                        'user': user1.pk,
+                        'status': 'existing',
+                    })
+                else:
+                    # create a user
+                    passwd = random_string(4, 4)
+                    user1 = User.objects.create(
+                        email=member['email'],
+                        username=member['email'],
+                        password=passwd,
+                    )
+
+                    if 'first_name' in member:
+                        user1.first_name = member['first_name']
+                        user1.save()
+                    if 'last_name' in member:
+                        user1.last_name = member['last_name']
+                        user1.save()
+
+                    challenge.members.add(user1)
+                    member_status.append({
+                        'user': user1.pk,
+                        'status': 'new',
+                    })
 
             return redirect(reverse('challenges'))
     else:

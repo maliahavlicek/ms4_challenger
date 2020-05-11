@@ -38,7 +38,7 @@ class Challenge(models.Model):
     video_time_limit = models.PositiveIntegerField()
     submission_storage_cap = models.PositiveIntegerField()
     submission_types = MultiSelectField(choices=SUBMISSION_TYPE_CHOICES)
-    members = models.ManyToManyField(User, )
+    members = models.ManyToManyField(User)
 
     def __str__(self):
         stringy = self.name

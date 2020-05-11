@@ -73,7 +73,7 @@ class CreateChallengeForm(forms.Form):
             ),
             Row(Column('members'), css_class='form-row'),
 
-            Submit('submit', 'Save Changes'),
+            Submit('submit', 'Create Challenge'),
             Submit('cancel', 'Cancel', css_class='btn-cancel')
         )
 
