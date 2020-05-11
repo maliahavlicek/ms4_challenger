@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from .serializers import MemberSerializer
 import json
 from .password import random_string
+from django.http import JsonResponse
+from django.core import serializers
 
 
 
@@ -141,6 +143,9 @@ def update_challenge(request, id):
     if challenge.owner == user:
         # user could have upgraded or downgraded, so when updating, get latest owned product
         owned_product = request.user.profile.get_product_level()
+        data = list(challenge.members.all().values('email', 'first_name', 'last_name'))
+        members = json.dumps(data)
+
         challenge_form = UpdateChallengeForm(initial={
             'name': challenge.name,
             'description': challenge.description,
@@ -148,6 +153,7 @@ def update_challenge(request, id):
             'end_date': challenge.end_date,
             'example_image': challenge.example_image,
             'example_video': challenge.example_video,
+            'members': members,
         })
         if request.method == 'POST':
             challenge_form = UpdateChallengeForm(request.POST, request.FILES)

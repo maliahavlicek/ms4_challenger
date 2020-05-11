@@ -112,6 +112,22 @@ class UpdateChallengeForm(CreateChallengeForm):
                 Column('end_date', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
+            Row(
+                HTML('<div class="form-group col-md-12 mb-0"><label>Members</label><div id="member_list"></div></div>'),
+                css_class='form-row'),
+            Row(
+                HTML(
+                    '<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="first_name" type="text" max_length="50" placeholder="First Name"/></div></div></div>'),
+                HTML(
+                    '<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="last_name" type="text" max_length="50" placeholder="Last Name"/></div></div></div>'),
+                HTML(
+                    '<div class="form-group col-md-4 mb-0"><div class="form-group"><div class><input class="form-control" id="email" type="email" placeholder="Email"/>'
+                    '<span id="error_email"></span></div></div></div>'),
+                HTML(
+                    '<div class="form-group col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary">Add Member</a></div></div></div>'),
+                css_class='form-row'
+            ),
+            Row(Column('members'), css_class='form-row'),
             Submit('submit', 'Save Changes'),
             Submit('cancel', 'Cancel', css_class='btn btn-cancel')
         )
