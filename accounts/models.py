@@ -22,7 +22,7 @@ class Profile(models.Model):
     Extend User to have the profile fields and self tagging
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(default="profile1.png", upload_to='images/products')
+    profile_pic = models.ImageField(default="profile1.png", upload_to='images/profiles')
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
     tags = models.ManyToManyField(Tag)

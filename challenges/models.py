@@ -54,6 +54,7 @@ class Member(models.Model):
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField()
+    challenger = models.ForeignKey(Challenge, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.email

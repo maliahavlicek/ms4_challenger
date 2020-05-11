@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from .forms import CreateChallengeForm, UpdateChallengeForm, MemberForm, BaseMemberFormSet
+from .forms import CreateChallengeForm, UpdateChallengeForm
 from django.contrib import messages
 from .models import Challenge
 from django.forms import formset_factory
 from django.contrib.auth.models import User
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import MemberSerializer
 
 
 @login_required
@@ -145,3 +148,19 @@ def update_challenge(request, id):
 
     return redirect(reverse('challenges'))
 
+
+@api_view(['POST'])
+def add_member(request):
+    """
+    Create a member if input form is valid
+    """
+    serializer = MemberSerializer(data=request.data)
+
+    if serializer.is_valid():
+        # got good data so, see if eamil matches to a user or not
+        user = User.objects.get(email=serializer.data['email'])
+        if user:
+            # have a user so, add pk
+            serializer.data['user'] = user.pk
+    # package up json
+    return Response(serializer.data)

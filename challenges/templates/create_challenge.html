@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
-{% load static tz %}
-{% load bootstrap_tags %}
-{% load crispy_forms_tags %}
+{% load static tz bootstrap_tags crispy_forms_tags %}
+
 {% block page_title %}
     Create Challenge
 {% endblock %}
 {% block page_heading %}
     Create Challenge
 {% endblock %}
-
 {% block main_content %}
     {% localtime on %}
         <form method="post" enctype="multipart/form-data" novalidate>
@@ -16,5 +14,5 @@
             {% crispy challenge_form %}
         </form>
     {% endlocaltime %}
-
+    <script type="text/javascript" src="{% static 'js/challenge.js' %}"></script>
 {% endblock %}

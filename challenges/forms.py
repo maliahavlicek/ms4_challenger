@@ -4,43 +4,6 @@ from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from .models import Challenge
 from accounts.forms import DateInput
 from datetime import date
-from django.forms import BaseFormSet
-
-
-class BaseMemberFormSet(BaseFormSet):
-    def clean(self):
-        """checks that emails in list are unique"""
-        if any(self.errors):
-            # Don't bother validating it since it has errors
-            return
-        members = []
-        for form in self.forms:
-            if self.can_delete and self._should_delete_form(form):
-                continue
-            email = form.cleaned_data.get('email')
-            if email in members:
-                raise forms.ValidationError("Members must have distinct emails.")
-            members.append(email)
-
-
-class MemberForm(forms.Form):
-    first_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}), max_length=50, required=False,
-                                 label="First Name")
-    last_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}), max_length=50, required=False,
-                                label="Last Name")
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control"}), required=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Column('first_name', css_class='form-group col-md-4 mb-0'),
-                Column('last_name', css_class='form-group col-md-4 mb-0'),
-                Column('email', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),
-        )
 
 
 class DatetimeInput(forms.DateInput):
@@ -95,6 +58,17 @@ class CreateChallengeForm(forms.Form):
             Row(
                 Column('start_date', css_class='form-group col-md-6 mb-0'),
                 Column('end_date', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                HTML('<div class="form-group col-md-12 mb-0"><label>Members</label><div id="member_list"></div></div>'),
+                css_class='form-row'),
+            Row(
+                HTML('<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="first_name" type="text" max_length="50" placeholder="First Name"/></div></div></div>'),
+                HTML('<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="last_name" type="text" max_length="50" placeholder="Last Name"/></div></div></div>'),
+                HTML('<div class="form-group col-md-4 mb-0"><div class="form-group"><div class><input class="form-control" id="email" type="email" placeholder="Email"/>'
+                     '<span id="error_email"></span></div></div></div>'),
+                HTML('<div class="form-group col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary">Add Member</a></div></div></div>'),
                 css_class='form-row'
             ),
             Row(Column('members'), css_class='form-row'),
