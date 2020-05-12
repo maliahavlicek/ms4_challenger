@@ -73,6 +73,8 @@ As a member of Challenger's website, I expect/want/need:
 - To update an existing challenge
 
 ### Wireframes
+Having a rough data structure in hand, I knew what fields I could present users managing the CHALLENGES, PROFILE and RATING objects. I invested several hours to mock-up and fine-tune the user experience using Balsamiq.
+[view Balsamiq deck](documentation/balsamiq.md)
 
 ### Design Choices
 

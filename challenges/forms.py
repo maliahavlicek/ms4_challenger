@@ -64,6 +64,8 @@ class CreateChallengeForm(forms.Form):
                 HTML('<div class="form-group col-md-12 mb-0"><label>Members</label><div id="member_list"></div></div>'),
                 css_class='form-row'),
             Row(
+                HTML(
+                    '<div class="form-group col-md-12 mb-0"><div class="form-group"><div class id="member_list_errors"><span id="error_member_list"></span></div></div></div>'),
                 HTML('<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="first_name" type="text" max_length="50" placeholder="First Name"/></div></div></div>'),
                 HTML('<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="last_name" type="text" max_length="50" placeholder="Last Name"/></div></div></div>'),
                 HTML('<div class="form-group col-md-4 mb-0"><div class="form-group"><div class><input class="form-control" id="email" type="email" placeholder="Email"/>'
@@ -72,7 +74,9 @@ class CreateChallengeForm(forms.Form):
                 css_class='form-row'
             ),
             Row(Column('members'), css_class='form-row'),
-
+            Row(HTML(
+                '<input type="hidden" id="max_members" value="{{owned_product.max_members_per_challenge}}" />'
+            ), css_class='form-row'),
             Submit('submit', 'Create Challenge'),
             Submit('cancel', 'Cancel', css_class='btn-cancel')
         )
@@ -117,6 +121,8 @@ class UpdateChallengeForm(CreateChallengeForm):
                 css_class='form-row'),
             Row(
                 HTML(
+                    '<div class="form-group col-md-12 mb-0"><div class="form-group"><div class id="member_list_errors"><span id="error_member_list"></span></div></div></div>'),
+                HTML(
                     '<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="first_name" type="text" max_length="50" placeholder="First Name"/></div></div></div>'),
                 HTML(
                     '<div class="form-group col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="last_name" type="text" max_length="50" placeholder="Last Name"/></div></div></div>'),
@@ -127,6 +133,9 @@ class UpdateChallengeForm(CreateChallengeForm):
                     '<div class="form-group col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary">Add Member</a></div></div></div>'),
                 css_class='form-row'
             ),
+            Row(HTML(
+                '<input type="hidden" id="max_members" value="{{owned_product.max_members_per_challenge}}" />'
+            ), css_class='form-row'),
             Row(Column('members'), css_class='form-row'),
             Submit('submit', 'Save Changes'),
             Submit('cancel', 'Cancel', css_class='btn btn-cancel')
