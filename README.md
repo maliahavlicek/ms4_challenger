@@ -73,8 +73,8 @@ As a member of Challenger's website, I expect/want/need:
 - To update an existing challenge
 
 ### Wireframes
-Having a rough data structure in hand, I knew what fields I could present users managing the CHALLENGES, PROFILE and RATING objects. I invested several hours to mock-up and fine-tune the user experience using Balsamiq.
-[view Balsamiq deck](documentation/balsamiq.md)
+This product aims to deliver a private small team feel similar to [teamsnap](https://teamsnap.com) and the ability to quickly view and like items similar to [instagram](https://www.instagram.com/). I started wireframes early in the design process while flipping between the two pre-existing apps. Then tackled some tough user interaction like adding members before I invested several hours to mock-up and fine-tuning the user experience around challenges using Balsamiq to create [detailed mockups](documentation/balsamiq.md) like the one below:
+[![view Balsamiq deck](documentation/mockups/Challenges_Member%20List.png)](documentation/balsamiq.md)
 
 ### Design Choices
 
