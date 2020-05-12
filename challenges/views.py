@@ -41,6 +41,8 @@ def create_challenge(request):
 
     elif request.method == 'POST':
         challenge_form = CreateChallengeForm(request.POST, request.FILES)
+        if 'cancel' in request.POST:
+            return redirect(reverse('challenges'))
         if challenge_form.is_valid():
             # create the challenge object
             submission_types = ['submission_image']
