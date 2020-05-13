@@ -4,14 +4,11 @@ from .forms import CreateChallengeForm, UpdateChallengeForm
 from django.contrib import messages
 from .models import Challenge
 from django.contrib.auth.models import User
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .serializers import MemberSerializer
 import json
 from .password import random_string
-from django.http import JsonResponse
-from django.core import serializers
-
+from django.core.mail import EmailMultiAlternatives, EmailMessage, send_mass_mail
+from ms4_challenger.settings import EMAIL_HOST_USER, DEFAULT_DOMAIN
+from datetime import datetime
 
 
 @login_required
@@ -69,7 +66,7 @@ def create_challenge(request):
                 challenge.example_video = request.FILES['example_video']
 
             challenge.save()
-            # TOOD  need to see if we have a member or not, if not create a one and flag for special treatment if auto created
+            # see if we have a member or not, if not create a one and flag for special treatment if auto created
             try:
                 members = json.loads(challenge_form.data['members'])
             except:
@@ -92,27 +89,24 @@ def create_challenge(request):
                         email=member['email'],
                         username=member['email'],
                         password=passwd,
+                        first_name=member['first_name'],
+                        last_name=member['last_name'],
                     )
-
-                    if 'first_name' in member:
-                        user1.first_name = member['first_name']
-                        user1.save()
-                    if 'last_name' in member:
-                        user1.last_name = member['last_name']
-                        user1.save()
 
                     challenge.members.add(user1)
                     member_status.append({
                         'user': user1.pk,
                         'status': 'new',
                     })
+            # send email to challenge members
+            challenge_initial_email(member_status, challenge)
 
             return redirect(reverse('challenges'))
     else:
-        challenge_formset = CreateChallengeForm()
         # need to pull out user's account info and set some defaults for the form
         challenge_forms = CreateChallengeForm()
 
+    # first time create a challenge
     return render(request, "create_challenge.html", {
         "owned_challenges": owned_challenges,
         'owned_product': owned_product,
@@ -195,18 +189,54 @@ def update_challenge(request, id):
     return redirect(reverse('challenges'))
 
 
-@api_view(['POST'])
-def add_member(request):
+def challenge_initial_email(members, challenge):
     """
-    Create a member if input form is valid
+    Send email to users inviting them to the challenge
     """
-    serializer = MemberSerializer(data=request.data)
+    from_email = EMAIL_HOST_USER
+    # first if users are auto created, send them a welcome message with password
+    new_subject = "Welcome to Challenger!"
+    new_msg_greeting = "Hello!/n/nYou have been declared a member in friendly competition hosted on our website. Since you have not yet been invited to our forum, we have auto created an account for you."
+    new_closing = "/n/nDon't worry, you can change your email once you login. The details about the challenge you've been invited to will follow shortly./n/nHave Fun and Challenger on!"
+    new_msgs = []
+    to = []
+    for member in members:
+        user = User.objects.get(pk=member['user'])
+        to.append(user.email)
+        if member['status'] == "new":
+            new_content = "/n/nYour username is: " + user.username
+            new_content += "/n/n Your password is: " + user.password
+            new_msg = new_msg_greeting + new_content + new_closing
+            msg = EmailMessage(new_subject, new_msg, from_email, [user.email])
+            msg.send()
 
-    if serializer.is_valid():
-        # got good data so, see if eamil matches to a user or not
-        user = User.objects.get(email=serializer.data['email'])
-        if user:
-            # have a user so, add pk
-            serializer.data['user'] = user.pk
-    # package up json
-    return Response(serializer.data)
+    # now send invite to all members
+    subject = "Congrats! You've been added to " + challenge.name.title() + " on Challenger!"
+    text_content = 'Hello!/n/nThe gauntlet has been tossed!'
+    html_content = '<div style="font-size: 16px; width:100%; margin: 20px;"><p>Hello!</p><p>The gauntlet has been tossed!'
+
+    if challenge.start_date == challenge.end_date:
+        date_msg = "On " + datetime.strftime(challenge.start_date, '%m/%d/%Y') + " only"
+    else:
+        date_msg = "From " + datetime.strftime(challenge.start_date, '%m/%d/%Y') + " until " + datetime.strftime(
+            challenge.end_date, '%m/%d/%Y')
+    date_msg += ", you can go to " + DEFAULT_DOMAIN + "/challenges/ and click the submit button for " + challenge.name.title() + "."
+
+    text_content += "/n/n" + date_msg
+    html_content += "<p>" + date_msg + "</p>"
+
+    if challenge.example_image:
+        html_content += "<div style='height: 150px; width: 150px; margin: 20px auto; display:inline-block; background: url("+ challenge.example_image.url + ");background-size:contain;'></div>"
+    text_content += "/n/nDETAILS:/n" + challenge.description
+    html_content += "<p>DETAILS</p><p>" + challenge.description + "</p>"
+
+    closing_msg = "Have Fun and Challenger on!"
+
+    text_content += "/n/n" + closing_msg
+    html_content += "<p>" + closing_msg + "</p></div>"
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    return

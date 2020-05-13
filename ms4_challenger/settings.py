@@ -29,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = [os.environ.get('HOSTNAME'), "127.0.0.1"]
-
+DEFAULT_DOMAIN = 'https://{}'.format(ALLOWED_HOSTS[0])
 # Application definition
 
 INSTALLED_APPS = [
