@@ -198,15 +198,10 @@ def update_challenge(request, id):
                     if challenge.example_image != request.FILES['example_image']:
                         challenge.example_image = request.FILES['example_image']
                         change_matrix['example_image'] = True
-                elif 'example_image' not in request.FILES and challenge.example_image:
-                    challenge.example_image = False
                 if 'example_video' in request.FILES:
                     if challenge.example_video != request.FILES['example_video']:
                         challenge.example_video = request.FILES['example_video']
                         change_matrix['example_video'] = True
-                elif 'example_video' not in request.FILES and challenge.example_video:
-                    challenge.example_video = False
-
 
                 challenge.save()
                 # save and pull item from db because input dates are strings but get updated to datetime objects when saved
