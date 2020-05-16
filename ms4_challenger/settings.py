@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     "multiselectfield",
     "rest_framework",
+    "django_extensions",
     'accounts',
     'home',
     'products',

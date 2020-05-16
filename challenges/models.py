@@ -30,7 +30,7 @@ class Challenge(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
     name = models.CharField(max_length=254, default='')
     description = models.TextField(max_length=1000)
-    example_image = models.ImageField(upload_to='challenges/images', null=True, blank=True)
+    example_image = models.ImageField(upload_to='challenges/images')
     example_video = models.FileField(upload_to='challenges/videos', null=True, blank=True)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(auto_now_add=True)

@@ -86,6 +86,35 @@ class UpdateChallengeForm(CreateChallengeForm):
     """
     Update is basically the Create challenge form with different submit button name
     """
+    name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
+    description = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control"}))
+    start_date = forms.DateField(widget=DateInput)
+    end_date = forms.DateField(widget=DateInput)
+    example_image = forms.ImageField(label="Example Image", required=False)
+    example_video = forms.FileField(label="Example Video", required=False)
+    members = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = Challenge
+        fields = [
+            'name',
+            'description',
+            'start_date,'
+            'end_date',
+            'example_image',
+            'example_video',
+            'members'
+        ]
+
+    def clean_end_date(self):
+        """custom validation for end_date"""
+        start_date = self.cleaned_data.get('start_date')
+        end_date = self.cleaned_data.get('end_date')
+        if end_date < start_date:
+            raise forms.ValidationError('End Date must come after Start Date.')
+
+        if end_date < date.today():
+            raise forms.ValidationError('End Date cannot be in the past.')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
