@@ -45,11 +45,11 @@ def create_submission(request, challenge_id):
         return redirect(reverse('challenges'))
 
     # make sure now falls within submission window (between start and end date)
-    if challenge.start_date > utc.localize(datetime.today()):
+    if challenge.start_date.date() > utc.localize(datetime.today()).date():
         messages.warning(request, challenge.name.title() + ": hasn't started yet.")
         return redirect(reverse('challenges'))
 
-    if challenge.end_date < utc.localize(datetime.today()):
+    if challenge.end_date.date() < utc.localize(datetime.today()).date():
         messages.warning(request, challenge.name.title() + ": has already closed.")
         return redirect(reverse('challenges'))
 

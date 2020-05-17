@@ -352,6 +352,9 @@ label.control-label::after, .form-group label:after {
     .challenge_wrap {
         grid-template-columns: repeat(4, minmax(auto, 25%));
     }
+    .challenge_wrap.member{
+        grid-template-columns: repeat(3, minmax(auto, 33%));
+    }
     .challenge_wrap .btn.primary{
         min-width: 200px;
     }
