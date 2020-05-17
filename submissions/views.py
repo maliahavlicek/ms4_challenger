@@ -2,12 +2,9 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import CreateFreeEntryForm, CreateBlastOffEntryForm, CreateInterstellarEntryForm
 from django.contrib import messages
-from .models import Submission
+from .models import Entry
 from challenges.models import Challenge
-from django.contrib.auth.models import User
-from django.core.mail import EmailMultiAlternatives, EmailMessage
-from ms4_challenger.settings import EMAIL_HOST_USER, DEFAULT_DOMAIN
-from datetime import datetime, date
+from datetime import datetime
 import pytz
 
 utc = pytz.UTC
@@ -67,6 +64,37 @@ def create_submission(request, challenge_id):
         form = CreateBlastOffEntryForm()
     else:
         form = CreateFreeEntryForm()
+
+    # see if user posted something
+    if request.method == 'POST':
+        # see what type of submission is allowed and set correct form
+        if 'submission_video' in types:
+            form = CreateInterstellarEntryForm(request.POST, request.FILES)
+        elif 'submission_audio' in types:
+            form = CreateBlastOffEntryForm(request.POST, request.FILES)
+        else:
+            form = CreateFreeEntryForm(request.POST, request.FILES)
+        # see if user is canceling
+        if 'cancel' in request.POST:
+            return redirect(reverse('challenges'))
+        elif form.is_valid():
+            # create entry
+            entry = Entry.objects.create(
+                user=request.user,
+                title=form.data['title'],
+            )
+            # all forms must have at least 1 file uploaded, so add that in
+            if 'submission_video' in request.FILES:
+                entry.submission_video = request.FILES['submission_video']
+            if 'submission_audio' in request.FILES:
+                entry.submission_audio = request.FILES['submission_audio']
+            if 'submission_image' in request.FILES:
+                entry.submission_image = request.FILES['submission_image']
+            # save entry with file
+            entry.save()
+            # add submission to challenge
+            challenge.submissions.add(entry)
+
 
     return render(request, "create_submission.html", {
         "challenge": challenge,

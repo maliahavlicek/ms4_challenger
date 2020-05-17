@@ -5,7 +5,7 @@ from django.db import models
 from products.models import ServiceLevel
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
-from submissions.models import Submission
+from submissions.models import Entry
 
 SUBMISSION_TYPE_CHOICES = [('image', 'Image'), ('audio', 'audio'), ('video', 'video')]
 
@@ -40,7 +40,7 @@ class Challenge(models.Model):
     submission_storage_cap = models.PositiveIntegerField()
     submission_types = MultiSelectField(choices=SUBMISSION_TYPE_CHOICES)
     members = models.ManyToManyField(User)
-    submissions = models.ManyToManyField(Submission)
+    submissions = models.ManyToManyField(Entry)
 
     def __str__(self):
         stringy = self.name

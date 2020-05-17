@@ -1,7 +1,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML
-from .models import Submission
+from .models import Entry
 
 
 class CreateFreeEntryForm(forms.Form):
@@ -9,7 +9,7 @@ class CreateFreeEntryForm(forms.Form):
     image_file = forms.ImageField(label="Example Image", required=True)
 
     class Meta:
-        model = Submission
+        model = Entry
         fields = [
             'title',
             'image_file',
@@ -35,7 +35,7 @@ class CreateBlastOffEntryForm(forms.Form):
     audio_file = forms.FileField(label="Audio File", required=False)
 
     class Meta:
-        model = Submission
+        model = Entry
         fields = [
             'title',
             'image_file',
@@ -71,7 +71,7 @@ class CreateInterstellarEntryForm(forms.Form):
     video_file = forms.FileField(label="Video File", required=False)
 
     class Meta:
-        model = Submission
+        model = Entry
         fields = [
             'title',
             'image_file',
