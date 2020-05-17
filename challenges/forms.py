@@ -15,7 +15,7 @@ class CreateChallengeForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control"}))
     start_date = forms.DateField(widget=DateInput)
     end_date = forms.DateField(widget=DateInput)
-    example_image = forms.ImageField(label="Example Image", required=False)
+    example_image = forms.ImageField(label="Example Image")
     example_video = forms.FileField(label="Example Video", required=False)
     members = forms.CharField(widget=forms.HiddenInput(), required=False)
 
