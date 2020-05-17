@@ -52,11 +52,17 @@ class Challenge(models.Model):
         return stringy
 
     def get_members(self):
-        members = list(self.members.all())
+        try:
+            members = list(self.members.all())
+        except:
+            members = []
         return members
 
     def get_submissions(self):
-        submissions = list(self.submissions.all())
+        try:
+            submissions = list(self.submissions.all())
+        except:
+            submissions = []
         return submissions
 
 

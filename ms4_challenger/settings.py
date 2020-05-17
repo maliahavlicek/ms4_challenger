@@ -17,6 +17,7 @@ import dj_database_url
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.path.exists('env.py'):
     import env
+
     DEBUG = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -161,16 +162,17 @@ STATICFILES_DIRS = [
 ]
 
 MEDIAFILES_LOCATION = 'media'
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-if os.path.exists('env2.py'):
+if os.path.exists('env.py'):
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    MEDIA_URL = '/media/'
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 else:
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-
-MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # STRIPE CC PAYMENTS
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
