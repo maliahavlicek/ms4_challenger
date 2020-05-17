@@ -6,6 +6,14 @@
 {% block page_heading %}
     Challenges
 {% endblock %}
+{% block head_js %}
+    <script>
+        // handler for tooltips
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+{% endblock %}
 {% block main_content %}
     {# Tabbed Navigation for Challenges Page #}
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -33,165 +41,14 @@
             {% endif %}
         </li>
     </ul>
-    {# Tab for Challenges user is Master of #}
+
     <div class="tab-content" id="myTabContent">
-        {# Tab for Challenges user is Member of #}
-        <div class="tab-pane fade show active" id="member" role="tabpanel" aria-labelledby="member-tab">
-            <div class="chg-header">You belong to {{ member_challenges|length }} challenges.</div>
-            {# loop through member challenges #}
-            {% for item in member_challenges %}
-                {# small devices layout #}
-                <div class="challenge_wrap flex-grid hidden-tablet-up">
-                    <div class="full">
-                        <div class="ch-title">
-                            {{ item.name | title }}
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ch-date">
-                            <div class="ch-item">
-                                {{ item.start_date | date }}
-                                {% if item.start_date|date != item.end_date|date %}
-                                    - {{ item.end_date | date }}
-                                {% endif %}
-                            </div>
-                            <div class="ch-item">
-                                {{ item.description }}
-                            </div>
-                            <div class="ch-item">
-                                {% if item.get_submissions|has_user:user %}
-                                    <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
-                                            class="fas fa-file-upload"></i> Resubmit</a>
-                                {% else %}
-                                    <a href="{% url 'create_submission' challenge_id=item.pk %}" class="btn primary"><i
-                                            class="fas fa-file-upload"></i> Submit</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
-                    </div>
-                </div>
-                {# tablet and above layout #}
-                <div class="challenge_wrap member flex-grid hidden-phone-down">
-                    <div>
-                        <div class="ch-title ch-item">
-                            {{ item.name | title }}
-                        </div>
-                        <div class="ch-date ch-item">
-                            {{ item.start_date | date }}
-                            {% if item.start_date|date != item.end_date|date %}
-                                - {{ item.end_date | date }}
-                            {% endif %}
-                        </div>
-                        <div class="ch-item">
-                            {% if item.get_submissions|has_user:user %}
-                                <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
-                                        class="fas fa-file-upload"></i> Resubmit</a>
-                            {% else %}
-                                <a href="{% url 'create_submission' challenge_id=item.pk %}" class="btn primary"><i
-                                        class="fas fa-file-upload"></i> Submit</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% if item.example_video %}
-                        <div class="ch-vid-wrap ch-item">
-                            <video width='auto' height="150px" controls>
-                                <source src='{{ item.example_video.url }}' type='video/mp4'>
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    {% endif %}
-                    <div {% if not item.example_video %}class="double"{% endif %}>
-                        <div class="ch-item"
-                             style="background: url({{ item.example_image.url }}); background-size: contain;
-                                     background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
-                        </div>
-                        <div class="ch-item">
-                            <p>{{ item.description }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="tab-pane fade" id="master" role="tabpanel" aria-labelledby="master-tab">
-            <div class="chg-header">You are the Master of {{ owned_challenges|length }}
-                challenges.
-            </div>
-            {% for item in owned_challenges %}
-                {# small devices layout #}
-                <div class="challenge_wrap flex-grid hidden-tablet-up">
-                    <div class=" two-thirds">
-                        <div class="ch-title">
-                            {{ item.name | title }}
-                        </div>
-                        <div class="ch-date">
-                            {{ item.start_date | date }}
-                            {% if item.start_date|date != item.end_date|date %}
-                                - {{ item.end_date | date }}
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="one-third"
-                         style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
-                    </div>
-                    <div class="center">
-                        <a href="{% url 'update_challenge' id=item.id %}" class="btn primary"><i
-                                class="fas fa-edit"></i> Edit</a>
-                    </div>
-                    <div class="center">
-                        <a href="{% url 'delete_challenge' id=item.id %}" class="btn primary"><i
-                                class="fas fa-trash-alt"></i> Delete</a>
-                    </div>
-                    {% if item.get_submission > 0 %}
-                        <div class="full">
-                            <a href="{% url 'submissions' id=item.id %}" class="btn primary"><i class="fas fa-eye"></i>
-                                See Entries</a>
-                        </div>
-                    {% endif %}
-                </div>
-                {# tablet and above layout #}
-                <div class="challenge_wrap flex-grid hidden-phone-down">
-                    <div class="full">
-                        <div class="ch-title ch-item">
-                            {{ item.name | title }}
-                        </div>
-                    </div>
-                    <div>
-                        <div class="ch-date ch-item">
-                            {{ item.start_date | date }}
-                            {% if item.start_date|date != item.end_date|date %}
-                                - {{ item.end_date | date }}
-                            {% endif %}
-                        </div>
-                        <div class="center ch-item">
-                            <a href="{% url 'update_challenge' id=item.id %}" class="btn primary"><i
-                                    class="fas fa-edit"></i> Edit</a>
-                        </div>
-                        <div class="center ch-item">
-                            <a href="{% url 'delete_challenge' id=item.id %}" class="btn primary"><i
-                                    class="fas fa-trash-alt"></i> Delete</a>
-                        </div>
-                    </div>
-                    {% if item.example_video %}
-                        <div class="ch-vid-wrap ch-item">
-                            <video width='auto' height="150px" controls>
-                                <source src='{{ item.example_video.url }}' type='video/mp4'>
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    {% endif %}
-                    <div class="ch-item {% if not item.example_video %}double{% endif %}"
-                         style="background: url({{ item.example_image.url }}); background-size: contain;
-                                 background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
-                    </div>
-                    <div class="ch-item">
-                        <p>{{ item.get_members|length }} members</p>
-                        <p>{{ item.get_submissions|length }} submissions</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {# Tab content for Challenges user is Member of #}
+        {% include 'partials/member_content_tab.html' %}
+        {# Tab content for Challenges user is Master of #}
+        {% include 'partials/master_content_tab.html' %}
+
+
         {# Tab for Special content when user is at limit user is Master of #}
         <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
             <p>You have the maximum number of challenges allowed. You can delete an existing one on the 'Master

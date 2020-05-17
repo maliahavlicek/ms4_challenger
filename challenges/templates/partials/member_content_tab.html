@@ -1,0 +1,18 @@
+{% load filters %}
+{# Member content tab #}
+<div class="tab-pane fade show active" id="member" role="tabpanel" aria-labelledby="member-tab">
+    <div class="chg-header">You belong to {{ member_challenges|length }} challenges.</div>
+    {# loop through member challenges #}
+    {% for item in member_challenges %}
+        {% if item.is_closed %}
+            {# do layout of closed #}
+            {% include 'partials/member_item_closed.html' %}
+        {% elif item.get_submissions|has_user:user %}
+            {#  do layout for re-submit #}
+            {% include 'partials/member_item_resubmit.html' with entry=item.get_submissions|has_user:user %}
+        {% else %}
+            {# do layout for open #}
+            {% include 'partials/member_item_open.html' %}
+        {% endif %}
+    {% endfor %}
+</div>

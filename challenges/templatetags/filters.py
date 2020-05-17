@@ -17,11 +17,11 @@ def format_date(date):
 
 @register.filter(name='has_user')
 def has_user(value, match):
-    """function expects an array of dictionaries with a key of user and searches for match on value"""
+    """function expects an array of dictionaries of Entry type, loops through and tries to match to provided User in match"""
     if isinstance(value, Iterable):
-        for item in value:
-            if item.user and item.user == match:
-                return True
+        for entry in value:
+            if entry.user and entry.user == match:
+                return entry
         else:
             return False
     else:

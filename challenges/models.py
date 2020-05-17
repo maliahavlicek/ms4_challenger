@@ -6,6 +6,10 @@ from products.models import ServiceLevel
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
 from submissions.models import Entry
+from datetime import datetime, date
+import pytz
+
+utc = pytz.UTC
 
 SUBMISSION_TYPE_CHOICES = [('image', 'Image'), ('audio', 'audio'), ('video', 'video')]
 
@@ -52,6 +56,7 @@ class Challenge(models.Model):
         return stringy
 
     def get_members(self):
+        """model function to return list of members"""
         try:
             members = list(self.members.all())
         except:
@@ -59,11 +64,19 @@ class Challenge(models.Model):
         return members
 
     def get_submissions(self):
+        """model function to return submissions"""
         try:
             submissions = list(self.submissions.all())
         except:
             submissions = []
         return submissions
+
+    def is_closed(self):
+        """model function to return if end_date has passed"""
+        if self.end_date.date() < utc.localize(datetime.today()).date():
+            return True
+        else:
+            return False
 
 
 class Member(models.Model):

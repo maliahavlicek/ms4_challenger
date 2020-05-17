@@ -87,12 +87,12 @@ def create_submission(request, challenge_id):
                 title=form.data['title'],
             )
             # all forms must have at least 1 file uploaded, so add that in
-            if 'submission_video' in request.FILES:
-                entry.submission_video = request.FILES['submission_video']
-            if 'submission_audio' in request.FILES:
-                entry.submission_audio = request.FILES['submission_audio']
+            if 'video_file' in request.FILES:
+                entry.video_file = request.FILES['video_file']
+            if 'audio_file' in request.FILES:
+                entry.audio_file = request.FILES['audio_file']
             if 'submission_image' in request.FILES:
-                entry.submission_image = request.FILES['submission_image']
+                entry.image_file = request.FILES['image_file']
             # save entry with file
             entry.save()
             # add submission to challenge
@@ -154,22 +154,18 @@ def update_submission(request, challenge_id):
         if 'cancel' in request.POST:
             return redirect(reverse('challenges'))
         elif form.is_valid():
-            # create entry
-            entry = Entry.objects.create(
-                user=request.user,
-                title=form.data['title'],
-            )
+            # update entry
+            entry.title = form.data['title']
+            entry.date_created = utc.localize(datetime.today())
             # all forms must have at least 1 file uploaded, so add that in
-            if 'submission_video' in request.FILES:
-                entry.submission_video = request.FILES['submission_video']
-            if 'submission_audio' in request.FILES:
-                entry.submission_audio = request.FILES['submission_audio']
-            if 'submission_image' in request.FILES:
-                entry.submission_image = request.FILES['submission_image']
-            # save entry with file
+            if 'video_file' in request.FILES:
+                entry.video_file = request.FILES['video_file']
+            if 'audio_file' in request.FILES:
+                entry.audio_file = request.FILES['audio_file']
+            if 'image_file' in request.FILES:
+                entry.image_file = request.FILES['image_file']
+            # save entry so changes commit to DB
             entry.save()
-            # add submission to challenge
-            challenge.submissions.add(entry)
 
             # send flow to challenges list page
             return redirect(reverse('challenges'))
@@ -177,4 +173,5 @@ def update_submission(request, challenge_id):
     return render(request, "update_submission.html", {
         "challenge": challenge,
         "form": form,
+        'entry': entry,
     })

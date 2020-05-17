@@ -1,0 +1,91 @@
+{% load filters %}
+{# resbumit display for challenge user is member of  #}
+
+{# small devices layout #}
+<div class="challenge_wrap resubmit flex-grid hidden-tablet-up">
+    <div class="full">
+        <div class="ch-title">
+            {{ item.name | title }}
+        </div>
+    </div>
+    <div>
+        <div class="ch-date">
+            <div class="ch-item">
+                {{ item.start_date | date }}
+                {% if item.start_date|date != item.end_date|date %}
+                    - {{ item.end_date | date }}
+                {% endif %}
+            </div>
+            <div class="ch-item">
+                <a href="#" data-toggle="tooltip" title="{{ item.description }}">Details <i class="fas fa-info-circle"></i></a>
+            </div>
+            <div class="ch-item">
+                <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
+                        class="fas fa-redo-alt"></i> Re-submit</a>
+            </div>
+        </div>
+    </div>
+    <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+    </div>
+    <div class="full">
+        <div class="ch-item">
+            Submitted on {{ entry.date_created|date }}
+        </div>
+        {% if entry.image_file %}
+            <div class="ch-item"
+                 style="background: url({{ entry.image_file.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;"></div>
+        {% endif %}
+
+        {% if entry.audio_file %}
+            <div class="ch-audio-wrap ch-item">
+                <audio width='auto' height="50px" controls>
+                    <source src='{{ entry.audio_file.url }}' type='audio/mp3'>
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
+        {% endif %}
+
+        {% if entry.video_file %}
+            <div class="ch-vid-wrap ch-item">
+                <video width='auto' height="150px" controls>
+                    <source src='{{ entry.video_file.url }}' type='video/mp4'>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+    </div>
+    {# tablet and above layout #}
+    <div class="challenge_wrap member flex-grid hidden-phone-down">
+        <div>
+            <div class="ch-title ch-item">
+                {{ item.name | title }}
+            </div>
+            <div class="ch-date ch-item">
+                {{ item.start_date | date }}
+                {% if item.start_date|date != item.end_date|date %}
+                    - {{ item.end_date | date }}
+                {% endif %}
+            </div>
+            <div class="ch-item">
+                <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
+                        class="fas fa-redo-alt"></i> Re-submit</a>
+            </div>
+        </div>
+        {% if item.example_video %}
+            <div class="ch-vid-wrap ch-item">
+                <video width='auto' height="150px" controls>
+                    <source src='{{ item.example_video.url }}' type='video/mp4'>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+        <div {% if not item.example_video %}class="double"{% endif %}>
+            <div class="ch-item"
+                 style="background: url({{ item.example_image.url }}); background-size: contain;
+                         background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+            </div>
+            <div class="ch-item">
+                <p>{{ item.description }}</p>
+            </div>
+        </div>
+    </div>
