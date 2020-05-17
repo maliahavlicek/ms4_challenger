@@ -1,0 +1,388 @@
+/* colors */
+:root {
+    /*Primary Color is Teal Blue */
+    --primary: #12ECCB;
+    --primary-dark: #00D9B1;
+
+    --white: #fff;
+    --gray: rgba(83, 91, 97, 0.32);
+    --gary-dark: #343a40;
+    --gray-light: #535B61;
+    --gray-lighter: #727980;
+    --gray-lightest: #90959a;
+    --black: #000;
+
+    --warning: #EC4646;
+    --link: #007BFF;
+}
+
+
+/* smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* space out forms */
+form {
+    margin: 10px 0;
+}
+
+/* overwrite styles for base fonts */
+body {
+    font-family: Exo, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* overwrite fonts for headings and navigation */
+h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
+    font-family: 'Orbitron', Tahoma, serif;
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 1.5rem;
+    margin: 15px 0 10px;
+}
+
+/* override navigation colors */
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--primary-dark);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--primary);
+}
+
+.navbar-dark .navbar-nav .show > .nav-link {
+    color: var(--gary-dark);
+}
+
+.navbar-dark .navbar-nav .show > .dropdown-toggle.nav-link {
+    color: var(--primary-dark);
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: var(--gray)
+}
+
+/* add padding between navigation icons */
+.nav-image {
+    margin: 0 10px;
+}
+
+/* navigation icons */
+a.nav-link i {
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+/* set fonts buttons and inputs */
+button, input, select, textarea, a.btn {
+    font-family: Exo, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+/* buttons colors */
+button.btn-default, input.btn-primary, a.btn {
+    font-weight: 700;
+    background: var(--primary);
+    text-transform: uppercase;
+    border: none;
+    color: var(--black);
+}
+
+/* buttons hover */
+button.btn-default:hover, input.btn-primary:hover, a.btn {
+    color: var(--gary-dark);
+    background: var(--primary-dark);
+}
+
+a.btn-cancel, button.btn-cancel, input.btn-cancel {
+    background: var(--gray);
+}
+
+a.btn-cancel:hover, button.btn-cancel:hover, input.btn-cancel:hover {
+    background: var(--gray-light);
+}
+
+a.is-disabled {
+    pointer-events: all;
+    cursor: not-allowed;
+}
+
+/* add background color to rails on desktop + renderings */
+html {
+    background-color: hsl(0, 0%, 86%)
+}
+
+/* have rails appear for larger devices so that content and inputs don't get too wide */
+body, nav, footer {
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--white);
+}
+
+/* make social footer icons get bigger and tilt if hoavered */
+.social a:hover i {
+    transform: rotate(-3deg) scale(1.3);
+    color: var(--primary);
+}
+
+/* profile */
+.profile-pic {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+/* outline */
+.profile-outline {
+    padding: 1.25rem;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+    margin: 0.5rem;
+}
+
+/* product imagery */
+.product-img-wrap {
+    height: 150px;
+    width: 150px;
+    margin: 20px auto;
+}
+
+.ch-img-wrap img {
+    width: 100%;
+    max-height: 100%;
+}
+
+/* purchase buttons */
+.card-footer .input-group-btn, .card-footer .btn {
+    width: 100%;
+    text-align: center;
+}
+
+/* footer */
+.footer {
+    display: block;
+    flex-direction: unset;
+    font-size: 1rem;
+    color: var(--white);
+    line-height: 1.75;
+    padding: .25em .75em;
+}
+
+/* footer links */
+.footer a {
+    color: var(--primary);
+}
+
+/* footer spacing */
+footer p {
+    margin: .3rem 0;
+}
+
+/* footer icons */
+.footer a i {
+    padding: .25em 1.5em;
+}
+
+/* footer icon distancing*/
+.dist-even {
+    text-align: left;
+    display: block;
+    line-height: 1.75;
+    padding: .5em .75em;
+    position: relative;
+    justify-content: space-between;
+}
+
+/* main-content height fills page */
+.main-content {
+    min-height: calc(100vh - 13rem);
+}
+
+/* make label stand out more */
+label.control-label, .form-group label, .label {
+    font-weight: 800;
+    color: var(--black);
+}
+
+/* put a colon after a label */
+label.control-label::after, .form-group label:after {
+    content: ':';
+    position: relative;
+}
+
+/* add margin to page-heading */
+.page-heading {
+    margin-top: 10px;
+}
+
+/* challenges */
+.img-preview {
+    max-height: 100px;
+    width: auto;
+}
+
+.vd-preview {
+    max-height: 120px;
+    width: auto;
+}
+
+.nav-tabs .nav-link.active {
+    color: #FFF;
+    background-color: var(--gray-light);
+    border-color: var(--gray-light);
+}
+
+.nav-tabs .nav-link {
+    background-color: var(--gray-lightest);
+    border-color: #FFF;
+}
+
+.nav-tabs a.nav-link {
+    color: #034b98;
+}
+
+.nav-tabs a.nav-link:hover {
+    color: var(--gray-lightest);
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: var(--gray-light);
+    color: #FFF;
+}
+
+.tab-content {
+    color: #FFF;
+    background: var(--gray-light);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.challenge_wrap {
+    margin-top: 10px;
+    border-top: 1px solid var(--gray-lightest);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: minmax(auto, 70%) minmax(auto, 50%);
+}
+
+.chg-header {
+    background: var(--gray-light);
+    color: var(--primary);
+    padding: 10px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ch-title {
+    font-size: 24px;
+}
+
+.full {
+     grid-column: 1 / span 2;
+}
+
+.one-third {
+    width: 30%;
+}
+
+.two-thirds {
+    width: 70%;
+}
+
+.half {
+    width: 50%;
+}
+
+.center {
+    text-align: center;
+}
+
+/* member entry */
+.member-row .member {
+    height: 27px;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.member-remove {
+    width: 44px;
+    height: 32px;
+    margin-top: -4px;
+}
+
+.member-row {
+    margin: 15px 0 15px 25px;
+}
+
+.hidden-phone-down {
+    display: none;
+}
+
+
+/* TABLET STYLES */
+@media screen and (min-width: 769px) {
+    h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
+        font-size: 32px;
+    }
+
+    .full {
+        grid-column: 1 / span 4;
+    }
+
+    .triple {
+        grid-column: 2 / span 3;
+    }
+
+    .double {
+        grid-column: 2 / span 2;
+    }
+
+    .challenge_wrap {
+        grid-template-columns: repeat(4, minmax(auto, 25%));
+    }
+    .challenge_wrap .btn.primary{
+        min-width: 200px;
+    }
+
+    .hidden-phone-down {
+        display: grid;
+    }
+
+    .hidden-tablet-up {
+        display: none;
+    }
+
+    .chg-header {
+        font-size: 32px;
+    }
+    .ch-title{
+        font-size: 28px;
+    }
+    .ch-item{
+        margin: 0 10px 10px 10px;
+    }
+
+    /* main-content height fills page */
+    .main-content {
+        min-height: calc(100vh - 11.5rem);
+    }
+
+}
+
+/* DESKTOP STYLES */
+/* desktop and larger styles */
+@media screen and (min-width: 1024px) {
+
+}
