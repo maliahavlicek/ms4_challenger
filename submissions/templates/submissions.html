@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load filters %}
+{% block page_title %}
+    Submissions
+{% endblock %}
+{% block page_heading %}
+    Submissions for {{ challenge.name|title }}
+{% endblock %}
+{% block main_content %}
+    {% if submissions|length == 0 %}
+        <p>There are no submissions for this challenge yet.</p>
+    {% else %}
+        <p>There are {{submissions|length}} entries for this challenge.</p>
+        {% for item in submissions %}
+            <p>Title: {{item.title|title}}</p>
+            <p>Entry: {{forloop.counter}} of {{submissions|length}}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

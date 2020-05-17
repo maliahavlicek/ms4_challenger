@@ -7,33 +7,40 @@
     Challenges
 {% endblock %}
 {% block main_content %}
+    {# Tabbed Navigation for Challenges Page #}
     <ul class="nav nav-tabs" id="myTab" role="tablist">
+        {# Tab for Challenges user is master of  #}
         <li class="nav-item">
             <a class="nav-link active" id="master-tab" data-toggle="tab" href="#master" role="tab"
                aria-controls="master" aria-selected="true">Master</a>
         </li>
+        {# Tab for Challenges user is member of  #}
         <li class="nav-item">
             <a class="nav-link" id="member-tab" data-toggle="tab" href="#member" role="tab" aria-controls="profile"
                aria-selected="false">Member</a>
         </li>
+        {# Tab for Creating a challenge, button if user can, special content if user is at service level limit  #}
         <li class="nav-item">
             {% if owned_challenges and owned_challenges|length < owned_product.max_number_of_challenges %}
+                {# Create Button #}
                 <a class="nav-link" role="button" aria-controls="create" href="{% url 'create_challenge' %}"
                    aria-selected="false">Create</a>
             {% else %}
+                {# Special Over limit content #}
                 <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create"
                    aria-selected="false">Create</a>
             {% endif %}
         </li>
     </ul>
+    {# Tab for Challenges user is Master of #}
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="master" role="tabpanel" aria-labelledby="master-tab">
             <div class="chg-header">You currently are the Challenge Master of {{ owned_challenges|length }}
                 challenges.
             </div>
             {% for item in owned_challenges %}
+                {# small devices layout #}
                 <div class="challenge_wrap flex-grid hidden-tablet-up">
-
                     <div class=" two-thirds">
                         <div class="ch-title">
                             {{ item.name | title }}
@@ -63,6 +70,7 @@
                         </div>
                     {% endif %}
                 </div>
+                {# tablet and above layout #}
                 <div class="challenge_wrap flex-grid hidden-phone-down">
                     <div class="full">
                         <div class="ch-title ch-item">
@@ -93,37 +101,61 @@
                             </video>
                         </div>
                     {% endif %}
-                    <div class="ch-item {% if not item.example_video %}double{% endif %}" style="background: url({{ item.example_image.url }}); background-size: contain;
-                            background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+                    <div class="ch-item {% if not item.example_video %}double{% endif %}"
+                         style="background: url({{ item.example_image.url }}); background-size: contain;
+                                 background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
                     </div>
                     <div class="ch-item">
                         <p>{{ item.get_members|length }} members</p>
                         <p>{{ item.get_submissions|length }} submissions</p>
                     </div>
                 </div>
-
             {% endfor %}
-            <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>You currently are a member in {{ member_challenges|length }} challenges. </p>
-                        {% for item in member_challenges %}
-                            <p>{{ item.name }}</p>
-                        {% endfor %}
+        </div>
+        {# Tab for Challenges user is Member of #}
+        <div class="tab-pane fade" id="member" role="tabpanel" aria-labelledby="member-tab">
+            <div class="chg-header">You currently are a member in {{ member_challenges|length }} challenges.</div>
+            {# loop through member challenges #}
+            {% for item in member_challenges %}
+                {# small devices layout #}
+                <div class="challenge_wrap flex-grid hidden-tablet-up">
+                    <div class="full">
+                        <div class="ch-title">
+                            {{ item.name | title }}
+                        </div>
                     </div>
+                    <div>
+                        <div class="ch-date">
+                            <div class="ch-item">
+                                {{ item.start_date | date }}
+                                {% if item.start_date|date != item.end_date|date %}
+                                    - {{ item.end_date | date }}
+                                {% endif %}
+                            </div>
+                            <div class="ch-item">
+                                {{ item.description }}
+                            </div>
+                            <div class="ch-item">
+                                <a href="{% url 'create_submission' challenge_id=item.pk %}" class="btn primary"><i class="fas fa-file-upload"></i> Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+                    </div>
+
                 </div>
-            </div>
-            <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
-                {% if owned_challenges|length < owned_product.max_number_of_challenges %}
-                    <a href="{% url 'create_challenge' %}" class="btn">Create Challenge</a>
-                {% else %}
-                    You have the max number of challenges allowed. Upgrade or delete an existing one.
-                {% endif %}
-            </div>
+            {% endfor %}
+
+        </div>
+        {# Tab for Special content when user is at limit user is Master of #}
+        <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
+            <p>You have the maximum number of challenges allowed. You can delete an existing one on the 'Master
+                tab'.</p>
+            {% if owned_produt.name != "Interstellar" %}
+                <p>Or you can <a href="{% url 'products' %}" class="btn primary">Upgrade</a> to a higher service level.
+                </p>
+            {% endif %}
         </div>
     </div>
-
-
-
 
 {% endblock %}
