@@ -19,7 +19,6 @@ from accounts import urls as urls_accounts
 from challenges import urls as urls_challenges
 from checkout import urls as urls_checkout
 from products import urls as urls_products
-from search import urls as urls_search
 from home.views import index
 from django.conf.urls.static import static
 from .settings import MEDIA_ROOT, MEDIA_URL
@@ -33,6 +32,5 @@ urlpatterns += [
     path('challenges/', include(urls_challenges)),
     path('checkout/', include(urls_checkout)),
     path('products/', include(urls_products)),
-    path('search/', include(urls_search)),
 
 ]
