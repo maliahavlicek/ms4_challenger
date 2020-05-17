@@ -104,10 +104,10 @@ def create_challenge(request):
             # let user know the challenge was created
             if len(member_status) > 0:
                 messages.success(request,
-                                 "Your challenge: " + challenge.name.title + " was successfully created and an invite has been sent to the members.")
+                                 "Your challenge: " + challenge.name.title() + " was successfully created and an invite has been sent to the members.")
             else:
                 messages.success(request,
-                                 "Your challenge: " + challenge.name.title + " was successfully created. Don't forget to update your member list if you want people to participate.")
+                                 "Your challenge: " + challenge.name.title() + " was successfully created. Don't forget to update your member list if you want people to participate.")
 
             return redirect(reverse('challenges'))
     else:
