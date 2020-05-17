@@ -277,6 +277,10 @@ label.control-label::after, .form-group label:after {
     grid-template-columns: minmax(auto, 70%) minmax(auto, 50%);
 }
 
+.challenge_wrap.entry{
+    grid-template-columns: repeat(2, minmax(auto, 50%));
+}
+
 .chg-header {
     background: var(--gray-light);
     color: var(--primary);
@@ -351,6 +355,9 @@ label.control-label::after, .form-group label:after {
 
     .challenge_wrap {
         grid-template-columns: repeat(4, minmax(auto, 25%));
+    }
+    .challenge_wrap.entry{
+        grid-template-columns: repeat(2, minmax(auto, 30%));
     }
     .challenge_wrap.member{
         grid-template-columns: repeat(3, minmax(auto, 33%));

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-# from .forms import CreateSubmissionForm, UpdateSubmissionForm
+from .forms import CreateFreeEntryForm, CreateBlastOffEntryForm, CreateInterstellarEntryForm
 from django.contrib import messages
 from .models import Submission
 from challenges.models import Challenge
@@ -59,6 +59,16 @@ def create_submission(request, challenge_id):
         messages.warning(request, challenge.name.title() + ": You already submitted an entry to this challenge.")
         return redirect(reverse('challenges'))
 
+    # see what type of submission is allowed and choose correct form
+    types = challenge.submission_types
+    if 'submission_video' in types:
+        form = CreateInterstellarEntryForm()
+    elif 'submission_audio' in types:
+        form = CreateBlastOffEntryForm()
+    else:
+        form = CreateFreeEntryForm()
+
     return render(request, "create_submission.html", {
         "challenge": challenge,
+        "form": form,
     })
