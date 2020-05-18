@@ -18,7 +18,7 @@ def all_submissions(request, challenge_id):
     members = challenge.get_members()
     # need to make sure user belongs to challenge
     user = request.user
-    if user.pk not in members:
+    if user not in members and challenge.owner != user:
         messages.warning(request, "Only a member or the challenge master can see the submissions to a challenge.")
         return redirect(reverse('challenges'))
 
@@ -175,3 +175,17 @@ def update_submission(request, challenge_id):
         "form": form,
         'entry': entry,
     })
+
+
+@login_required
+def delete_submission(request, id):
+    """User Deletes a Submission Entry form for a particular challenge"""
+    entry = Entry.objects.get(id=id)
+    # see if user is owner
+    if request.user == entry.user:
+        Entry.objects.remove(id=id)
+        messages.success(request, "Delete Success: You removed the " + entry.title.title() + " entry.")
+    else:
+        messages.warning(request, "Delete Denied: You are not the owner of the " + entry.title.title() + " entry.")
+
+    return redirect(reverse('challenges'))

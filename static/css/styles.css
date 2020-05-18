@@ -100,11 +100,11 @@ button.btn-default:hover, input.btn-primary:hover, a.btn {
     background: var(--primary-dark);
 }
 
-a.btn-cancel, button.btn-cancel, input.btn-cancel {
-    background: var(--gray);
+a.btn-cancel, button.btn-cancel, input.btn-cancel, a.btn.btn-cancel {
+    background: var(--gray-lightest);
 }
 
-a.btn-cancel:hover, button.btn-cancel:hover, input.btn-cancel:hover {
+a.btn-cancel:hover, button.btn-cancel:hover, input.btn-cancel:hover, a.btn.btn-cancel:hover {
     background: var(--gray-light);
 }
 
@@ -276,6 +276,9 @@ label.control-label::after, .form-group label:after {
     display: grid;
     grid-template-columns: minmax(auto, 70%) minmax(auto, 50%);
 }
+.challenge_wrap.resubmit a.btn, .challenge_wrap.submit a.btn.primary{
+    width: calc(100% - 20px);
+}
 
 .challenge_wrap.entry{
     grid-template-columns: repeat(2, minmax(auto, 50%));
@@ -364,6 +367,7 @@ label.control-label::after, .form-group label:after {
     }
     .challenge_wrap .btn.primary{
         min-width: 200px;
+        width: auto;
     }
 
     .hidden-phone-down {

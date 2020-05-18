@@ -29,9 +29,9 @@
                 <a href="{% url 'delete_challenge' id=item.id %}" class="btn primary"><i
                         class="fas fa-trash-alt"></i> Delete</a>
             </div>
-            {% if item.get_submission > 0 %}
+            {% if item.get_submissions|length > 0 %}
                 <div class="full">
-                    <a href="{% url 'submissions' id=item.id %}" class="btn primary"><i class="fas fa-eye"></i>
+                    <a href="{% url 'submissions' challenge_id=item.id %}" class="btn primary"><i class="fas fa-eye"></i>
                         See Entries</a>
                 </div>
             {% endif %}

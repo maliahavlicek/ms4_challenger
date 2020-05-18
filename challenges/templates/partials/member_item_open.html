@@ -2,7 +2,7 @@
 {# Display member item that user hasn't submitted to and is open #}
 
 {# small devices layout #}
-<div class="challenge_wrap flex-grid hidden-tablet-up">
+<div class="challenge_wrap submit flex-grid hidden-tablet-up">
     <div class="full">
         <div class="ch-title">
             {{ item.name | title }}
@@ -17,7 +17,8 @@
                 {% endif %}
             </div>
             <div class="ch-item">
-                {{ item.description }}
+                <a href="#{{ item.id }}-submit-small" data-toggle="tooltip" id="{{ item.id }}-submit-small" title="{{ item.description }}">Details <i
+                        class="fas fa-info-circle"></i></a>
             </div>
             <div class="ch-item">
                 <a href="{% url 'create_submission' challenge_id=item.pk %}" class="btn primary"><i
@@ -25,7 +26,19 @@
             </div>
         </div>
     </div>
-    <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+    <div>
+        <div class="ch-item"
+             style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+        </div>
+
+        {% if item.example_video %}
+            <div class="ch-vid-wrap ch-item">
+                <video width='auto' height="150px" controls>
+                    <source src='{{ item.example_video.url }}' type='video/mp4'>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
     </div>
 </div>
 {# tablet and above layout #}
