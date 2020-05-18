@@ -16,7 +16,7 @@
             <div class="carousel-inner">
                 {% for item in submissions %}
                     <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
-                        <img width="100%" height="auto" src="{{ item.image_file.url }}" alt="image for {{ item.title }}">
+                        <img width="auto" height="100%" src="{{ item.image_file.url }}" alt="image for {{ item.title }}">
                         <div class="carousel-caption">
                             <p>Title: {{ item.title|title }}</p>
                             <p>Entry: {{ forloop.counter }} of {{ submissions|length }}</p>

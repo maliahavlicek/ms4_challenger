@@ -31,7 +31,8 @@
             </div>
             {% if item.get_submissions|length > 0 %}
                 <div class="full">
-                    <a href="{% url 'submissions' challenge_id=item.id %}" class="btn primary"><i class="fas fa-eye"></i>
+                    <a href="{% url 'submissions' challenge_id=item.id %}" class="btn primary"><i
+                            class="fas fa-eye"></i>
                         See Entries</a>
                 </div>
             {% endif %}
@@ -74,6 +75,12 @@
             <div class="ch-item">
                 <p>{{ item.get_members|length }} members</p>
                 <p>{{ item.get_submissions|length }} submissions</p>
+
+                {% if item.get_submissions|length > 0 %}
+                    <a href="{% url 'submissions' challenge_id=item.id %}" class="btn primary"><i
+                            class="fas fa-eye"></i>
+                        See Entries</a>
+                {% endif %}
             </div>
         </div>
     {% endfor %}

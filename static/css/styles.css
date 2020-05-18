@@ -276,11 +276,12 @@ label.control-label::after, .form-group label:after {
     display: grid;
     grid-template-columns: minmax(auto, 70%) minmax(auto, 50%);
 }
-.challenge_wrap.resubmit a.btn, .challenge_wrap.submit a.btn.primary{
+
+.challenge_wrap.resubmit a.btn, .challenge_wrap.submit a.btn.primary {
     width: calc(100% - 20px);
 }
 
-.challenge_wrap.entry{
+.challenge_wrap.entry {
     grid-template-columns: repeat(2, minmax(auto, 50%));
 }
 
@@ -298,7 +299,7 @@ label.control-label::after, .form-group label:after {
 }
 
 .full {
-     grid-column: 1 / span 2;
+    grid-column: 1 / span 2;
 }
 
 .one-third {
@@ -337,6 +338,15 @@ label.control-label::after, .form-group label:after {
     display: none;
 }
 
+/* Submissions Review */
+.carousel-caption {
+    position: relative;
+    right: 0;
+    left: 0;
+    color: var(--gary-dark);
+    text-align: center;
+}
+
 
 /* TABLET STYLES */
 @media screen and (min-width: 769px) {
@@ -359,13 +369,20 @@ label.control-label::after, .form-group label:after {
     .challenge_wrap {
         grid-template-columns: repeat(4, minmax(auto, 25%));
     }
-    .challenge_wrap.entry{
+
+    .challenge_wrap.entry {
         grid-template-columns: repeat(2, minmax(auto, 30%));
     }
-    .challenge_wrap.member{
+
+    .challenge_wrap.resubmit {
+        grid-template-columns: repeat(2, minmax(auto, 50%));
+    }
+
+    .challenge_wrap.member {
         grid-template-columns: repeat(3, minmax(auto, 33%));
     }
-    .challenge_wrap .btn.primary{
+
+    .challenge_wrap .btn.primary, .challenge_wrap.resubmit a.btn, .challenge_wrap.submit a.btn.primary {
         min-width: 200px;
         width: auto;
     }
@@ -381,16 +398,25 @@ label.control-label::after, .form-group label:after {
     .chg-header {
         font-size: 32px;
     }
-    .ch-title{
+
+    .ch-title {
         font-size: 28px;
     }
-    .ch-item{
+
+    .ch-item {
         margin: 0 10px 10px 10px;
     }
 
     /* main-content height fills page */
     .main-content {
         min-height: calc(100vh - 11.5rem);
+    }
+
+    /* all submissions */
+
+    .carousel-inner > .carousel-item > img{
+        width: auto;
+        height: 50vh;
     }
 
 }

@@ -91,7 +91,7 @@ def create_submission(request, challenge_id):
                 entry.video_file = request.FILES['video_file']
             if 'audio_file' in request.FILES:
                 entry.audio_file = request.FILES['audio_file']
-            if 'submission_image' in request.FILES:
+            if 'image_file' in request.FILES:
                 entry.image_file = request.FILES['image_file']
             # save entry with file
             entry.save()
@@ -183,7 +183,7 @@ def delete_submission(request, id):
     entry = Entry.objects.get(id=id)
     # see if user is owner
     if request.user == entry.user:
-        Entry.objects.remove(id=id)
+        Entry.objects.filter(id=id).delete()
         messages.success(request, "Delete Success: You removed the " + entry.title.title() + " entry.")
     else:
         messages.warning(request, "Delete Denied: You are not the owner of the " + entry.title.title() + " entry.")
