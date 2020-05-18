@@ -224,6 +224,19 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [django-bootstrap4](https://pypi.org/project/django-bootstrap4/) - Bootstrap 4 integration for Django
 - [django-crispy-forms](https://pypi.org/project/django-crispy-forms/) - Allows style and HTML control of Django template form displays
 - [django-forms-bootstrap](https://pypi.org/project/django-forms-bootstrap/) - allows further customization of bootstrap forms within Django framework
+- [stripe](https://pypi.org/project/stripe/) - A python library to talk to Stripe's API
+- [boto3](https://pypi.org/project/boto3/)-  allows Python to talk to AWS SDK so you can store data in S3 buckets 
+- [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) - measures and analyzes code coverage of python code
+- [django-storages] a collection of custom storage backends with django to work with boto3 and AWS S3.
+- [django-multiselectfield](https://pypi.org/project/django-multiselectfield/) - allows checkbox display of multi selects for django
+- [graphviz](https://graphviz.readthedocs.io/en/stable/) -used to create graphics from Python
+- [django-extensions](https://pypi.org/project/django-extensions/) - collection of management commands for django, used for validating templates, and graphics for models
+- [gunicorn](https://pypi.org/project/gunicorn/) - Python WSGI HTTP Server for UNIX so you can host your application
+- [pillow](https://pillow.readthedocs.io/en/stable/) -Python Imaging Library to help store imagery into a database
+- [psycopg2](https://www.psycopg.org/docs/) - PostgreSQL database adapter for the Python
+- [python-dateutil](https://pypi.org/project/python-dateutil/) - extends python datetime
+- [pytz](https://pypi.org/project/pytz/) - world timezone calculations
+
 
 ### Fonts
 
@@ -232,7 +245,9 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - Button Icons: [Font Awesome 5](https://fontawesome.com/icons?d=gallery)
 
 ### Tools
+- [Pycharm](https://www.jetbrains.com/) The IDE used for developing ms4-challenger
 - [github](https://github.com/) - used for version control of project files and branching out to try different things without adversely affecting a functional set of code
+- [travis](https://travis-ci.org/) - supports continuous integration by building the code and running tests before deploying to Heroku
 - [balsamiq](https://balsamiq.com/) - used to create professional looking wire frames.
 - [favicon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
 - [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
@@ -243,8 +258,15 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [axe - web accessibility testing](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) a chrome extension that helps identify other accessibility issues google's lighthouse tool misses, such as landmarks and headings.
 - [loom](https://www.loom.com/) - Free chrome extension to take screen capturing videos with audio 
 - [coolers](https://coolors.co/) - Color Scheme generator, used to fine tune color selection and find hover colors
+- [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) - used to identify bits code that have been executed, then analyzes the source to identify code that could have been executed but was not.
+- [django-extensions](https://pypi.org/project/django-extensions/) - used for validating templates, and graphics for models
+-[pip](https://pip.pypa.io/en/stable/installing/) - used to install python extensions for this project
+
 
 ### APIs
+
+- [AWS S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html) - allows seamless uploading of user files to cloud storage using application credentials
+- [stripe](https://stripe.com/) - payment platform to validate and accept credit card payments securely
 
 ## Defensive Programming
 
@@ -272,6 +294,8 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
 ## Testing
 
 ### Validation Testing
+
+- [django-extensions](https://pypi.org/project/django-extensions/) - used for validating templates from the command line ```python manage.py validate_templates```
 
 ### Unit Testing
 
@@ -302,7 +326,7 @@ If any of the following are unfamiliar, please click on their associated links a
  - [git](https://gist.github.com/derhuerst/1b15ff4652a867391f03) -  version control system for code source
  - a [gmail accoount](https://accounts.google.com/signup) with less secure app access turned on use [this link](https://myaccount.google.com/lesssecureapps?pli=1) after you are signed into the gmail account - allows system to send email notifications such as password reset and user registration links
  - a [stripe account](https://stripe.com/) - used to securely collect payments, testing API's level is fine unless you want collect payments for real
- - [AWS-S3 (Amazon Web Services - Simple Storay Storage Account](https://docs.aws.amazon.com/AmazonS3/latest/gsg/SigningUpforS3.html) - web based cloud storage service for online backup of website assets
+ - [AWS-S3 (Amazon Web Services - Simple Storage Storage Account)](https://docs.aws.amazon.com/AmazonS3/latest/gsg/SigningUpforS3.html) - web based cloud storage service for online backup of website assets
  - [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) - a cloud storage resource which is similar to file folders on a computer's hard drive
 
 

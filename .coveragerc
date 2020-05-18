@@ -1,0 +1,30 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+
+[report]
+# omit from report
+omit =
+    # no virtual environment
+    .venv/*
+
+    # no migrations
+    */migrations/*
+
+    # no __init__.py
+    */__init__.py
+
+    # no env files
+    */*env.py
+
+    # no settings files
+    */settings.py
+
+    # no test files
+    */test*.py
+
+ignore_errors = True
+
+[html]
+directory = home/templates/test_coverage
+

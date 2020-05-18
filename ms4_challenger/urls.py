@@ -20,7 +20,7 @@ from challenges import urls as urls_challenges
 from checkout import urls as urls_checkout
 from products import urls as urls_products
 from submissions import urls as urls_entries
-from home.views import index
+from home.views import index, test_coverage
 from django.conf.urls.static import static
 from .settings import MEDIA_ROOT, MEDIA_URL
 
@@ -34,5 +34,6 @@ urlpatterns += [
     path('checkout/', include(urls_checkout)),
     path('products/', include(urls_products)),
     path('submissions/', include(urls_entries)),
+    path('test_coverage', test_coverage, name='test_coverage')
 
 ]
