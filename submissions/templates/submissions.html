@@ -10,10 +10,29 @@
     {% if submissions|length == 0 %}
         <p>There are no submissions for this challenge yet.</p>
     {% else %}
-        <p>There are {{submissions|length}} entries for this challenge.</p>
-        {% for item in submissions %}
-            <p>Title: {{item.title|title}}</p>
-            <p>Entry: {{forloop.counter}} of {{submissions|length}}</p>
-        {% endfor %}
+        <p>There are {{ submissions|length }} entries for this challenge.</p>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+            <div class="carousel-inner">
+                {% for item in submissions %}
+                    <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+                        <img width="100%" height="auto" src="{{ item.image_file.url }}" alt="image for {{ item.title }}">
+                        <div class="carousel-caption">
+                            <p>Title: {{ item.title|title }}</p>
+                            <p>Entry: {{ forloop.counter }} of {{ submissions|length }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
     {% endif %}
 {% endblock %}
