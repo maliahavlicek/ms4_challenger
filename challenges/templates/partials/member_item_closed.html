@@ -16,15 +16,12 @@
                 {% endif %}
             </div>
             <div class="ch-item">
-                {{ item.description }}
-            </div>
-            <div class="ch-item">
-                {% if item.get_submissions|has_user:user %}
-                    <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
-                            class="fas fa-redo-alt"></i> Re-submit</a>
+                {% if item.get_submissions|length > 0 %}
+                    <a href="{% url 'submissions' challenge_id=item.id %}" class="btn primary"><i
+                            class="fas fa-eye"></i>
+                        See Entries</a>
                 {% else %}
-                    <a href="{% url 'create_submission' challenge_id=item.pk %}" class="btn primary"><i
-                            class="fas fa-file-upload"></i> Submit</a>
+                    This item is closed.
                 {% endif %}
             </div>
         </div>
@@ -45,12 +42,12 @@
             {% endif %}
         </div>
         <div class="ch-item">
-            {% if item.get_submissions|has_user:user %}
-                <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
-                        class="fas fa-redo-alt"></i> Re-submit</a>
+            {% if item.get_submissions|length > 0 %}
+                <a href="{% url 'submissions' challenge_id=item.id %}" class="btn primary"><i
+                        class="fas fa-eye"></i>
+                    See Entries</a>
             {% else %}
-                <a href="{% url 'create_submission' challenge_id=item.pk %}" class="btn primary"><i
-                        class="fas fa-file-upload"></i> Submit</a>
+                This item is closed.
             {% endif %}
         </div>
     </div>
@@ -66,9 +63,6 @@
         <div class="ch-item"
              style="background: url({{ item.example_image.url }}); background-size: contain;
                      background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
-        </div>
-        <div class="ch-item">
-            <p>{{ item.description }}</p>
         </div>
     </div>
 </div>

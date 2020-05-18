@@ -135,6 +135,18 @@ The Interstellar (High End Tier) Product is represented by a futuristic space sh
 
 <img src="https://github.com/maliahavlicek/ms4_challenger/blob/master/documentation/products/clipart-rocket-red-rocket-17.png?raw=true" width="150" height="auto" alt="Futuristic Rocket Ship for high end product" />
 
+#### Design Elements
+The formal wire-ream process identified the need for the following User Interface Components:
+
+|                 |             |                    |              |
+|-----------------|-------------|--------------------|--------------|
+| navigation menu | forms       | button             | email        |
+| datepicker      | checkboxes  | multiple selection | cards        |
+| icons           | file picker | video player       | audio player |
+| tabbed content  | tooltips    | ratings            | carousel     |
+
+To save some development time bootstrap 4 was chosen as the CSS framework. I haven't actually used it before but it's well documented and there are many examples that you can modify and the amount of support is hard to beat. (Hoping to avoid date picker issues I had with bulma)
+
 #### Animations & Transitions
 
 Due to the vast age diversity of users targeted for this website, animations are subtle and slower than average.
@@ -193,21 +205,70 @@ The wire-frame process identified the need for the following User Interface Comp
 
 ## Technologies Used
 
+This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Postgres Databased served up via Heroku are the core components. 
+
 ### Programming Languages
 
+- [CSS3](https://www.w3schools.com/w3css/default.asp) - used to style DOM appearance. 
+- [HTML5](https://www.w3schools.com/html/default.asp) -  used to define DOM elements. 
+- [JQuery](https://jquery.com) - used to initialize handlers for user interactive elements such as Bootstrap framework pieces like: check boxes, date pickers, menu toggles.
+- [JavaScript](https://www.javascript.com/)  -  used to help handle challenge member entry.
+- [Python](https://www.python.org/) the project back-end functions are written using Python. Django and Python is used to build route functions.
+- [Django](https://docs.djangoproject.com/en/3.0/) Object Relational Mapper, HTML templating, URL routing, Form validation, Authentication, Admin and Security, does a lot of the heavy lifting for a website without much developer input 
+- [Markdown](https://www.markdownguide.org/) Documentation within the readme was generated using markdown
+
 ### Framework & Extensions
-- [bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
-- [dateimtepicker](https://pypi.org/project/django-datetimepicker/)
+
+- [dj-database-url](https://pypi.org/project/dj-database-url/) - allows use of environment variable for database connections
+- [bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/) - a mobile friendly CSS framework based on a responsive grid system. Provides out of the box UI components such as navigation menu bar, carousels, and cards. 
+- [django-bootstrap4](https://pypi.org/project/django-bootstrap4/) - Bootstrap 4 integration for Django
+- [django-crispy-forms](https://pypi.org/project/django-crispy-forms/) - Allows style and HTML control of Django template form displays
+- [django-forms-bootstrap](https://pypi.org/project/django-forms-bootstrap/) - allows further customization of bootstrap forms within Django framework
 
 ### Fonts
 
+- Base Font: [Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 
+- Header Font: [Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) 
+- Button Icons: [Font Awesome 5](https://fontawesome.com/icons?d=gallery)
+
 ### Tools
+- [github](https://github.com/) - used for version control of project files and branching out to try different things without adversely affecting a functional set of code
+- [balsamiq](https://balsamiq.com/) - used to create professional looking wire frames.
 - [favicon generator](https://favicon.io/favicon-generator/) - free site to help in website icon generation
+- [markdown table generator](https://www.tablesgenerator.com/markdown_tables) - used to help with documentation table formatting
+- [mardown table of contents generator](https://ecotrust-canada.github.io/markdown-toc/) - used to create table of contents (be weary it does have some bugs if you have dashes or trailing spaces in your headers)
+- [heroku](https://www.heroku.com/) - runs the ms4-challenger application in the cloud
+- [color contrast](https://webaim.org/resourceshttps://webaim.org/resources/contrastchecker//contrastchecker/) Tool was used to adjust colors on fonts flagged as needing a higher contrast ratio from google's lighthouse audit tool.
+- [lighthouse audit](https://developers.google.com/web/tools/lighthouse) Google's open source tool to help improve the quality of your website. Specifically paid attention to Accessibility and SEO aiming for scores above 80.
+- [axe - web accessibility testing](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) a chrome extension that helps identify other accessibility issues google's lighthouse tool misses, such as landmarks and headings.
+- [loom](https://www.loom.com/) - Free chrome extension to take screen capturing videos with audio 
+- [coolers](https://coolors.co/) - Color Scheme generator, used to fine tune color selection and find hover colors
 
 ### APIs
 
 ## Defensive Programming
 
+Sites with ownership rules and roles opens a site up to hacking especially if your users are savvy and notice url parameters correlate to database object manipulation. Django is pretty good allowing you to hook in login required for views associated with CRUD options, and form validation is top notch if you definite it yourself. Still I felt the need to add a bit more to prevent more tech aware users from doing naughty things:
+
+### Additional Security Checks
+1. Users cannot adjust their submissions outside of the challenge start and end dates. The Submission Delete, Submission Update, and Submission Create all check that the timezone adjusted date does not fall outside the Challenge Master's settings.
+1. Users cannot Delete or Update other's submissions. The Submit Delete and Submit Update views check for Entry Id's to prevent logged in users from guessing the ID of a peer's entry.
+1. Users cannot Update or Delete others' challenges. The Challenge Update and Challenge Delete views check for an owner's id before allowing someone manipulate the settings.
+1. Users cannot Update profiles for other users. The Profile Update view checks the user's id against the logged in user's id before allowing updates.
+1. Users cannot Checkout and enter a payment unless they are logged in and payments cannot be attributed to other profiles.
+1. Changing passwords requires sending registered email link and does not auto log in a user. While it's annoying to have to wait for a password reset email, then to login after setting it, this step prevents users from taking account ownership over if they manipulate a password reset for their account and attempt to hack another's.
+
+### Custom Validation
+1. Set up a virtual environment via this command in the terminal session:
+   - Emails and user names are unique to the account. 
+   - Users must be 13 years or older.
+1. Challenges
+   - Challenge end dates must be in the future for creation and updates
+   - Creation and Updates check current service level of user for submission types and features
+   - Before Creation, account limit is checked in case user is sharing account or has another tab open and exceeded limit
+1. Submissions
+   - Before Creation and Update, dates are checked to ensure user hasn't left a window open hoping to beat time limit
+   
 ## Testing
 
 ### Validation Testing
@@ -229,6 +290,8 @@ The wire-frame process identified the need for the following User Interface Comp
 #### Outstanding Defects
 
 ## Deployment
+
+This application can be run locally or deployed to a live environment. Directions are provided for deploying to Heroku.
 
 ### Requirements
 If any of the following are unfamiliar, please click on their associated links as they are necessary when setting the environmental variables required to run this application:
@@ -391,7 +454,11 @@ To run this application in a cloud environment to allow visibility to external u
 
 ## Credits
 
+No website can be created without the community resources found on the web. Searching [stackoverflow](https://stackoverflow.com/) and [GeeksfoGeeks](https://www.geeksforgeeks.org/) and reading blog about triumphs and fails has helped create this site. A special shout out for the articles that solved specific issues vs syntax questions can be found in the acknowledgements section.
+
 ### Content
+
+- The Product Level content was my own creation, but I did use the concept of a subscription based product pricing tier from [teamsnap](https://www.teamsnap.com/) 
 
 ### Media
 - [flavicon](https://www.google.com/url?sa=i&url=https%3A%2F%2Fclipartix.com%2Frocket-clipart-image-11754%2F&psig=AOvVaw3osFDBKQwlWi5l_ED0kzix&ust=1588579579787000&source=images&cd=vfe&ved=0CA0QjhxqFwoTCKifqZ6el-kCFQAAAAAdAAAAABAD) rocket falvicon image before recoloring and rotation 
@@ -401,8 +468,10 @@ To run this application in a cloud environment to allow visibility to external u
 - [free product image'](https://www.flaticon.com/free-icon/hot-air-balloon_2233035?term=hot%20air%20balloon&page=1&position=27) - hot air balloon
 
 ### Acknowledgements
-- [ragoli](https://codemyui.com/parallax-pixel-stars-using-pure-css/) star background
+- [ragoli](https://codemyui.com/parallax-pixel-stars-using-pure-css/) animated star field background for desktop
 - [coderwall](https://coderwall.com/p/mvsoyg/django-dumpdata-and-loaddata) for examples on how to dump data and load it which saves a bunch of time when deploying the application from a local database to a hosted database
-
-
-
+- [Wade Williams](https://wadewilliams.com/technology-software/generating-erd-for-django-applications/)- blog walking you through how to create ERD's from django automatically. Saved me a ton of time struggling with draw.io
+- [Dennis Ivy](https://dennis-sourcecode.herokuapp.com/) - countless tutorials about Django 3 to fill the gap from Django 1.1, thanks so much for the Profile, Stripe and ManyToMany coverage.
+- [Vishal](https://pynative.com/python-generate-random-string/) - how to create a random string in python, used for auto password creation
+- [Learning about Electronics](http://www.learningaboutelectronics.com/Articles/How-to-create-a-video-uploader-with-Python-in-Django.php) - how to get a video file uploaded and displaying
+- [pypi.org](https://pypi.org/) - used to search for plugins that would help with form presentation and many other inquiries
