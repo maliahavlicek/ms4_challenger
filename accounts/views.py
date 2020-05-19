@@ -25,8 +25,8 @@ def login(request):
             # allow next parameter to be used when user attempts to short cut to a login required page
             return redirect(next_page)
         else:
-            # if no next_page then go to products list page
-            return redirect(reverse('products'))
+            # if no next_page then go to challenges list page as that is the expected highest volume page
+            return redirect(reverse('challenges'))
     if request.method == "POST":
         login_form = UserLoginForm(request.POST)
         if login_form.is_valid():
@@ -40,8 +40,8 @@ def login(request):
                     # allow next parameter to be used when user attempts to short cut to a login required page
                     return redirect(next_page)
                 else:
-                    # if no next_page then go to products list page
-                    return redirect(reverse('products'))
+                    # if no next_page then go to challenges list page
+                    return redirect(reverse('challenges'))
             else:
                 login_form.add_error(None, "Username/email and password not valid.")
     else:
@@ -53,7 +53,9 @@ def login(request):
 def registration(request):
     """Render the registration page"""
     if request.user.is_authenticated:
-        return redirect(reverse('index'))
+        # logged in users can't go to registration page, send them back to challenges page
+        messages.error(request, 'You are already a registered user.')
+        return redirect(reverse('challenges'))
 
     if request.method == "POST":
         registration_form = UserRegistrationFrom(request.POST)

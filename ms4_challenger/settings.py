@@ -190,11 +190,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_PASS')
 
-# Use nose to run all tests
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=accounts,challenges,checkout,home,products,ratings,submissions',
-]
+if os.path.exists('env.py'):
+    pass
+else:
+    # Use nose to run all tests
+    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+    NOSE_ARGS = [
+        '--with-coverage',
+        '--cover-package=accounts,challenges,checkout,home,products,ratings,submissions',
+    ]

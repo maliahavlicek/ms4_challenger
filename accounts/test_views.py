@@ -41,10 +41,21 @@ class TestAccountViews(TestCase):
 
     # test that unauthenticated redirects with expected parameters
     def test_unauthenticated_redirects(self):
-        # has to login before checking out
+        # user is redirected to login before checking out
         page = self.client.get("/checkout/1/")
-        self.assertEqual(page.status_code, 302)
-        self.assertRedirects(page, '/accounts/login/?next=/checkout/1/')
+        self.assertRedirects(page, '/accounts/login/?next=/checkout/1/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+
+        # post invalid input and verify next page is still in response and was posted
+        page = self.client.post('/accounts/login/?next=/checkout/1/', {
+            'email': 'testing_1@test.com',
+            'username': 'testing_1',
+            'password1': 'test_pass_1',
+            'password2': 'test_pass_1',
+            'next': '/checkout/1/'
+        }, follow=True)
+        self.assertEquals(page.wsgi_request.POST['next'], '/checkout/1/')
+        self.assertContains(page, '<input type="hidden" name="next" value="/checkout/1/" id="id_next">')
 
         # has to login before seeing profile
         page = self.client.get("/accounts/profile/")
@@ -94,7 +105,8 @@ class TestAccountViews(TestCase):
             'password': 'tester_pw_1',
             'next': '/accounts/profile/update/',
         }, follow=True)
-        self.assertEqual(page.status_code, 200)
+        self.assertRedirects(page, '/accounts/profile/update/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
         self.assertTemplateUsed(page, 'profile_update.html')
         self.assertContains(page, 'Update Profile')
         user = auth.get_user(self.client)
@@ -111,4 +123,53 @@ class TestAccountViews(TestCase):
         self.assertFalse(user.is_authenticated)
         self.assertNotEqual(user.username, 'this_is_test_1')
 
+        # attempt to login with bad password
+        page = self.client.post('/accounts/login/', {
+            'username': 'testing@test.com',
+            'password': 'tester_pw_1111',
+        }, follow=True)
+        self.assertContains(page, "Username/email and password not valid.")
 
+        # login user with email, no next parameter, expectation is user goes to challenges page
+        page = self.client.post('/accounts/login/', {
+            'username': 'testing@test.com',
+            'password': 'tester_pw_1',
+        }, follow=True)
+
+        self.assertRedirects(page, '/challenges/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+        self.assertTemplateUsed(page, 'challenges.html')
+        self.assertContains(page, 'Challenges')
+        self.assertContains(page, 'You have successfully logged in')
+        user = auth.get_user(self.client)
+
+        # authenticated user if tries to go to login page goes back to challenges page
+        page = self.client.get('/accounts/login/', follow=True)
+        self.assertRedirects(page, '/challenges/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+        self.assertTemplateUsed(page, 'challenges.html')
+
+        # user that is authenticated tries to go to register page should be redirected to challenges page
+        page = self.client.get('/accounts/register/', follow=True)
+        self.assertRedirects(page, '/challenges/', status_code=302, target_status_code=200, msg_prefix='',
+                             fetch_redirect_response=True)
+        self.assertContains(page, 'You are already a registered user')
+        self.assertTemplateUsed(page, 'challenges.html')
+
+        # logout
+        page = self.client.post('/accounts/logout/', follow=True)
+        self.assertEqual(page.status_code, 200)
+        self.assertTemplateUsed(page, 'index.html')
+        self.assertNotIn('_auth_user_id', self.client.session)
+
+        # post login with a redirect to a next page
+        page = self.client.get('/accounts/profile/', follow=True)
+        self.assertRedirects(page, '/accounts/login/?next=/accounts/profile/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+
+        page = self.client.post('/accounts/login/?next=/accounts/profile/', {
+            'username': 'testing@test.com',
+            'password': 'tester_pw_1',
+            'next': '/accounts/profile',
+        }, follow=True)
+        self.assertTemplateUsed('profile.html')
