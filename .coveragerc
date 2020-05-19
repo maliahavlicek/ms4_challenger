@@ -1,7 +1,6 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
-include = ./*
 omit =
     # no migrations
     */migrations/*
