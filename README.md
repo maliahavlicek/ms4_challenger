@@ -73,8 +73,8 @@ As a member of Challenger's website, I expect/want/need:
 - To update an existing challenge
 
 ### Wireframes
-This product aims to deliver a private small team feel similar to [teamsnap](https://teamsnap.com) and the ability to quickly view and like items similar to [instagram](https://www.instagram.com/). I started wireframes early in the design process while flipping between the two pre-existing apps. Then tackled some tough user interaction like adding members before I invested several hours to mock-up and fine-tuning the user experience around challenges using Balsamiq to create [detailed mockups](documentation/balsamiq.md) like the one below:
-[![view Balsamiq deck](documentation/mockups/Challenges_Member%20List.png)](documentation/balsamiq.md)
+This product aims to deliver a private small team feel similar to [teamsnap](https://teamsnap.com) and the ability to quickly view and like items similar to [instagram](https://www.instagram.com/). I started wireframes early in the design process while flipping between the two pre-existing apps. Then tackled some tough user interaction like adding members before I invested several hours to mock-up and fine-tuning the user experience around challenges using Balsamiq to create [detailed mockups](documentation/WIREFRAMES.md) like the one below:
+[![view Balsamiq deck](documentation/mockups/Challenges_Member%20List.png)](documentation/WIREFRAMES.md)
 
 ### Design Choices
 
@@ -260,7 +260,8 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [coolers](https://coolors.co/) - Color Scheme generator, used to fine tune color selection and find hover colors
 - [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) - used to identify bits code that have been executed, then analyzes the source to identify code that could have been executed but was not.
 - [django-extensions](https://pypi.org/project/django-extensions/) - used for validating templates, and graphics for models
--[pip](https://pip.pypa.io/en/stable/installing/) - used to install python extensions for this project
+- [pip](https://pip.pypa.io/en/stable/installing/) - used to install python extensions for this project
+- [django-nose](https://pypi.org/project/django-nose/) - used to help configure and run tests with coverage output
 
 
 ### APIs
@@ -293,25 +294,7 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
    
 ## Testing
 
-### Validation Testing
-
-- [django-extensions](https://pypi.org/project/django-extensions/) - used for validating templates from the command line ```python manage.py validate_templates```
-
-### Unit Testing
-
-### Cross Browser/Cross Device Verification
-
-### Accessibility Testing
-
-### Regression Testing
-
-### Automated Testing
-
-### Defect Tracking
-
-#### Noteworthy Bugs
-
-#### Outstanding Defects
+Validation, manual unit, cross browser/cross device, accessibility, travis, coverage, this app has a dash of everything test related. See the separate [TESTING.md](documentation/TESTING.md) file for the details.
 
 ## Deployment
 

@@ -1,18 +1,31 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
-
-[report]
-# omit from report
+include = ./*
 omit =
-    # no virtual environment
-    .venv/*
-
     # no migrations
     */migrations/*
 
     # no __init__.py
-    */__init__.py
+    */__init__*
+
+    # no env files
+    */*env.py
+
+    # no settings files
+    */settings.py
+
+[report]
+# omit from report
+ignore_errors = True
+exclude_lines =
+        pragma: no cover
+omit =
+    # no migrations
+    */migrations/*
+
+    # no __init__.py
+    */__init__*
 
     # no env files
     */*env.py
@@ -21,10 +34,19 @@ omit =
     */settings.py
 
     # no test files
-    */test*.py
+    */test_*.py
+    */tests.py
 
-ignore_errors = True
+    # no urls.py
+    */urls.py
+    */url_*.py
+
+    # no app or admin files (did not modify django admin)
+    */admin.py
+    # no report on apps or wsgi, asgi files
+    */apps.py
+    ms4_challenger/*.py
 
 [html]
-directory = home/templates/test_coverage
+directory = test_coverage
 
