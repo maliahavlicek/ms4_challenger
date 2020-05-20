@@ -1,51 +1,50 @@
 # .coveragerc to control coverage.py
 [run]
-branch = True
+# limit coverage to sniff only specific application folders
+source=
+    accounts
+    challenges
+    checkout
+    home
+    products
+    ratings
+    submissions
+# omit specific files that really aren't related to application code
 omit =
-    # no migrations
     */migrations/*
-
-    # no __init__.py
     */__init__*
-
-    # no env files
-    */*env.py
-
-    # no settings files
-    */settings.py
+    */test*.py
+    */url*.py
+    */admin.py
+    */apps.py
+    ms4_challenger/*.py
+    */static/*
+    */media/*
+    .venv/*
+    /documentation/*
+    /test_coverage/*
 
 [report]
 # omit from report
+omit =
+    */migrations/*
+    */__init__*
+    */test*.py
+    */url*.py
+    */admin.py
+    */apps.py
+    ms4_challenger/*.py
+    */static/*
+    */media/*
+    .venv/*
+    /documentation/*
+    /test_coverage/*
 ignore_errors = True
 exclude_lines =
         pragma: no cover
-omit =
-    # no migrations
-    */migrations/*
 
-    # no __init__.py
-    */__init__*
-
-    # no env files
-    */*env.py
-
-    # no settings files
-    */settings.py
-
-    # no test files
-    */test_*.py
-    */tests.py
-
-    # no urls.py
-    */urls.py
-    */url_*.py
-
-    # no app or admin files (did not modify django admin)
-    */admin.py
-    # no report on apps or wsgi, asgi files
-    */apps.py
-    ms4_challenger/*.py
 
 [html]
+# designate output location
 directory = test_coverage
 
