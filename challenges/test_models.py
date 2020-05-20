@@ -3,6 +3,7 @@ from .models import Challenge, User
 from submissions.models import Entry
 from django.core.management import call_command
 from datetime import datetime, date, timedelta
+import time
 
 
 class TestChallenge(TestCase):
@@ -63,6 +64,7 @@ class TestChallenge(TestCase):
         """
         user1 = User.objects.get(pk=1)
         product = user1.profile.get_product_level()
+        orig_challenge_count = len(user1.profile.get_owned_challenges())
         self.assertTrue(product.name, 'Free')
         submission_types = ['submission_image']
         if 'submission_audio' in product.features:
@@ -82,8 +84,6 @@ class TestChallenge(TestCase):
             submission_storage_cap=product.max_submission_size_in_MB,
             submission_types=submission_types,
         )
-        # verify owner is as expected
-        self.assertEquals(challenge.owner.email, 'testing_1@test.com')
         # verify no submissions
         self.assertEquals(len(challenge.get_submissions()), 0)
         # verify no members
@@ -96,6 +96,21 @@ class TestChallenge(TestCase):
         self.assertTrue(challenge.example_image.name in str(challenge))
         # verify video name is in string representation of challenge object
         self.assertTrue(str(challenge.example_video) in str(challenge))
+
+        # db may be slow, so let's wait a bit in a controlled manner
+        tries = 0
+        while tries < 5:
+            time.sleep(.5)
+            user1 = User.objects.get(pk=1)
+            new_count = len(user1.profile.get_owned_challenges())
+            tries += 1
+            if new_count == orig_challenge_count + 1:
+                tries = 5
+
+        # verify owner is as expected
+        user1 = User.objects.get(pk=1)
+        self.assertEquals(challenge.owner.email, 'testing_1@test.com')
+        self.assertEqual(orig_challenge_count + 1, len(user1.profile.get_owned_challenges()))
 
         """
         Update the challenge
