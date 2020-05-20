@@ -69,7 +69,7 @@ Tests were written for Django views, forms, models. These files are located in e
 [django-nose](https://pypi.org/project/django-nose/) was used to help configure and run tests with coverage output. The configurations are stored in the [.coveragerc] (https://github.com/maliahavlicek/ms4_challenger/blob/master/.coveragerc) file.
 
 To run these tests go to the command terminal and:
-1. ```python manage.py test --noinput ```
+1. ```python manage.py test --cover-tests --noinput ```
 1. Generate a report ```coverage report```
 1. Generate the HTML ```coverage html```
 1. Open the newly created test_coverage directory in the root of your project folder.

@@ -191,7 +191,7 @@ EMAIL_HOST_USER = environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_PASS')
 
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
-if 'test3' in sys.argv:
+if DEBUG:
     TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
     NOSE_ARGS = []
 else:
