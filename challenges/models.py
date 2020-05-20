@@ -80,6 +80,7 @@ class Challenge(models.Model):
 
 
 class Member(models.Model):
+    """ this model is used via javascript and associated forms, but never entered in the database"""
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField()

@@ -4,6 +4,8 @@ from .models import Profile, User
 from products.models import ServiceLevel
 from django.urls import reverse
 from django.contrib import auth
+from .models import Tag
+from datetime import datetime, date, timedelta
 
 
 class TestAccountViews(TestCase):
@@ -21,6 +23,14 @@ class TestAccountViews(TestCase):
             image='/images/products/hot-air-balloon.png'
         )
         product.save()
+
+        # create a couple of tags
+        Tag.objects.create(
+            name='Sports',
+        )
+        Tag.objects.create(
+            name='Music',
+        )
 
     # test home page can be hit and that user is not logged in
     def test_get_home_page(self):
@@ -112,6 +122,34 @@ class TestAccountViews(TestCase):
         user = auth.get_user(self.client)
         self.assertTrue(user.is_authenticated)
         self.assertEqual(user.username, 'this_is_test_1')
+
+        # post to profile with too young of birthday
+        page = self.client.post('/accounts/profile/update/', {
+            'profile_pic': 'accounts/fixtures/profile2.png',
+            'birth_date': (datetime.now() - timedelta(days=3000)).date(),
+            'tags': [],
+        }, follow=True)
+        self.assertContains(page, 'You must be 10 years or older to use this platform.')
+
+        # post to profile with future birth date
+        page = self.client.post('/accounts/profile/update/', {
+            'profile_pic': 'accounts/fixtures/profile2.png',
+            'birth_date': (datetime.now() + timedelta(days=3)).date(),
+            # {"model": "accounts.tag", "pk": 3, "fields": {"name": "Languages"}},
+            'tags': [],
+        }, follow=True)
+        self.assertContains(page, 'Please enter a valid birth date.')
+        self.assertTemplateUsed(page, 'profile_update.html')
+
+        # post to profile with all necessary data
+        page = self.client.post('/accounts/profile/update/', {
+            'profile_pic': 'accounts/fixtures/profile2.png',
+            'birth_date': (datetime.now() - timedelta(days=3653)).date(),
+            'tags': [],
+        }, follow=True)
+        self.assertContains(page, 'Your profile was successfully updated!')
+
+        self.assertTemplateUsed(page, 'profile.html')
 
         # logout user, should go to home page, no user in session
         page = self.client.post('/accounts/logout/', follow=True)

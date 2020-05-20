@@ -113,6 +113,7 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(widget=DateInput)
     profile_pic = forms.ImageField(label="Avatar")
+    tags = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, required=False, label="Interests")
 
     class Meta:
         model = Profile

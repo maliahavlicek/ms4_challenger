@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+import sys
 import os
 from os import environ
 import dj_database_url
@@ -191,8 +191,9 @@ EMAIL_HOST_USER = environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = environ.get('EMAIL_PASS')
 
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
-if os.path.exists('env.py'):
-    pass
+if 'test3' in sys.argv:
+    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+    NOSE_ARGS = []
 else:
     # Use nose to run all tests
     TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
