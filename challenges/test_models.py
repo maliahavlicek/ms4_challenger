@@ -1,9 +1,10 @@
 from django.test import TestCase
-from .models import Challenge, User
+from .models import Challenge
 from submissions.models import Entry
 from django.core.management import call_command
 from datetime import datetime, date, timedelta
 import time
+from django.contrib.auth.models import User
 
 
 class TestChallenge(TestCase):
