@@ -127,6 +127,7 @@ class ProfileForm(forms.ModelForm):
         required=False,
         label="Interests")
 
+
     class Meta:
         model = Profile
         fields = '__all__'
@@ -155,19 +156,34 @@ class ProfileForm(forms.ModelForm):
             Row(
                 Column('profile_pic', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0"><img class="profile-pic profile-outline" src="{{ request.user.profile.profile_pic.url }}"/></div>'),
+                    '<div class="form-group col-md-6 mb-0">'
+                    '<img class="profile-pic profile-outline"'
+                    'src="{{ request.user.profile.profile_pic.url }}"/></div>'
+                ),
                 css_class='form-row'
             ),
             Row(
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">'
+                    '<div id="div_id_tags" class="form-group">'
+                    '<label for="" class="">Interests</label>'
+                    '<div class="">'
+                    '{% for value, text in profile_form.tags.field.choices %}'
+                    '<div class="field multi_select_form_field checkbox_select_multiple">'
+                    '<label class="" for="id_tags_{{ forloop.counter0 }}">'
+                    '<input type="checkbox" class="" name="tags" id="id_tags_{{ forloop.counter0 }}" value="{{value}}" {% if value in request.user.profile.get_tags_values %} checked="checked"{% endif %}>'
+                    '{{ text }}</label>'
+                    '</div>'
+                    '{% endfor %}'
+                    '</div>'
+                    '</div>'
+                    '</div>'
+                ),
                 Column('birth_date', css_class='form-group col-md-6 mb-0'),
-                Column('tags', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row',
 
             ),
-            # Row(
-            #     HTML(
-            #         '<div class="form-group col-md-12 mb-0">{% for value, text in profile_form.tags.field.choices %}<div class="ui slider checkbox"><input id="id_tags_{{ forloop.counter0 }}" name="{{ profile_form.tags.name }}" type="checkbox" value="{{ value }}"{% if value in checked_tags %} checked="checked"{% endif %}><label>{{ text }}</label></div>{% endfor %}</div>'),
-            #
-            # ),
-            Submit('submit', 'Save Changes')
+            Submit('submit', 'Save Changes'),
+            Submit('cancel', 'Cancel', css_class='btn btn-cancel')
         )
+

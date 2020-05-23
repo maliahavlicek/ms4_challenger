@@ -78,6 +78,15 @@ class Profile(models.Model):
             tags = []
         return tags
 
+    def get_tags_values(self):
+        """model function to return tags/interests"""
+        try:
+            tags = list(self.tags.all().values('pk'))
+            tags = [d['pk'] for d in tags if 'pk' in d]
+        except:
+            tags = []
+        return tags
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:

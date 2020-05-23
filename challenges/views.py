@@ -32,7 +32,7 @@ def create_challenge(request):
     owned_challenges = request.user.profile.get_owned_challenges()
     challenge_form = CreateChallengeForm()
 
-    if owned_challenges and len(owned_challenges) == owned_product.max_number_of_challenges:
+    if owned_challenges and owned_challenges.count() == owned_product.max_number_of_challenges:
         # check if user is at challenge limit for product_level
         messages.warning(request, "You are at your limit for challenges, please delete one before creating a new one.")
         return redirect(reverse('challenges'))
@@ -75,9 +75,9 @@ def create_challenge(request):
 
             member_status = []
             for member in members:
-                user1 = User.objects.filter(email=member['email'])
+                user1 = User.objects.filter(email=member['email']).first()
                 if user1:
-                    user1 = user1[0]
+                    user1 = user1
                     challenge.members.add(user1)
                     member_status.append({
                         'user': user1.pk,
@@ -134,8 +134,8 @@ def delete_challenge(request, id):
         message = challenge.name.title() + "Has been deleted. \n\tA cancellation email has been sent to the following users:"
         for member in members:
             members.append({'user': member})
-            user1 = User.objects.filter(id=member)
-            message += '\t' + user1[0].email
+            user1 = User.objects.filter(id=member).first()
+            message += '\t' + user1.email
         challenge_canceled_email(members, challenge)
         Challenge.objects.filter(id=id).delete()
         messages.success(request, message)
@@ -215,9 +215,9 @@ def update_challenge(request, id):
 
                 member_status = []
                 for member in members:
-                    user1 = User.objects.filter(email=member['email'])
+                    user1 = User.objects.filter(email=member['email']).first()
                     if user1:
-                        user1 = user1[0]
+                        user1 = user1
                         # see if user is in existing member list or new to challenge
                         if not any(d['email'] == member['email'] for d in member_data):
                             status = 'existing'
@@ -247,12 +247,12 @@ def update_challenge(request, id):
                 # now need to check if any members were dropped
                 for old_member in member_data:
                     if not any(d['email'] == old_member['email'] for d in members):
-                        user1 = User.objects.filter(email=old_member['email'])
+                        user1 = User.objects.filter(email=old_member['email']).first()
                         member_status.append({
-                            'user': user1[0].pk,
+                            'user': user1.pk,
                             'status': 'out'
                         })
-                        challenge.members.remove(user1[0].pk)
+                        challenge.members.remove(user1.pk)
                 # send emails to challenge members
                 message = challenge_update_email_builder(member_status, challenge, change_matrix)
                 messages.success(request, message)
