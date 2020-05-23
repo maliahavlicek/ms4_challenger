@@ -6,6 +6,7 @@
             <div class="progress-bar" style="height:30px;width:{{ item.get_rating|percent_rating }}%;"><span
                 id="aggregate_rating_txt_{{ item.id }}">{{ item.get_rating }}</span> out of 3</div>
         </div>
+        <div class="trophies" style="--rating: {{item.get_rating|num}};" aria-label="Rating of this product is {{item.get_rating}} out of 3."></div>
 
     {% else %}
         <p>No ratings yet.</p>

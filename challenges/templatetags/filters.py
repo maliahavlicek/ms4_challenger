@@ -35,3 +35,9 @@ def percent_rating(value):
     value = Decimal(value)
     value = round(value/3, 2)*100
     return value
+
+@register.filter(name="num")
+def num(value):
+    """take rating value and divide by 3 return decimal percentage value"""
+    value = Decimal(value)
+    return value

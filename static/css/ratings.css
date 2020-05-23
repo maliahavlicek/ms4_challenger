@@ -1,3 +1,29 @@
+/* trophies */
+
+  :root {
+  --trophy-size: 30px;
+  --trophy-color: #343a40;
+  --trophy-background: #fc0;
+}
+
+.trophies {
+  --percent: calc(var(--rating) / 3 * 100%);
+
+  display: inline-block;
+  font-size: var(--trophy-size);
+  font-family: FontAwesome; // make sure trophy appears correctly
+  line-height: 1;
+}
+.trophies::before {
+    content: '\f091\f091\f091';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--trophy-background) var(--percent), var(--trophy-color) var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+
+
 /* all submissions */
 .carousel-inner {
     width: calc(100% - 40px);
