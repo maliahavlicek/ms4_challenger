@@ -3,9 +3,12 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from django.utils.safestring import mark_safe
+
+from .models import Profile, Tag
 from datetime import date
 from multiselectfield import MultiSelectField
+
 
 
 class DateInput(forms.DateInput):
@@ -118,7 +121,12 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(widget=DateInput)
     profile_pic = forms.ImageField(label="Profile Picture")
-    tags = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, required=False, label="Interests")
+    tags = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        choices=((c.pk, mark_safe(c.name)) for c in Tag.objects.all()),
+        required=False,
+        label="Interests")
+
 
     class Meta:
         model = Profile
@@ -148,19 +156,34 @@ class ProfileForm(forms.ModelForm):
             Row(
                 Column('profile_pic', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0"><img class="profile-pic profile-outline" src="{{ request.user.profile.profile_pic.url }}"/></div>'),
+                    '<div class="form-group col-md-6 mb-0">'
+                    '<img class="profile-pic profile-outline"'
+                    'src="{{ request.user.profile.profile_pic.url }}"/></div>'
+                ),
                 css_class='form-row'
             ),
             Row(
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">'
+                    '<div id="div_id_tags" class="form-group">'
+                    '<label for="" class="">Interests</label>'
+                    '<div class="">'
+                    '{% for value, text in profile_form.tags.field.choices %}'
+                    '<div class="field multi_select_form_field checkbox_select_multiple">'
+                    '<label class="" for="id_tags_{{ forloop.counter0 }}">'
+                    '<input type="checkbox" class="" name="tags" id="id_tags_{{ forloop.counter0 }}" value="{{value}}" {% if value in request.user.profile.get_tags_values %} checked="checked"{% endif %}>'
+                    '{{ text }}</label>'
+                    '</div>'
+                    '{% endfor %}'
+                    '</div>'
+                    '</div>'
+                    '</div>'
+                ),
                 Column('birth_date', css_class='form-group col-md-6 mb-0'),
-                Column('tags', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row',
 
             ),
-            # Row(
-            #     HTML(
-            #         '<div class="form-group col-md-12 mb-0">{% for value, text in profile_form.tags.field.choices %}<div class="ui slider checkbox"><input id="id_tags_{{ forloop.counter0 }}" name="{{ profile_form.tags.name }}" type="checkbox" value="{{ value }}"{% if value in checked_tags %} checked="checked"{% endif %}><label>{{ text }}</label></div>{% endfor %}</div>'),
-            #
-            # ),
-            Submit('submit', 'Save Changes')
+            Submit('submit', 'Save Changes'),
+            Submit('cancel', 'Cancel', css_class='btn btn-cancel')
         )
+

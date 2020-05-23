@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block page_title %}
-    Account Settings
+    Account Overview
 {% endblock %}
 {% block page_heading %}
-    Account Settings
+    Account Overview
 {% endblock %}
 {% block main_content %}
     <div class="row">
@@ -27,14 +27,21 @@
                 <span class="label">First Name: </span>
                 {% if request.user.first_name %}
                     {{ request.user.first_name }}
+                {% else %}
+                    <span class="empty-form"></span>
                 {% endif %}
             </p>
             <p>
                 <span class="label">Last Name: </span>
                 {% if request.user.last_name %}
                     {{ request.user.last_name }}
+                {% else %}
+                    <span class="empty-form"></span>
                 {% endif %}
             </p>
+        </div>
+        <div class="col-md-12">
+            <a href="{% url 'update_profile' %}">Make Changes</a>
         </div>
     </div>
     <div class="row">
@@ -47,21 +54,31 @@
             <p>
                 <span class="label">Birth Date: </span>
                 {% if request.user.profile.birth_date %}
-                    {{ request.profile.birth_date }}
+                    {{ request.user.profile.birth_date|date }}
+                {% else %}
+                    <span class="empty-form"></span>
                 {% endif %}
             </p>
             <p>
                 <span class="label">Interests: </span>
-                {% if request.user.profile.tags %}
-                    {% for tag in tags %}
-                        {{ tag }}<br>
-                    {% endfor %}
+                {% if request.user.profile.get_tags|length > 0 %}
+                    <ul>
+                        {% for tag in request.user.profile.get_tags %}
+                            <li>{{ tag.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    None<br>
                 {% endif %}
             </p>
         </div>
         <div class="col-md-4">
             <span class="label">Avatar: </span>
             <img class="profile-pic profile-outline" src="{{ request.user.profile.profile_pic.url }}">
+        </div>
+
+        <div class="col-md-12">
+            <a href="{% url 'update_profile' %}">Make Changes</a>
         </div>
     </div>
 
@@ -81,5 +98,10 @@
                 {% endif %}
             </p>
         </div>
+        {% if request.user.profile.product_level.name != "Interstellar" %}
+            <div class="col-md-12">
+                <a href="{% url 'products' %}">Make Changes</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
