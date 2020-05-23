@@ -27,6 +27,13 @@ form {
     margin: 10px 0;
 }
 
+/* empty form display */
+span.empty-form {
+    border-bottom: 1px solid black;
+    min-width: 100px;
+    display: inline-block;
+}
+
 /* overwrite styles for base fonts */
 body {
     font-family: Exo, Arial, sans-serif;
@@ -223,7 +230,7 @@ label.control-label::after, .form-group label:after {
 }
 
 /* no colon for checkbox groups */
-.custom-checkbox label.control-label::after{
+.custom-checkbox label.control-label::after {
     content: '';
 }
 
@@ -350,9 +357,31 @@ label.control-label::after, .form-group label:after {
         display: flex;
         flex: 1;
     }
+
     h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
         font-size: 32px;
     }
+    h2{
+        font-size: 30px;
+    }
+    h3{
+        font-size: 28px;
+    }
+    h4{
+        font-size: 26px;
+    }
+    h5{
+        font-size:24px;
+    }
+
+    a.dropdown-item.nav-link {
+        font-size: 22px;
+    }
+    .navbar-dark .navbar-nav .show > a.dropdown-item.nav-link:hover{
+        color: var(--link);
+        background: var(--gray);
+    }
+
 
     .full {
         grid-column: 1 / span 4;

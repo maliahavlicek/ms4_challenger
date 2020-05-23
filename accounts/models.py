@@ -70,6 +70,14 @@ class Profile(models.Model):
                 )
         return owned_product
 
+    def get_tags(self):
+        """model function to return tags/interests"""
+        try:
+            tags = list(self.tags.all())
+        except:
+            tags = []
+        return tags
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
