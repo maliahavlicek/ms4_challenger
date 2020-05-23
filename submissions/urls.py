@@ -1,3 +1,6 @@
+"""
+/submissions URL Configuration
+"""
 from django.urls import path
 from .views import all_submissions, create_submission, update_submission, delete_submission
 

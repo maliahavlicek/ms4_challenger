@@ -26,6 +26,7 @@ def all_submissions(request, challenge_id):
     return render(request, "submissions.html", {
         "challenge": challenge,
         "submissions": submissions,
+        "choices": [('1', 'nice'), ('2', 'good'), ('3', 'great')],
     })
 
 
@@ -100,7 +101,6 @@ def create_submission(request, challenge_id):
 
             # send flow to challenges list page
             return redirect(reverse('challenges'))
-
 
     return render(request, "create_submission.html", {
         "challenge": challenge,

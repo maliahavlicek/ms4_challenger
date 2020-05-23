@@ -1,0 +1,216 @@
+/* all submissions */
+.carousel-control-next, .carousel-control-prev {
+    color: var(--primary);
+    bottom: -250px;
+    width: 15px;
+}
+
+.carousel-control-next:focus, .carousel-control-next:hover, .carousel-control-prev:focus, .carousel-control-prev:hover {
+    color: var(--primary-dark);
+}
+
+.carousel-inner > .carousel-item > img {
+    width: auto;
+    height: 50vh;
+}
+
+.carousel-caption {
+    position: relative;
+    right: 0;
+    left: 0;
+    color: var(--gary-dark);
+    text-align: center;
+}
+
+/* ratings dials */
+.difficultyLevel {
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.difficultyLevel:hover .level-1 .firstRing {
+    background-color: #00D1B2;
+    background-image: linear-gradient(.5turn, #45DDC7, #00D1B2, #45DDC7 100%);
+}
+
+.difficultyLevel:hover .level-2 .firstRing {
+    background-color: #3273DC;
+    background-image: linear-gradient(.5turn, #6999E5, #3273DC, #6999E5 100%);
+}
+
+.difficultyLevel:hover .level-3 .firstRing {
+    background-color: #FF6B89;
+    background-image: linear-gradient(.5turn, #FFA0B3, #FF6B89, #FFA0B3 100%);
+}
+
+.difficultyLevel:hover .secondRing {
+    background-color: #999;
+    background-image: linear-gradient(0.3turn, #CCC, #FFF, #CCC 100%);
+}
+
+.firstRing {
+    height: 85px;
+    width: 85px;
+    border-radius: 50%;
+    background-color: #999;
+    background-image: linear-gradient(0.3turn, #CCC, #FFF, #CCC 100%);
+    background-clip: content-box;
+    border: solid 1px #CCC;
+    position: relative;
+    text-align: center;
+
+}
+
+.secondRing {
+    position: relative;
+    margin: 9px;
+    text-align: center;
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    background-color: #00835F;
+    background-image: linear-gradient(.5turn, #8cc63f, #00835f, #8cc63f 100%);
+    background-clip: content-box;
+    transition: border-color 200ms ease-in, background-color 200ms ease-in;
+    border: solid 1px #00835F;
+}
+
+.thirdRing {
+
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    background-clip: content-box;
+    position: relative;
+    margin: 4px;
+
+}
+
+.innerText {
+    color: #00835F;
+    font-size: 18px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    vertical-align: middle;
+    line-height: 60px;
+    transform: rotate(-10deg);
+    text-transform: uppercase;
+}
+
+.innerText:before {
+    content: '\f091';
+    font-family: "FontAwesome";
+    letter-spacing: 3px;
+    background: #262626;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: absolute;
+    top: -20px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+
+.level-1 .secondRing {
+    background-color: #00D1B2;
+    background-image: linear-gradient(.5turn, #45DDC7, #00D1B2, #45DDC7 100%);
+    background-clip: content-box;
+    transition: border-color 200ms ease-in, background-color 200ms ease-in;
+    border: solid 1px #00D1B2;
+}
+
+.level-1 .innerText {
+    color: #004C41;
+    font-weight: 700;
+}
+
+.level-1 .innerText:before {
+    content: '\f091';
+    font-family: "FontAwesome";
+}
+
+.level-2 .secondRing {
+    background-color: #3273DC;
+    background-image: linear-gradient(.5turn, #6999E5, #3273DC, #6999E5 100%);
+    background-clip: content-box;
+    transition: border-color 200ms ease-in, background-color 200ms ease-in;
+    border: solid 1px #3273DC;
+}
+
+.level-2 .innerText {
+    color: #050C63;
+}
+
+.level-2 .innerText:before {
+    content: '\f091\f091';
+}
+
+.level-2 .firstRing {
+    background-image: linear-gradient(0.3turn, #CCC, #FFF, #6999E5 100%);
+    background-clip: content-box;
+    border: solid 1px #6999E5;
+}
+
+.level-3 .secondRing {
+    background-color: #FF6B89;
+    background-image: linear-gradient(.5turn, #FFA0B3, #FF6B89, #FFA0B3 100%);
+    background-clip: content-box;
+    transition: border-color 200ms ease-in, background-color 200ms ease-in;
+    border: solid 1px #FF6B89;
+}
+
+.level-3 .innerText {
+    color: #5C070A;
+}
+
+.level-3 .innerText:before {
+    content: '\f091\f091\f091';
+}
+
+.level-3 .firstRing {
+    background-image: linear-gradient(0.3turn, #CCC, #FFF, #FFA0B3 100%);
+    background-clip: content-box;
+    border: solid 1px #FFA0B3;
+}
+
+
+/* TABLET STYLES */
+@media screen and (min-width: 769px) {
+
+    /* all submissions */
+    /* adjustments for rating input dials */
+    .firstRing {
+        height: 100px;
+        width: 100px;
+    }
+
+    .secondRing {
+        height: 80px;
+        width: 80px;
+    }
+
+    .thirdRing {
+        background-color: #CCC;
+        height: 70px;
+        width: 70px;
+        border: solid 1px #CCC;
+    }
+
+    .difficultyLevel.level-1:hover .thirdRing, .difficultyLevel.level-1:hover .firstRing{
+        background-color: #00D1B2;
+        background-image: linear-gradient(.5turn, #45DDC7, #00D1B2, #45DDC7 100%);
+    }
+
+    .difficultyLevel.level-2:hover .thirdRing, .difficultyLevel.level-2:hover .firstRing {
+        background-color: #3273DC;
+        background-image: linear-gradient(.5turn, #6999E5, #3273DC, #6999E5 100%);
+    }
+
+    .difficultyLevel.level-3:hover .thirdRing, .difficultyLevel.level-3:hover .firstRing{
+        background-color: #FF6B89;
+        background-image: linear-gradient(.5turn, #FFA0B3, #FF6B89, #FFA0B3 100%);
+    }
+}

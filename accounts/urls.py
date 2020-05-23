@@ -1,3 +1,6 @@
+"""
+/accounts URL Configuration
+"""
 from django.conf.urls import include
 from django.urls import path
 from accounts.views import logout, login, registration, user_profile, update_profile

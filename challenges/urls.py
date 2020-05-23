@@ -1,3 +1,6 @@
+"""
+/challenges URL Configuration
+"""
 from django.urls import path
 from .views import all_challenges, create_challenge, delete_challenge, update_challenge
 

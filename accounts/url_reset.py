@@ -1,3 +1,6 @@
+"""
+password reset URL Configuration
+"""
 from django.conf.urls import url
 from django.urls import reverse_lazy
 from django.contrib.auth import views as auth_views

@@ -1,0 +1,17 @@
+{% load crispy_forms_tags %}
+<div class="rating-input">
+    <h4>What Do You Think?</h4>
+    {% for choice in choices %}
+        <a type="submit" role="button" class="difficultyLevel level-{{ choice.0 }}" data-rating="{{ choice.0 }}" data-reviewer="{{ user.pk }}"
+             data-entry="{{ item.id }}">
+            <div class="firstRing">
+                <div class="secondRing">
+                    <div class="thirdRing">
+                        <div class="innerText">{{ choice.1 }}</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+
+</div>

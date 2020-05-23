@@ -338,16 +338,6 @@ label.control-label::after, .form-group label:after {
     display: none;
 }
 
-/* Submissions Review */
-.carousel-caption {
-    position: relative;
-    right: 0;
-    left: 0;
-    color: var(--gary-dark);
-    text-align: center;
-}
-
-
 /* TABLET STYLES */
 @media screen and (min-width: 769px) {
     h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
@@ -410,13 +400,6 @@ label.control-label::after, .form-group label:after {
     /* main-content height fills page */
     .main-content {
         min-height: calc(100vh - 11.5rem);
-    }
-
-    /* all submissions */
-
-    .carousel-inner > .carousel-item > img{
-        width: auto;
-        height: 50vh;
     }
 
 }
