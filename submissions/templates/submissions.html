@@ -15,9 +15,9 @@
         <p>There are no submissions for this challenge yet.</p>
     {% else %}
         {# Ratings input needs the csrf_token #}
-          <form class="form-wrap" role="form" id="submit-rating-form">
+        <form class="form-wrap" role="form" id="submit-rating-form">
             {% csrf_token %}
-            <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div id="carousel" class="carousel slide" data-ride="carousel">
 
                 <div class="carousel-inner">
                     {% for item in submissions %}
@@ -36,11 +36,11 @@
                         </div>
                     {% endfor %}
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                     <i aria-hidden="true" class="fas fa-lg fa-chevron-circle-left"></i>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
                     <i aria-hidden="true" class="fas fa-lg fa-chevron-circle-right"></i>
                     <span class="sr-only">Next</span>
                 </a>

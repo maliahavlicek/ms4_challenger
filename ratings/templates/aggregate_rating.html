@@ -1,8 +1,7 @@
 <div class="peerRating">
     <h4>Peer Rating</h4>
     {% if item.get_rating > 0 %}
-        <progress class="trophies" id="aggregate_rating_pb_{{ item.id }}" value="{{ item.get_rating }}"></progress>
-        <p><span id="aggregate_rating_txt_{{ item.id }}">{{ item.get_rating }}</span> out of 3</p>
+        <progress class="trophies" id="aggregate_rating_pb_{{ item.id }}" value="{{ item.get_rating }}" max="3"><span id="aggregate_rating_txt_{{ item.id }}">{{ item.get_rating }}</span> out of 3</progress>
     {% else %}
         <p>No ratings yet.</p>
     {% endif %}
