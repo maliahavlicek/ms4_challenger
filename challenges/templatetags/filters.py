@@ -1,6 +1,7 @@
 from django import template
 from datetime import datetime
 from collections.abc import Iterable
+from decimal import Decimal
 register = template.Library()
 
 
@@ -26,3 +27,11 @@ def has_user(value, match):
             return False
     else:
         return False
+
+
+@register.filter(name="percent_rating")
+def percent_rating(value):
+    """take rating value and divide by 3 return decimal percentage value"""
+    value = Decimal(value)
+    value = round(value/3, 2)*100
+    return value

@@ -22,16 +22,15 @@
                 <div class="carousel-inner">
                     {% for item in submissions %}
                         <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
-
-                            {% include 'aggregate_rating.html' %}
                             <h2>Title: {{ item.title|title }}</h2>
+                            <p>Entry: {{ forloop.counter }} of {{ submissions|length }}</p>
                             <img width="auto" height="100%" src="{{ item.image_file.url }}"
                                  alt="image for {{ item.title }}">
                             <div class="carousel-caption">
+                                {# include aggregate rating for this entry #}
+                                {% include 'aggregate_rating.html' %}
                                 {# include rating input for this entry #}
                                 {% include 'rating_form.html' %}
-
-                                <p>Entry: {{ forloop.counter }} of {{ submissions|length }}</p>
                             </div>
                         </div>
                     {% endfor %}

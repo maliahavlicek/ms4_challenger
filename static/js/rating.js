@@ -67,5 +67,8 @@ function postRating(data) {
 // process ajax and update aggregated display of trophy level
 function updateAggregatedRating(data){
     $('#aggregate_rating_txt_'+data['entry_id']).innerHTML= data['trophies'];
-    $('#aggregate_rating_pb_'+data['entry_id']).val(data['trophies']);
+    var percent = Math.round(parseFloat(data['trophies'])/3* 100)/100;
+    $('#aggregate_rating_pb_'+data['entry_id']).width(percent);
+
+    //tyle="height:30px;width:{{ item.get_rating|percent_rating }}"
 }
