@@ -1,11 +1,11 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
-from datetime import date, datetime
-from django.utils.safestring import mark_safe
+from datetime import date
+from multiselectfield import MultiSelectField
 
 
 class DateInput(forms.DateInput):
@@ -105,6 +105,11 @@ class UserRegistrationFrom(UserCreationForm):
 
 
 class UserForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=50, required=False)
+    last_name = forms.CharField(max_length=50, required=False)
+    email = forms.EmailField()
+    username = forms.CharField(max_length=50)
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'username']
@@ -112,7 +117,7 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(widget=DateInput)
-    profile_pic = forms.ImageField(label="Avatar")
+    profile_pic = forms.ImageField(label="Profile Picture")
     tags = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, required=False, label="Interests")
 
     class Meta:
@@ -124,7 +129,7 @@ class ProfileForm(forms.ModelForm):
         birth_date = self.cleaned_data.get('birth_date')
 
         # Don't really care if usr is leap year or not, +-2 days does not really matter if usr can sign up or not
-        num_years = int((date.today() - birth_date).days /365)
+        num_years = int((date.today() - birth_date).days / 365)
 
         # birthdate should be in past
         if birth_date > date.today():
@@ -141,13 +146,21 @@ class ProfileForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('profile_pic', css_class='form-group col-md-12 mb-0'),
+                Column('profile_pic', css_class='form-group col-md-6 mb-0'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0"><img class="profile-pic profile-outline" src="{{ request.user.profile.profile_pic.url }}"/></div>'),
                 css_class='form-row'
             ),
             Row(
-                Column('tags', css_class='form-group col-md-6 mb-0'),
                 Column('birth_date', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
+                Column('tags', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row',
+
             ),
+            # Row(
+            #     HTML(
+            #         '<div class="form-group col-md-12 mb-0">{% for value, text in profile_form.tags.field.choices %}<div class="ui slider checkbox"><input id="id_tags_{{ forloop.counter0 }}" name="{{ profile_form.tags.name }}" type="checkbox" value="{{ value }}"{% if value in checked_tags %} checked="checked"{% endif %}><label>{{ text }}</label></div>{% endfor %}</div>'),
+            #
+            # ),
             Submit('submit', 'Save Changes')
         )

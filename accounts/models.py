@@ -28,6 +28,8 @@ class Profile(models.Model):
     tags = models.ManyToManyField(Tag)
     product_level = models.ForeignKey(ServiceLevel, null=True, blank=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return self.user.email
 
     def get_owned_challenges(self):
         # get challenges user owns

@@ -222,6 +222,11 @@ label.control-label::after, .form-group label:after {
     position: relative;
 }
 
+/* no colon for checkbox groups */
+.custom-checkbox label.control-label::after{
+    content: '';
+}
+
 /* add margin to page-heading */
 .page-heading {
     margin-top: 10px;
@@ -340,6 +345,11 @@ label.control-label::after, .form-group label:after {
 
 /* TABLET STYLES */
 @media screen and (min-width: 769px) {
+
+    .container-fluid.rocket {
+        display: flex;
+        flex: 1;
+    }
     h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
         font-size: 32px;
     }
