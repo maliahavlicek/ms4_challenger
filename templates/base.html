@@ -44,18 +44,17 @@
 
 {% include '_partials/navigation.html' %}
 <div class="main-content">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <div class="container page-heading">
         <h1>{% block page_heading %}{% endblock %}</h1>
     </div>
-    {% if messages %}
-        <div class="alert alert-success">
-            <div class="messages">
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
+
     <div class="container">
         {% block main_content %}
         {% endblock %}

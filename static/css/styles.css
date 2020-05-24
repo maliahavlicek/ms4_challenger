@@ -253,7 +253,7 @@ label.control-label::after, .form-group label:after {
     font-style: normal;
     text-align: center;
     position: absolute;
-    top: -4px;
+    top: -9px;
     cursor: pointer;
     display: block;
     content: "\f00c";

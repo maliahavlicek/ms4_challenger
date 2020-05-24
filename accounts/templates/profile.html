@@ -40,8 +40,11 @@
                 {% endif %}
             </p>
         </div>
-        <div class="col-md-12">
-            <a href="{% url 'update_profile' %}">Make Changes</a>
+        <div class="col-md-8">
+            <a href="{% url 'update_user' %}">Make Changes</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'password_reset' %}">Reset Password</a>
         </div>
     </div>
     <div class="row">

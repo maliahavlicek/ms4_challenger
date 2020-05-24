@@ -2,13 +2,11 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.safestring import mark_safe
 
 from .models import Profile, Tag
 from datetime import date
-from multiselectfield import MultiSelectField
-
 
 
 class DateInput(forms.DateInput):
@@ -107,18 +105,10 @@ class UserRegistrationFrom(UserCreationForm):
         )
 
 
-class UserForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=50, required=False)
-    last_name = forms.CharField(max_length=50, required=False)
-    email = forms.EmailField()
-    username = forms.CharField(max_length=50)
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email', 'username']
-
-
 class ProfileForm(forms.ModelForm):
+    """
+    Collect Updated Profile Info From User
+    """
     birth_date = forms.DateField(widget=DateInput)
     profile_pic = forms.ImageField(label="Profile Picture")
     tags = forms.MultipleChoiceField(
@@ -126,7 +116,6 @@ class ProfileForm(forms.ModelForm):
         choices=((c.pk, mark_safe(c.name)) for c in Tag.objects.all()),
         required=False,
         label="Interests")
-
 
     class Meta:
         model = Profile
@@ -153,6 +142,11 @@ class ProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
+            Row(
+                Column('username', css_class='form-group col-md-6 mb-0'),
+                Column('email', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
             Row(
                 Column('profile_pic', css_class='form-group col-md-6 mb-0'),
                 HTML(
@@ -187,3 +181,29 @@ class ProfileForm(forms.ModelForm):
             Submit('cancel', 'Cancel', css_class='btn btn-cancel')
         )
 
+
+class UserUpdateForm(UserChangeForm):
+    """ Form to update User info username and email """
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('username', css_class='form-group col-md-6 mb-0'),
+                Column('email', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('first_name', css_class='form-group col-md-6 mb-0'),
+                Column('last_name', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Submit('submit', 'Save Changes'),
+            Submit('cancel', 'Cancel', css_class='btn btn-cancel')
+        )

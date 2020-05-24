@@ -321,9 +321,9 @@ If any of the following are unfamiliar, please click on their associated links a
 1. Open your preferred IDE, then open a terminal session in the unzip folder or cd to the correct location.
 1. Set up a virtual environment via this command in the terminal session:
    ```bash 
-   python -m .venv venv
+   python3 manage.py
    ``` 
-   > NOTE: The ```python``` prefix of this command and other steps below assumes you are working with a mac and pycharm's IDE. Your command may differ, such as ```python3 manage.py ...``` or ```py manage.py ...``` or ```.\manage.py ...```
+   > NOTE: The ```python``` prefix of this command and other steps below assumes you are working with a mac and pycharm's IDE. Your command may differ, such as ```python -m .venv venv ...``` or ```py manage.py ...``` or ```.\manage.py ...```
 1. Activate the .venv with the command:
    ```bash 
    .venv\Scripts\activate
@@ -335,7 +335,7 @@ If any of the following are unfamiliar, please click on their associated links a
    ```
 1. Install all required modules with the command:
    ```bash
-   pip -r requirements.txt
+   pip install -r requirements.txt
    ```
 1. Create a new file at the base ms4_challenge directory level called env.py:
    ```python
@@ -482,3 +482,4 @@ No website can be created without the community resources found on the web. Sear
 - [Vishal](https://pynative.com/python-generate-random-string/) - how to create a random string in python, used for auto password creation
 - [Learning about Electronics](http://www.learningaboutelectronics.com/Articles/How-to-create-a-video-uploader-with-Python-in-Django.php) - how to get a video file uploaded and displaying
 - [pypi.org](https://pypi.org/) - used to search for plugins that would help with form presentation and many other inquiries
+- [Vitor Freitas](https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html) - Thank you so much for documenting how use the Messages Framework.

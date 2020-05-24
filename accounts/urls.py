@@ -3,7 +3,7 @@
 """
 from django.conf.urls import include
 from django.urls import path
-from accounts.views import logout, login, registration, user_profile, update_profile
+from accounts.views import logout, login, registration, user_profile, update_profile, update_user
 from accounts import url_reset
 
 urlpatterns = [
@@ -12,6 +12,6 @@ urlpatterns = [
     path('register/', registration, name='registration'),
     path('profile/', user_profile, name='profile'),
     path('profile/update/', update_profile, name='update_profile'),
-    path('password-reset/', include(url_reset))
+    path('password-reset/', include(url_reset)),
+    path('user/update/', update_user, name='update_user'),
 ]
-
