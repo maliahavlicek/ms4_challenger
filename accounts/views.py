@@ -83,7 +83,8 @@ def registration(request):
 @login_required
 def user_profile(request):
     """The user's profile page"""
-    return render(request, 'profile.html')
+    orders = Order.objects.filter(user=request.user, payment_status='payment_collected').order_by('-date_created')
+    return render(request, 'profile.html', {'orders': orders, })
 
 
 @login_required
@@ -100,9 +101,7 @@ def update_profile(request):
             messages.success(request, 'Your profile was successfully updated!')
             return redirect(reverse('profile'))
 
-    orders = Order.objects.filter(customer=request.user, payment_status='payment_collected').order_by('-date_created')
-
-    return render(request, "profile_update.html", {'profile_form': profile_form, 'order': orders, })
+    return render(request, "profile_update.html", {'profile_form': profile_form})
 
 
 @login_required

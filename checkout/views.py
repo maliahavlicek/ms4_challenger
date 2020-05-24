@@ -49,11 +49,11 @@ def checkout(request, pk):
                 # user has not paid, update the Order status
                 order.payment_status = 'payment_rejected'
                 order.save()
-                messages.error(request, "Your card was declined!")
+                messages.error(request, "Sorry, your card was declined.")
 
             if customer.paid:
                 # user has paid, update the Order status
-                messages.error(request, "You have successfully paid")
+                messages.success(request, "Your payment was success and your service level has been updated.")
                 order.payment_status = 'payment_collected'
                 order.save()
                 # user has paid, update the Customer object with the product, so they get more features enabled
@@ -67,8 +67,7 @@ def checkout(request, pk):
                 order.save()
                 messages.error(request, "Unable to take payment")
         else:
-            print(payment_form.errors)
-            messages.error(request, "We were unable to take a payment with that card!")
+            messages.success(request, "Please enter your payment information below.")
     else:
         payment_form = MakePaymentForm()
 

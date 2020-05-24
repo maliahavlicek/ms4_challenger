@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load products_tags %}
 {% block page_title %}
     Account Overview
 {% endblock %}
@@ -100,6 +101,26 @@
                     Free
                 {% endif %}
             </p>
+            {% if orders|length > 0 %}
+                <table class="table table-dark table-striped">
+                    <thead>
+                    <tr>
+                        <th>Service Level</th>
+                        <th>Order Date</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.product.name|title }}</td>
+                            <td class="date">{{ order.date_created|date }}</td>
+                            <td>{{ order.total|format_price }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
         {% if request.user.profile.product_level.name != "Interstellar" %}
             <div class="col-md-12">
