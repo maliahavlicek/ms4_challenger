@@ -15,7 +15,7 @@ function alignProducts() {
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
     // set array of selectors we want to match heights for:
-    var selectors = ['.product-img-wrap', '.product-description', '.product-features', '.card.text.limits'];
+    var selectors = ['.card-header','.product-img-wrap', '.product-description', '.product-features', '.card-text.limits', '.card-text.price', '.card-footer'];
     $.each(selectors, function (index, selector) {
         // First auto height things
         var maxHeight = 'auto';

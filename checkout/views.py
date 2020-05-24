@@ -18,6 +18,8 @@ def checkout(request, pk):
     product = ServiceLevel.objects.get(id=pk)
     user = User.objects.get(email=request.user.email)
     if request.method == "POST":
+        if 'cancel' in request.POST:
+            return redirect(reverse('products'))
         payment_form = MakePaymentForm(request.POST)
         order = Order(
             user=user,
@@ -32,6 +34,7 @@ def checkout(request, pk):
             profile = Profile.objects.get(user=user)
             profile.product_level = product
             profile.save()
+            messages.success(request, "Your service level has been changed.")
             return redirect(reverse('profile'))
 
         elif payment_form.is_valid():
@@ -72,4 +75,5 @@ def checkout(request, pk):
         payment_form = MakePaymentForm()
 
     return render(request, "checkout.html",
-                  {'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE, 'product': product, 'customer': user})
+                  {'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE, 'product': product,
+                   'customer': user})

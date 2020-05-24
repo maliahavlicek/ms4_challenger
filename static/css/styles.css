@@ -47,8 +47,16 @@ h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
     font-size: 18px;
 }
 
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
 h4 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin: 15px 0 10px;
 }
 
@@ -166,6 +174,10 @@ body, nav, footer {
     margin: 20px auto;
 }
 
+.product-img-wrap.checkout {
+    display: none;
+}
+
 .ch-img-wrap img {
     width: 100%;
     max-height: 100%;
@@ -183,6 +195,12 @@ body, nav, footer {
     font-size: 24px;
     font-weight: 700;
     text-align: center;
+    color: var(--link);
+}
+
+.card-text.price.checkout {
+    text-align: left;
+    margin-left: 20px;
 }
 
 .price .dollar-symbol {
@@ -505,6 +523,11 @@ label.control-label::after, .form-group label:after {
     /* main-content height fills page */
     .main-content {
         min-height: calc(100vh - 11.5rem);
+    }
+
+    /* checkout only show image on larger devices */
+    .product-img-wrap.checkout {
+        display: inline-block;
     }
 
 }
