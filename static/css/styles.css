@@ -14,6 +14,8 @@
 
     --warning: #EC4646;
     --link: #007BFF;
+    --gold: #fc0;
+    --gold-dark: #FF8C1C;
 }
 
 
@@ -396,6 +398,10 @@ label.control-label::after, .form-group label:after {
 
 .full {
     grid-column: 1 / span 2;
+}
+.full a.btn{
+    width: 100%;
+    margin-top: 10px;
 }
 
 .one-third {

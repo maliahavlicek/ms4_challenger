@@ -8,7 +8,6 @@
 
 .trophies {
   --percent: calc(var(--rating) / 3 * 100%);
-
   display: inline-block;
   font-size: var(--trophy-size);
   font-family: FontAwesome; // make sure trophy appears correctly
@@ -31,12 +30,12 @@
 }
 
 .carousel-control-next, .carousel-control-prev {
-    color: var(--primary);
+    color: var(--gold);
     width: 15px;
 }
 
 .carousel-control-next:focus, .carousel-control-next:hover, .carousel-control-prev:focus, .carousel-control-prev:hover {
-    color: var(--primary-dark);
+    color: var(--gold-dark);
 }
 
 .carousel-inner > .carousel-item > img {

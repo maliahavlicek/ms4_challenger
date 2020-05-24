@@ -5,11 +5,6 @@
         {% for product in products %}
             <div class="card">
                 {% include '_partials/product_card.html' with product=product %}
-                <div class="card-body">
-                    <div class="card-text price">
-                        {{ product.price | format_price }}
-                    </div>
-                </div>
                 <div class="card-footer">
                     <form method="post" action="{% url 'checkout' pk=product.pk %}">
                         {% csrf_token %}
