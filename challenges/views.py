@@ -43,11 +43,11 @@ def create_challenge(request):
             return redirect(reverse('challenges'))
         if challenge_form.is_valid():
             # create the challenge object
-            submission_types = ['submission_image']
+            submission_types = ['image']
             if 'submission_audio' in owned_product.features:
-                submission_types.append('submission_audio')
+                submission_types.append('audio')
             if 'submission_video' in owned_product.features:
-                submission_types.append('submission_video')
+                submission_types.append('video')
 
             challenge = Challenge.objects.create(
                 owner=request.user,
@@ -187,11 +187,11 @@ def update_challenge(request, id):
                     change_matrix['end_date'] = True
                 challenge.video_time_limit = owned_product.video_length_in_seconds
                 challenge.submission_storage_cap = owned_product.max_submission_size_in_MB
-                submission_types = ['submission_image']
+                submission_types = ['image']
                 if 'submission_audio' in owned_product.features:
-                    submission_types.append('submission_audio')
+                    submission_types.append('audio')
                 if 'submission_video' in owned_product.features:
-                    submission_types.append('submission_video')
+                    submission_types.append('video')
                 challenge.submission_types = submission_types
 
                 if 'example_image' in request.FILES:

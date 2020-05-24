@@ -66,9 +66,11 @@ function postRating(data) {
 
 // process ajax and update aggregated display of trophy level
 function updateAggregatedRating(data){
-    $('#aggregate_rating_txt_'+data['entry_id']).innerHTML= data['trophies'];
-    var percent = Math.round(parseFloat(data['trophies'])/3* 100)/100;
-    $('#aggregate_rating_pb_'+data['entry_id']).width(percent);
-
-    //tyle="height:30px;width:{{ item.get_rating|percent_rating }}"
+    // clean out the existing content and rebuild it
+    var contentHolder = $('.aggregate_rating_' + data['entry_id']);
+    contentHolder.empty();
+    var value = Math.round(parseFloat(data['trophies'])/3* 100)/100;
+    var new_content='<div class="trophies" style="--rating: ' + value;
+    new_content+='" aria-label="Rating of this product is ' + value+' out of 3."></div>';
+    contentHolder.append(new_content);
 }
