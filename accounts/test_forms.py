@@ -1,5 +1,5 @@
 from django.test import TestCase
-from.forms import UserLoginForm, UserRegistrationFrom, ProfileForm, UserForm
+from.forms import UserLoginForm, UserRegistrationFrom, ProfileForm
 from datetime import datetime, timedelta, date
 
 
