@@ -56,11 +56,10 @@ function postRating(data) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
             updateAggregatedRating(data);
         })
         .catch((error) => {
-            console.error('Error:', error);
+
         });
 }
 
@@ -69,7 +68,8 @@ function updateAggregatedRating(data){
     // clean out the existing content and rebuild it
     var contentHolder = $('.aggregate_rating_' + data['entry_id']);
     contentHolder.empty();
-    var value = Math.round(parseFloat(data['trophies'])/3* 100)/100;
+    // want hundreths
+    var value = Math.round(parseFloat(data['trophies'])* 100)/100;
     var new_content='<div class="trophies" style="--rating: ' + value;
     new_content+='" aria-label="Rating of this product is ' + value+' out of 3."></div>';
     contentHolder.append(new_content);
