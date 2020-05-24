@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load products_tags %}
+{% load static products_tags %}
 {% block main_content %}
-    <div class="card-deck">
+    <div class="card-deck products">
         {% for product in products %}
             <div class="card">
                 {% include '_partials/product_card.html' with product=product %}
                 <div class="card-body">
-                    <div class="card-text">
+                    <div class="card-text price">
                         {{ product.price | format_price }}
                     </div>
                 </div>
@@ -27,4 +27,5 @@
             </div>
         {% endfor %}
     </div>
+    <script type="text/javascript" src="{% static 'js/products.js' %}"></script>
 {% endblock %}

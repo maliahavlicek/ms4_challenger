@@ -177,6 +177,23 @@ body, nav, footer {
     text-align: center;
 }
 
+/* price formatting */
+.card-text.price {
+    font-family: 'Orbitron', Tahoma, serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.price .dollar-symbol {
+    top: -10px;
+    position: relative;
+}
+
+.price .dollars {
+    font-size: 38px;
+}
+
 /* footer */
 .footer {
     display: block;
@@ -248,6 +265,7 @@ label.control-label::after, .form-group label:after {
     cursor: pointer;
     border: 0;
 }
+
 .checkbox_select_multiple input[type=checkbox]:before {
     font-family: FontAwesome;
     font-style: normal;
@@ -399,6 +417,7 @@ label.control-label::after, .form-group label:after {
         flex: 1;
     }
 
+    /* size links and headers */
     h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
         font-size: 32px;
     }
@@ -423,12 +442,13 @@ label.control-label::after, .form-group label:after {
         font-size: 22px;
     }
 
+    /* nav */
     .navbar-dark .navbar-nav .show > a.dropdown-item.nav-link:hover {
         color: var(--link);
         background: var(--gray);
     }
 
-
+    /* challenges displays */
     .full {
         grid-column: 1 / span 4;
     }
