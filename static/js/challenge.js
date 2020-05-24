@@ -39,13 +39,13 @@ function member_list() {
 
         var item = `
                 <div id="member-row-${list[i].email}" class="row member-row">    
-                    <div class="col-md-3">
+                    <div class="col-md-3 member d-none d-md-block">
                       <div class="member">${list[i].first_name}</div>
                     </div> 
-                    <div class="col-md-3">
+                    <div class="col-md-3 member d-none d-md-block">
                       <div class="member">${list[i].last_name}</div>
                     </div>          
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-10">
                       <div class="member">${list[i].email}</div>
                     </div>            
                     <div class="member-remove">
