@@ -146,6 +146,13 @@ body, nav, footer {
     transform: rotate(-3deg) scale(1.3);
     color: var(--primary);
 }
+/* tooltips */
+a[data-toggle=tooltip]{
+    color: #062E51;
+}
+.tooltip.show {
+    opacity: 1;
+}
 
 /* profile */
 .profile-pic {
