@@ -1,7 +1,7 @@
 {% load filters %}
 <div class="peerRating">
-    <h4>Peer Rating</h4>
-    <div class="aggregate_rating_{{ item.id }}">
+    <h4 {% if inline %}class="d-inline"{% endif %}>Peer Rating</h4>
+    <div {% if inline %}class="d-inline"{% endif %}class="aggregate_rating_{{ item.id }}">
     {% if item.get_rating > 0 %}
         <div class="trophies" style="--rating: {{item.get_rating|num}};" aria-label="Rating of this product is {{item.get_rating}} out of 3."></div>
     {% else %}

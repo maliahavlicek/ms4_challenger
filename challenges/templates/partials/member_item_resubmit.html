@@ -37,8 +37,11 @@
             Submitted on {{ entry.date_created|date }}
         </div>
         {% if entry.image_file %}
-            <div class="ch-item"
-                 style="background: url({{ entry.image_file.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 250px; margin-bottom: 10px;"></div>
+
+            <div class="ch-item">
+                <img class="img-fluid mx-auto" src="{{ entry.image_file.url }}"
+                     alt="Submission Image for {{ entry.title }}"/>
+            </div>
         {% endif %}
 
         {% if entry.audio_file %}
@@ -98,10 +101,12 @@
         <div class="ch-item">
             Submitted on {{ entry.date_created|date }}
         </div>
-        {% if entry.image_file %}
-            <div class="ch-item"
-                 style="background: url({{ entry.image_file.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 250px; margin-bottom: 10px;"></div>
-        {% endif %}
+        <div class="ch-item">
+            {% if entry.image_file %}
+                <img class="img-fluid mx-auto" src="{{ entry.image_file.url }}"
+                     alt="Submission Image for {{ entry.title }}"/>
+            {% endif %}
+        </div>
 
         {% if entry.audio_file %}
             <div class="ch-audio-wrap ch-item">

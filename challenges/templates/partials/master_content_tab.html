@@ -7,29 +7,38 @@
     {% for item in owned_challenges %}
         {# small devices layout #}
         <div class="challenge_wrap flex-grid hidden-tablet-up">
-            <div class=" two-thirds">
+            <div class="full">
                 <div class="ch-title">
-                    {{ item.name | title }}
+                    <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
                 </div>
-                <div class="ch-date">
+            </div>
+            <div class="ch-half">
+                <div class="ch-item ch-date">
                     {{ item.start_date | date }}
                     {% if item.start_date|date != item.end_date|date %}
                         - {{ item.end_date | date }}
                     {% endif %}
                 </div>
             </div>
-            {% if item.example_image %}
-                <div class="one-third"
-                     style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+            <div class="ch-half">
+                <div class="ch-item">
+                    {% if item.example_image %}
+                        <img class="img-fluid mx-auto" src="{{ item.example_image.url }}"
+                             alt="Example Submission Image for {{ item.name }}"/>
+                    {% endif %}
                 </div>
-            {% endif %}
-            <div class="center">
+            </div>
+            <div class="ch-half">
+                <div class="full">
                 <a href="{% url 'update_challenge' id=item.id %}" class="btn primary"><i
                         class="fas fa-edit"></i> Edit</a>
+                </div>
             </div>
-            <div class="center">
+            <div class="ch-half">
+                <div class="full">
                 <a href="{% url 'delete_challenge' id=item.id %}" class="btn primary"><i
                         class="fas fa-trash-alt"></i> Delete</a>
+                </div>
             </div>
             {% if item.get_submissions|length > 0 %}
                 <div class="full">
@@ -71,9 +80,10 @@
                 </div>
             {% endif %}
             {% if item.example_image %}
-                <div class="ch-item {% if not item.example_video %}double{% endif %}"
-                     style="background: url({{ item.example_image.url }}); background-size: contain;
-                             background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+                <div class="ch-item {% if not item.example_video %}double{% endif %}">
+                    <img class="img-fluid mx-auto" src="{{ item.example_image.url }}"
+                         alt="Example Submission Image for {{ item.name }}"/>
+
                 </div>
             {% endif %}
             <div class="ch-item">

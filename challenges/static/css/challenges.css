@@ -1,4 +1,3 @@
-
 /* challenges */
 .img-preview {
     max-height: 100px;
@@ -47,10 +46,11 @@
     padding: 10px;
     display: grid;
     grid-template-columns: minmax(auto, 70%) minmax(auto, 50%);
+    grid-gap: 0 10px;
 }
 
-.challenge_wrap.resubmit a.btn, .challenge_wrap.submit a.btn.primary {
-    width: calc(100% - 20px);
+.challenge_wrap a.btn {
+    width: 100%;
 }
 
 .challenge_wrap.entry {
@@ -72,6 +72,11 @@
 
 .ch-item {
     margin: 10px 0;
+}
+
+.full.outline {
+    border: 1px solid;
+    padding: 10px;
 }
 
 .ch-half {

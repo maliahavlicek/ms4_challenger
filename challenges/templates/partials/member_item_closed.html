@@ -34,16 +34,24 @@
     </div>
 
     {% if entry %}
-        <div class="full">
-            <div class="ch-item">
-                <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>
+        <div class="full outline">
+            <div class="ch-item center">
+                <h3>Your Entry</h3>
             </div>
+
             <div class="ch-item">
-                Submitted on {{ entry.date_created|date }}
+                <h4>Title: <span class="norm-font">{{ entry.title|title }}</span></h4>
+            </div>
+
+            <div class="ch-item">
+                {# include aggregate rating for this entry #}
+                {% include 'aggregate_rating.html' with item=entry inline=True %}
             </div>
             {% if entry.image_file %}
-                <div class="ch-item"
-                     style="background: url({{ entry.image_file.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 250px; margin-bottom: 10px;"></div>
+                <div class="ch-item">
+                    <img class="img-fluid mx-auto" src="{{ entry.image_file.url }}"
+                         alt="Submission Image for {{ entry.title }}"/>
+                </div>
             {% endif %}
 
             {% if entry.audio_file %}
@@ -63,14 +71,17 @@
                     </video>
                 </div>
             {% endif %}
-
             <div class="ch-item">
-                {# include aggregate rating for this entry #}
-                {% include 'aggregate_rating.html' with item=entry %}
+                Submitted on {{ entry.date_created|date }}
             </div>
         </div>
     {% else %}
-        <p>You did not submit an entry to this challenge.</p>
+        <div class="full outline">
+            <div class="ch-item">
+                <h3>Your Entry:</h3>
+            </div>
+            <p>You did not submit an entry to this challenge.</p>
+        </div>
     {% endif %}
 </div>
 {# tablet and above layout #}
@@ -123,8 +134,10 @@
                 Submitted on {{ entry.date_created|date }}
             </div>
             {% if entry.image_file %}
-                <div class="ch-item"
-                     style="background: url({{ entry.image_file.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 250px; margin-bottom: 10px;"></div>
+                <div class="ch-item">
+                    <img class="img-fluid mx-auto" src="{{ entry.image_file.url }}"
+                         alt="Submission Image for {{ entry.title }}"/>
+                </div>
             {% endif %}
 
             {% if entry.audio_file %}
