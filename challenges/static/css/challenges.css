@@ -152,6 +152,10 @@
         min-width: 200px;
         width: auto;
     }
+    /* limit height for desktop */
+    .challenge_wrap img {
+        max-height: 250px;
+    }
 
     .hidden-phone-down {
         display: grid;
