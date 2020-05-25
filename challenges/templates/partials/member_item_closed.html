@@ -4,7 +4,7 @@
 <div class="challenge_wrap flex-grid hidden-tablet-up">
     <div class="full">
         <div class="ch-title">
-            {{ item.name | title }}
+            <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
         </div>
     </div>
     <div>
@@ -28,12 +28,51 @@
     </div>
     <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
     </div>
+    {% if entry %}
+        <div class="full">
+            <div class="ch-item">
+                <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>
+            </div>
+            <div class="ch-item">
+                Submitted on {{ entry.date_created|date }}
+            </div>
+            {% if entry.image_file %}
+                <div class="ch-item"
+                     style="background: url({{ entry.image_file.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 250px; margin-bottom: 10px;"></div>
+            {% endif %}
+
+            {% if entry.audio_file %}
+                <div class="ch-audio-wrap ch-item">
+                    <audio width='auto' height="50px" controls>
+                        <source src='{{ entry.audio_file.url }}' type='audio/mp3'>
+                        Your browser does not support the audio tag.
+                    </audio>
+                </div>
+            {% endif %}
+
+            {% if entry.video_file %}
+                <div class="ch-vid-wrap ch-item">
+                    <video width='auto' height="250px" controls>
+                        <source src='{{ entry.video_file.url }}' type='video/mp4'>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            {% endif %}
+
+            <div class="ch-item">
+                {# include aggregate rating for this entry #}
+                {% include 'aggregate_rating.html' with item=entry %}
+            </div>
+        </div>
+    {% else %}
+        <p>You did not submit an entry to this challenge.</p>
+    {% endif %}
 </div>
 {# tablet and above layout #}
 <div class="challenge_wrap member flex-grid hidden-phone-down">
     <div>
         <div class="ch-title ch-item">
-            {{ item.name | title }}
+            <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
         </div>
         <div class="ch-date ch-item">
             {{ item.start_date | date }}
@@ -65,4 +104,43 @@
                      background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
         </div>
     </div>
+{% if entry %}
+        <div class="full">
+            <div class="ch-item">
+                <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>
+            </div>
+
+            <div class="ch-item">
+                {# include aggregate rating for this entry #}
+                {% include 'aggregate_rating.html' with item=entry %}
+            </div>
+            <div class="ch-item">
+                Submitted on {{ entry.date_created|date }}
+            </div>
+            {% if entry.image_file %}
+                <div class="ch-item"
+                     style="background: url({{ entry.image_file.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 250px; margin-bottom: 10px;"></div>
+            {% endif %}
+
+            {% if entry.audio_file %}
+                <div class="ch-audio-wrap ch-item">
+                    <audio width='auto' height="50px" controls>
+                        <source src='{{ entry.audio_file.url }}' type='audio/mp3'>
+                        Your browser does not support the audio tag.
+                    </audio>
+                </div>
+            {% endif %}
+
+            {% if entry.video_file %}
+                <div class="ch-vid-wrap ch-item">
+                    <video width='auto' height="250px" controls>
+                        <source src='{{ entry.video_file.url }}' type='video/mp4'>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>You did not submit an entry to this challenge.</p>
+    {% endif %}
 </div>

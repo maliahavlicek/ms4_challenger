@@ -6,7 +6,7 @@
     {% for item in member_challenges %}
         {% if item.is_closed %}
             {# do layout of closed #}
-            {% include 'partials/member_item_closed.html' %}
+            {% include 'partials/member_item_closed.html' with entry=item.get_submissions|has_user:user  %}
         {% elif item.get_submissions|has_user:user %}
             {#  do layout for re-submit #}
             {% include 'partials/member_item_resubmit.html' with entry=item.get_submissions|has_user:user %}

@@ -5,7 +5,7 @@
 <div class="challenge_wrap submit flex-grid hidden-tablet-up">
     <div class="full">
         <div class="ch-title">
-            {{ item.name | title }}
+            <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
         </div>
     </div>
     <div>
@@ -17,7 +17,8 @@
                 {% endif %}
             </div>
             <div class="ch-item">
-                <a href="#{{ item.id }}-submit-small" data-toggle="tooltip" id="{{ item.id }}-submit-small" title="{{ item.description }}">Details <i
+                <a href="#{{ item.id }}-submit-small" data-toggle="tooltip" id="{{ item.id }}-submit-small"
+                   title="{{ item.description }}">Details <i
                         class="fas fa-info-circle"></i></a>
             </div>
             <div class="ch-item">
@@ -45,7 +46,7 @@
 <div class="challenge_wrap member flex-grid hidden-phone-down">
     <div>
         <div class="ch-title ch-item">
-            {{ item.name | title }}
+            <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
         </div>
         <div class="ch-date ch-item">
             {{ item.start_date | date }}
@@ -66,13 +67,17 @@
             </video>
         </div>
     {% endif %}
-    <div {% if not item.example_video %}class="double"{% endif %}>
-        <div class="ch-item"
-             style="background: url({{ item.example_image.url }}); background-size: contain;
-                     background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+    {% if item.example_video %}
+        <div>
+    {% endif %}
+            <div class="ch-item"
+                 style="background: url({{ item.example_image.url }}); background-size: contain;
+                         background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+            </div>
+            <div class="ch-item">
+                <p>{{ item.description }}</p>
+            </div>
+    {% if item.example_video %}
         </div>
-        <div class="ch-item">
-            <p>{{ item.description }}</p>
-        </div>
-    </div>
+    {% endif %}
 </div>

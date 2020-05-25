@@ -5,7 +5,7 @@
 <div class="challenge_wrap resubmit flex-grid hidden-tablet-up">
     <div class="full">
         <div class="ch-title">
-            {{ item.name | title }}
+            <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
         </div>
     </div>
     <div>
@@ -23,11 +23,12 @@
             </div>
         </div>
     </div>
-    <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+    <div class="ch-item">
+        <img class="img-fluid mx-auto" src="{{item.example_image.url }}" alt="Example image for {{ item.name }} challenge."/>
     </div>
     <div class="full">
         <div class="ch-item">
-            {{ entry.title|title }}
+            <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>
         </div>
         <div class="ch-item">
             Submitted on {{ entry.date_created|date }}
@@ -69,7 +70,7 @@
 <div class="challenge_wrap resubmit flex-grid hidden-phone-down">
     <div>
         <div class="ch-title ch-item">
-            {{ item.name | title }}
+            <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
         </div>
         <div class="ch-date ch-item">
             {{ item.start_date | date }}
@@ -89,7 +90,7 @@
 
     <div>
         <div class="ch-item">
-            {{ entry.title|title }}
+            <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>
         </div>
         <div class="ch-item">
             Submitted on {{ entry.date_created|date }}
@@ -118,13 +119,13 @@
         {% endif %}
     </div>
 
-        <div class="ch-item">
-            <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
-                    class="fas fa-redo-alt"></i> Re-submit</a>
-        </div>
-        <div class="ch-item">
-            <a href="{% url 'delete_submission' id=entry.pk %}" class="btn btn-cancel"><i class="fas fa-trash-alt"></i>
-                Delete</a>
-        </div>
+    <div class="ch-item">
+        <a href="{% url 'update_submission' challenge_id=item.pk %}" class="btn primary"><i
+                class="fas fa-redo-alt"></i> Re-submit</a>
+    </div>
+    <div class="ch-item">
+        <a href="{% url 'delete_submission' id=entry.pk %}" class="btn btn-cancel"><i class="fas fa-trash-alt"></i>
+            Delete</a>
+    </div>
 
 </div>

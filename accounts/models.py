@@ -34,7 +34,7 @@ class Profile(models.Model):
     def get_owned_challenges(self):
         # get challenges user owns
         try:
-            owned_challenges = Challenge.objects.filter(owner=self.user).order_by('-start_date', 'name')
+            owned_challenges = Challenge.objects.filter(owner=self.user).order_by('-end_date', '-start_date', 'name')
         except Challenge.DoesNotExist:
             owned_challenges = None
         return owned_challenges
@@ -42,7 +42,7 @@ class Profile(models.Model):
     def get_member_challenges(self):
         # get challenges that user is a member of
         try:
-            member_challenges = Challenge.objects.filter(members=self.user).order_by('-start_date', 'name')
+            member_challenges = Challenge.objects.filter(members=self.user).order_by('-end_date', '-start_date', 'name')
         except Challenge.DoesNotExist:
             member_challenges = None
         return member_challenges
