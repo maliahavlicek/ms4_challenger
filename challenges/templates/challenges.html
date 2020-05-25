@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
-{% load filters %}
+{% load static filters %}
 {% block page_title %}
     Challenges
 {% endblock %}
 {% block page_heading %}
     Challenges
+{% endblock %}
+{% block head_css %}
+     <link rel="stylesheet" href="{% static 'css/challenges.css' %}" type="text/css">
 {% endblock %}
 {% block head_js %}
     <script>

@@ -19,7 +19,7 @@ from django.contrib.messages import constants as messages
 if os.path.exists('env.py'):
     import env
     # can override local to False here if you want to test things like 404, 500 error
-    DEBUG = False
+    DEBUG = True
 else:
     DEBUG = False
 
