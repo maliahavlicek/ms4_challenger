@@ -13,7 +13,6 @@ from home.views import index
 from django.conf.urls.static import static
 from .settings import MEDIA_ROOT, MEDIA_URL
 
-
 urlpatterns = static(MEDIA_URL, document_root=MEDIA_ROOT)
 urlpatterns += [
     path('admin/', admin.site.urls),
@@ -26,3 +25,4 @@ urlpatterns += [
     path('ratings/', include(urls_ratings)),
 
 ]
+

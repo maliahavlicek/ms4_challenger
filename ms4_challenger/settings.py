@@ -18,8 +18,8 @@ from django.contrib.messages import constants as messages
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.path.exists('env.py'):
     import env
-
-    DEBUG = True
+    # can override local to False here if you want to test things like 404, 500 error
+    DEBUG = False
 else:
     DEBUG = False
 
@@ -169,7 +169,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIAFILES_LOCATION = 'media'
-if os.path.exists('env3.py'):
+if DEBUG:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     MEDIA_URL = '/media/'
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"

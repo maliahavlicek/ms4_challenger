@@ -1,7 +1,7 @@
 /* JS for products page */
 
 // set array of selectors we want to match heights for:
-var selectors = ['.card-header','.product-img-wrap', '.product-description', '.product-features', '.card-text.limits', '.card-text.price', '.card-footer'];
+var selectors = ['.card-header', '.product-description', '.product-features', '.card-text.limits', '.card-text.price', '.card-footer'];
 
 //on ready function
 $(document).ready(function () {
