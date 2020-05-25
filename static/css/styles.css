@@ -70,6 +70,15 @@ span.norm-font {
     font-family: Exo, Arial, sans-serif;
 }
 
+.textarea {
+    max-height: 150px;
+}
+
+/* force long links from file uploads to word wrap */
+a {
+    word-wrap: break-word;
+}
+
 /* override navigation colors */
 .navbar-dark .navbar-nav .nav-link:hover {
     color: var(--primary-dark);
@@ -117,6 +126,18 @@ button.btn, input.btn, a.btn {
     text-transform: uppercase;
     border: none;
     color: var(--black);
+    cursor: pointer;
+}
+
+input[type=file] {
+    font-size: 16px;
+    background: var(--primary);
+    color: var(--black);
+    font-family: Exo, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 /* buttons hover */
@@ -171,7 +192,6 @@ a[data-toggle=tooltip] {
 .full {
     grid-column: 1 / span 2;
 }
-
 
 /* profile */
 .profile-pic {
@@ -428,10 +448,19 @@ label.control-label::after, .form-group label:after {
         display: inline-block;
     }
 
+    /* limit image height for desktop challenge entry/update form */
+    .challenge_entry img, .challenge_wrap.entry img {
+        max-height: 150px;
+    }
+
 }
 
 /* DESKTOP STYLES */
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {
 
+    /* on desktop devices, button shows for file inputs */
+    input[type=file] {
+        background: none;
+    }
 }

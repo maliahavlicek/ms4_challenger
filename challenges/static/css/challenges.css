@@ -134,7 +134,7 @@
     }
 
     .challenge_wrap.entry {
-        grid-template-columns: repeat(2, minmax(auto, 30%));
+        grid-template-columns: repeat(3, minmax(auto, 33%));
         grid-gap: 10px;
     }
 
@@ -148,11 +148,17 @@
         grid-gap: 10px;
     }
 
+    .challenge_wrap.member.outline {
+        margin: 0 20px 10px;
+        border: solid 1px;
+    }
+
     .challenge_wrap .btn.primary, .challenge_wrap.resubmit a.btn, .challenge_wrap.submit a.btn.primary {
         min-width: 200px;
         width: auto;
     }
-    /* limit height for desktop */
+
+    /* limit image height for desktop challenge recap */
     .challenge_wrap img {
         max-height: 250px;
     }

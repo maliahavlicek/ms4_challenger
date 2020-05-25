@@ -1,0 +1,41 @@
+/* CSS for entry */
+
+.entry_wrap.details label {
+    font-weight: 800;
+    color: var(--black);
+    display: block;
+    margin: 15px 0 5px;
+    font-family: Exo, Arial, sans-serif;
+    font-size: 18px;
+}
+
+.entry_wrap:first-of-type {
+    border: none;
+}
+.entry_wrap{
+    border-top: 1px solid;
+    margin: 20px 0;
+}
+
+.ch-item {
+    margin: 10px 0;
+}
+
+
+/* TABLET STYLES */
+@media screen and (min-width: 769px) {
+    .entry_wrap{
+        margin: 20px 0;
+        padding: 20px;
+    }
+    .entry_wrap.details {
+        grid-template-columns: repeat(3, minmax(auto, 33%));
+        grid-gap: 10px;
+        display: grid;
+    }
+
+    .entry_wrap img {
+        max-height: 200px;
+    }
+}
+

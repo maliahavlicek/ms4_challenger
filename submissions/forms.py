@@ -20,8 +20,13 @@ class CreateFreeEntryForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('title', css_class='form-group col-md-6 mb-0'),
+                Column('title', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
                 Column('image_file', css_class='form-group col-md-6 mb-0'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">{% if entry.image_file %}<img class="mx-auto img-fluid" src="{{entry.image_file.url}}" alt="Your Entry Image for challenge." />{% endif %}</div>'),
                 css_class='form-row'
             ),
             Submit('submit', 'Submit Entry'),
@@ -54,13 +59,24 @@ class CreateBlastOffEntryForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('title', css_class='form-group col-md-4 mb-0'),
-                Column('image_file', css_class='form-group col-md-4 mb-0'),
-                Column('audio_file', css_class='form-group col-md-4 mb-0'),
+                Column('title', css_class='form-group col-md-12 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('image_file', css_class='form-group col-md-6 mb-0'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">{% if entry.image_file %}<img class="mx-auto img-fluid" src="{{entry.image_file.url}}" alt="Your Entry Image for challenge." />{% endif %}</div>'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('audio_file', css_class='form-group col-md-6 mb-0'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">{% if entry.audio_file %}<audio controls><source src="{{entry.audio_file.url}}" type="audio/mp3" /><p>Your browser does not support HTML5 audio.</audio>{% endif %}</div>'),
                 css_class='form-row'
             ),
             Submit('submit', 'Submit Entry'),
             Submit('cancel', 'Cancel', css_class='btn-cancel')
+
         )
 
 
@@ -92,12 +108,25 @@ class CreateInterstellarEntryForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('title', css_class='form-group col-md-6 mb-0'),
+                Column('title', css_class='form-group col-md-12 mb-0'),
                 css_class='form-row'
             ),
             Row(
-                Column('image_file', css_class='form-group col-md-4 mb-0'),
-                Column('audio_file', css_class='form-group col-md-4 mb-0'),
+                Column('image_file', css_class='form-group col-md-6 mb-0'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">{% if entry.image_file %}<img class="mx-auto img-fluid" src="{{entry.image_file.url}}" alt="Your Entry Image for challenge." />{% endif %}</div>'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('audio_file', css_class='form-group col-md-6 mb-0'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">{% if entry.audio_file %}<audio controls><source src="{{entry.audio_file.url}}" type="audio/mp3" /><p>Your browser does not support HTML5 audio.</audio>{% endif %}</div>'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('video_file', css_class='form-group col-md-6 mb-0'),
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">{% if entry.video_file %}<video controls><source src="{{entry.video_file.url}}" type="video/mp4" /><p>Your browser does not support HTML5 video.</video>{% endif %}</div>'),
                 css_class='form-row'
             ),
             Submit('submit', 'Submit Entry'),

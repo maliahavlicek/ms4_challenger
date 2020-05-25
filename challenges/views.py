@@ -158,10 +158,11 @@ def update_challenge(request, id):
         member_data = list(challenge.members.all().values('email', 'first_name', 'last_name'))
         orig_members = json.dumps(member_data)
         # challenge image is required, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
-        if challenge.example_image and 'example_image' not in request.FILES.keys():
+        if challenge.example_image and 'example_image' not in request.FILES.keys() and challenge.example_image.file:
             request.FILES.appendlist('example_image', challenge.example_image.file)
-        # if challenge.example_video:
-        #     file_data.example_video = challenge.example_video.file
+        # challenge video is optional, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
+        if challenge.example_video and 'example_video' not in request.FILES.keys() and challenge.example_video.file:
+            request.FILES.appendlist('example_video', challenge.example_video.file)
 
         challenge_form = UpdateChallengeForm(initial={
             'name': challenge.name,

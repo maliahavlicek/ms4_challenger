@@ -127,13 +127,13 @@ class UpdateChallengeForm(CreateChallengeForm):
             Row(
                 Column('example_image', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0"><img class="mx-auto img-fluid" src="{{challenge.example_image.url}}" /></div>'),
+                    '<div class="form-group col-md-6 mb-0"><img class="mx-auto img-fluid" src="{{challenge.example_image.url}}" alt="Example Image for challenge." /></div>'),
                 css_class='form-row'
             ),
             Row(
                 Column('example_video', css_class='form-group col-md-4 mb-0'),
                 HTML(
-                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" type= "video/mp4" />Your browser does not support mp4 videos</video></div>{% endif %}'),
+                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" alt="Example Video for challenge." type= "video/mp4" />Your browser does not support mp4 videos</video></div>{% endif %}'),
                 css_class='form-row'
             ),
             Row(

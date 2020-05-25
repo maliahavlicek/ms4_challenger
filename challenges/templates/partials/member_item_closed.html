@@ -86,6 +86,7 @@
 </div>
 {# tablet and above layout #}
 <div class="challenge_wrap member flex-grid hidden-phone-down">
+    <div class="full"></div>
     <div>
         <div class="ch-title ch-item">
             <h3>Challenge: <span class="norm-font">{{ item.name | title }}</span></h3>
@@ -106,6 +107,12 @@
             {% endif %}
         </div>
     </div>
+    <div class="ch-item">
+        {% if item.example_image %}
+            <img class="img-fluid mx-auto" src="{{ item.example_image.url }}"
+                 alt="Example Submission Image for {{ item.name }}"/>
+        {% endif %}
+    </div>
     {% if item.example_video %}
         <div class="ch-vid-wrap ch-item">
             <video width='auto' height="150px" controls>
@@ -113,26 +120,22 @@
                 Your browser does not support the video tag.
             </video>
         </div>
+    {% else %}
+        <div class="ch-item">
+            <p>{{ item.description }}</p>
+        </div>
     {% endif %}
-    <div {% if not item.example_video %}class="double"{% endif %}>
-        {% if item.example_image %}
-            <img class="img-fluid mx-auto" src="{{ item.example_image.url }}"
-                 alt="Example Submission Image for {{ item.name }}"/>
-        {% endif %}
+</div>
+<div class="challenge_wrap member flex-grid hidden-phone-down outline">
+    <div class="ch-item full">
+        <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>
     </div>
     {% if entry %}
-        <div class="full">
-            <div class="ch-item">
-                <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>
-            </div>
-
-            <div class="ch-item">
-                {# include aggregate rating for this entry #}
-                {% include 'aggregate_rating.html' with item=entry %}
-            </div>
-            <div class="ch-item">
-                Submitted on {{ entry.date_created|date }}
-            </div>
+        <div class="ch-item center">
+            {# include aggregate rating for this entry #}
+            {% include 'aggregate_rating.html' with item=entry %}
+        </div>
+        <div>
             {% if entry.image_file %}
                 <div class="ch-item">
                     <img class="img-fluid mx-auto" src="{{ entry.image_file.url }}"
@@ -140,6 +143,11 @@
                 </div>
             {% endif %}
 
+            <div class="ch-item">
+                Submitted on {{ entry.date_created|date }}
+            </div>
+        </div>
+        <div>
             {% if entry.audio_file %}
                 <div class="ch-audio-wrap ch-item">
                     <audio width='auto' height="50px" controls>
@@ -159,6 +167,8 @@
             {% endif %}
         </div>
     {% else %}
-        <p>You did not submit an entry to this challenge.</p>
+        <div class="ch-item full">
+            <p>You did not submit an entry to this challenge.</p>
+        </div>
     {% endif %}
 </div>

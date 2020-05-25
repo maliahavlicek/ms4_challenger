@@ -2,6 +2,9 @@
 {% load static tz %}
 {% load bootstrap_tags %}
 {% load crispy_forms_tags %}
+{% block head_css %}
+     <link rel="stylesheet" href="{% static 'css/challenges.css' %}" type="text/css">
+{% endblock %}
 {% block page_title %}
     Update Challenge
 {% endblock %}
@@ -11,7 +14,7 @@
 
 {% block main_content %}
     {% localtime on %}
-        <form method="post" enctype="multipart/form-data" novalidate>
+        <form class="challenge_entry" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             {% crispy challenge_form %}
         </form>
