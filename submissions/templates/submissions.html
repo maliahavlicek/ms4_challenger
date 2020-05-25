@@ -19,13 +19,15 @@
             {% csrf_token %}
             <div id="carousel" class="carousel slide" data-ride="carousel">
 
-                <div class="carousel-inner">
+                <div class="carousel-inner row w-100 mx-auto" role="listbox">
                     {% for item in submissions %}
-                        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
-                            <h2>Title: {{ item.title|title }}</h2>
-                            <p>Entry: {{ forloop.counter }} of {{ submissions|length }}</p>
-                            <img width="auto" height="100%" src="{{ item.image_file.url }}"
-                                 alt="image for {{ item.title }}">
+                        <div class="carousel-item col-12 col-md-6 {% if forloop.counter == 1 %}active{% endif %}">
+                            <h3 class="carousel-title">Title: {{ item.title|title }}</h3>
+                            <p class="item-count">Entry: {{ forloop.counter }} of {{ submissions|length }}</p>
+                            <div class="slider-img">
+                                <img class="img-fluid d-block" src="{{ item.image_file.url }}"
+                                     alt="image for {{ item.title }}">
+                            </div>
                             <div class="carousel-caption">
                                 {# include aggregate rating for this entry #}
                                 {% include 'aggregate_rating.html' %}
@@ -35,17 +37,20 @@
                         </div>
                     {% endfor %}
                 </div>
-                <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                    <i aria-hidden="true" class="fas fa-lg fa-chevron-circle-left"></i>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                    <i aria-hidden="true" class="fas fa-lg fa-chevron-circle-right"></i>
-                    <span class="sr-only">Next</span>
-                </a>
+                {% if submissions|length > 1 %}
+                    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                        <i aria-hidden="true" class="fas fa-lg fa-chevron-circle-left"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                        <i aria-hidden="true" class="fas fa-lg fa-chevron-circle-right"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
+                {% endif %}
             </div>
         </form>
 
     {% endif %}
+    <script type="text/javascript" src="{% static 'js/utils.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/rating.js' %}"></script>
 {% endblock %}

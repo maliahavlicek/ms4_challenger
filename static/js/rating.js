@@ -14,9 +14,21 @@
 //get the CSRF_TOKEN
 var csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
 
+// set array of selectors we want to match heights for:
+var selectors = ['.carousel-title', '.item-count', '.slider-img', '.peerRating'];
+
 
 //on ready function set handlers for rating click
 $(document).ready(function () {
+
+    // initial alignment
+    alignItems(selectors, false);
+    // add listener if user changes size of window/viewport
+    window.addEventListener('resize', function () {
+        alignItems(selectors, false);
+    });
+
+    // listen for ratings input
     var from = document.getElementById('submit-rating-form');
     from.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -49,10 +61,10 @@ function postRating(data) {
 
             },
             body: JSON.stringify({
-                    'rating': data.rating,
-                    'reviewer': data.reviewer,
-                    'entry_id': data.entry,
-                })
+                'rating': data.rating,
+                'reviewer': data.reviewer,
+                'entry_id': data.entry,
+            })
         })
         .then(response => response.json())
         .then(data => {
@@ -64,13 +76,39 @@ function postRating(data) {
 }
 
 // process ajax and update aggregated display of trophy level
-function updateAggregatedRating(data){
+function updateAggregatedRating(data) {
     // clean out the existing content and rebuild it
     var contentHolder = $('.aggregate_rating_' + data['entry_id']);
     contentHolder.empty();
     // want hundreths
-    var value = Math.round(parseFloat(data['trophies'])* 100)/100;
-    var new_content='<div class="trophies" style="--rating: ' + value;
-    new_content+='" aria-label="Rating of this product is ' + value+' out of 3."></div>';
+    var value = Math.round(parseFloat(data['trophies']) * 100) / 100;
+    var new_content = '<div class="trophies" style="--rating: ' + value;
+    new_content += '" aria-label="Rating of this product is ' + value + ' out of 3."></div>';
     contentHolder.append(new_content);
 }
+
+/*
+    Carousel
+*/
+$('#carousel').on('slide.bs.carousel', function (e) {
+    /*
+        CC 2.0 License Iatek LLC 2018 - Attribution required
+    */
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 2;
+    var totalItems = $('.carousel-item').length;
+
+    if (idx >= totalItems - (itemsPerSlide - 1)) {
+        var it = itemsPerSlide - (totalItems - idx);
+        for (var i = 0; i < it; i++) {
+            // append slides to end
+            if (e.direction == "left") {
+                $('.carousel-item').eq(i).appendTo('.carousel-inner');
+            } else {
+                $('.carousel-item').eq(0).appendTo('.carousel-inner');
+            }
+        }
+    }
+});
+
