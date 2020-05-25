@@ -159,7 +159,6 @@ AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
-AWS_DEFAULT_ACL = 'public-read'
 
 STATICFILES_LOCATION = 'static'
 
@@ -170,7 +169,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIAFILES_LOCATION = 'media'
-if os.path.exists('env.py'):
+if os.path.exists('env3.py'):
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     MEDIA_URL = '/media/'
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
