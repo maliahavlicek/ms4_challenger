@@ -26,8 +26,10 @@
             </div>
         </div>
     </div>
-    <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
-    </div>
+    {% if item.example_image %}
+        <div style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+        </div>
+    {% endif %}
     {% if entry %}
         <div class="full">
             <div class="ch-item">
@@ -99,12 +101,14 @@
         </div>
     {% endif %}
     <div {% if not item.example_video %}class="double"{% endif %}>
-        <div class="ch-item"
-             style="background: url({{ item.example_image.url }}); background-size: contain;
-                     background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
-        </div>
+        {% if item.example_image %}
+            <div class="ch-item"
+                 style="background: url({{ item.example_image.url }}); background-size: contain;
+                         background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+            </div>
+        {% endif %}
     </div>
-{% if entry %}
+    {% if entry %}
         <div class="full">
             <div class="ch-item">
                 <h3>Your Entry: <span class="norm-font">{{ entry.title|title }}</span></h3>

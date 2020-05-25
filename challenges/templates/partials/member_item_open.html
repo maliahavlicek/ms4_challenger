@@ -28,9 +28,11 @@
         </div>
     </div>
     <div>
-        <div class="ch-item"
-             style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
-        </div>
+        {% if item.example_image %}
+            <div class="ch-item"
+                 style="background: url({{ item.example_image.url }}); background-size: contain; background-repeat: no-repeat; width: 100%; min-height: 150px; margin-bottom: 10px;">
+            </div>
+        {% endif %}
 
         {% if item.example_video %}
             <div class="ch-vid-wrap ch-item">
@@ -70,13 +72,15 @@
     {% if item.example_video %}
         <div>
     {% endif %}
-            <div class="ch-item"
-                 style="background: url({{ item.example_image.url }}); background-size: contain;
-                         background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
-            </div>
-            <div class="ch-item">
-                <p>{{ item.description }}</p>
-            </div>
+    {% if item.example_image %}
+        <div class="ch-item"
+             style="background: url({{ item.example_image.url }}); background-size: contain;
+                     background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+        </div>
+    {% endif %}
+    <div class="ch-item">
+        <p>{{ item.description }}</p>
+    </div>
     {% if item.example_video %}
         </div>
     {% endif %}

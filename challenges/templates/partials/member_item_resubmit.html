@@ -24,7 +24,10 @@
         </div>
     </div>
     <div class="ch-item">
-        <img class="img-fluid mx-auto" src="{{item.example_image.url }}" alt="Example image for {{ item.name }} challenge."/>
+        {% if item.example_image %}
+            <img class="img-fluid mx-auto" src="{{ item.example_image.url }}"
+                 alt="Example image for {{ item.name }} challenge."/>
+        {% endif %}
     </div>
     <div class="full">
         <div class="ch-item">
@@ -78,10 +81,12 @@
                 - {{ item.end_date | date }}
             {% endif %}
         </div>
-        <div class="ch-item"
-             style="background: url({{ item.example_image.url }}); background-size: contain;
-                     background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
-        </div>
+        {% if item.example_image %}
+            <div class="ch-item"
+                 style="background: url({{ item.example_image.url }}); background-size: contain;
+                         background-repeat: no-repeat; {% if not item.example_video %}height: 200px; {% else %}height:150px;{% endif %}background-position: center;">
+            </div>
+        {% endif %}
         <div class="ch-item">
             <a href="#{{ item.id }}-resubmit-small" data-toggle="tooltip" id="{{ item.id }}-resubmit-small"
                title="{{ item.description }}">Details <i class="fas fa-info-circle"></i></a>
