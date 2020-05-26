@@ -174,7 +174,6 @@ def update_challenge(request, id):
             'example_image': challenge.example_image,
             'example_video': challenge.example_video,
             'members': orig_members,
-            'submission_types': challenge.submission_types,
         })
         if request.method == 'POST':
             challenge_form = UpdateChallengeForm(request.POST, request.FILES)
@@ -196,12 +195,6 @@ def update_challenge(request, id):
                     change_matrix['end_date'] = True
                 challenge.video_time_limit = owned_product.video_length_in_seconds
                 challenge.submission_storage_cap = owned_product.max_submission_size_in_MB
-                submission_types = ['image']
-                if 'submission_audio' in owned_product.features:
-                    submission_types.append('audio')
-                if 'submission_video' in owned_product.features:
-                    submission_types.append('video')
-                challenge.submission_types = submission_types
 
                 if 'example_image' in request.FILES:
                     if challenge.example_image != request.FILES['example_image']:

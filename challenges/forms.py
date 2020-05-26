@@ -122,6 +122,10 @@ class UpdateChallengeForm(forms.Form):
     example_image = forms.ImageField(label="Example Image")
     example_video = forms.FileField(label="Example Video", required=False)
     members = forms.CharField(widget=forms.HiddenInput(), required=False)
+    submission_types = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+        label="Submission Type(s)")
 
     class Meta:
         model = Challenge
@@ -132,7 +136,8 @@ class UpdateChallengeForm(forms.Form):
             'end_date',
             'example_image',
             'example_video',
-            'members'
+            'members',
+            'submission_types',
         ]
 
     def clean_end_date(self):
@@ -172,6 +177,18 @@ class UpdateChallengeForm(forms.Form):
             Row(
                 Column('start_date', css_class='form-group col-md-6 mb-0'),
                 Column('end_date', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">'
+                    '<div id="div_id_submission_types" class="form-group">'
+                    '<label for="div_id_submission_types" class="">Submission Types</label>'
+                    '<div id="div_id_submission_types" class=""><ul>{% for type in challenge.submission_types %}<li>{{type}}</li>{% endfor %}</ul><p>Submission Types are not editable.</p>'                    
+                    '</div>'
+                    '</div>'
+                    '</div>'
+                ),
                 css_class='form-row'
             ),
             Row(
