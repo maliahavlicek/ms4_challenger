@@ -169,7 +169,8 @@ STATICFILES_DIRS = [
 ]
 
 MEDIAFILES_LOCATION = 'media'
-if not DEBUG:
+
+if DEBUG:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     MEDIA_URL = '/media/'
     DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"

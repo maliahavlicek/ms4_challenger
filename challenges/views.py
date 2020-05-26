@@ -30,7 +30,15 @@ def create_challenge(request):
     """Create Challenge page"""
     owned_product = request.user.profile.get_product_level()
     owned_challenges = request.user.profile.get_owned_challenges()
-    challenge_form = CreateChallengeForm()
+
+    # set up choices for submission types based on owned product
+    submission_choices = [('image', 'Image')]
+    if 'submission_audio' in owned_product.features:
+        submission_choices.append(('audio', 'Audio'))
+    if 'submission_video' in owned_product.features:
+        submission_choices.append(('video', 'Video'))
+
+    challenge_form = CreateChallengeForm(submission_choices)
 
     if owned_challenges and owned_challenges.count() == owned_product.max_number_of_challenges:
         # check if user is at challenge limit for product_level
@@ -38,16 +46,10 @@ def create_challenge(request):
         return redirect(reverse('challenges'))
 
     elif request.method == 'POST':
-        challenge_form = CreateChallengeForm(request.POST, request.FILES)
+        challenge_form = CreateChallengeForm(submission_choices, request.POST, request.FILES)
         if 'cancel' in request.POST:
             return redirect(reverse('challenges'))
         if challenge_form.is_valid():
-            # create the challenge object
-            submission_types = ['image']
-            if 'submission_audio' in owned_product.features:
-                submission_types.append('audio')
-            if 'submission_video' in owned_product.features:
-                submission_types.append('video')
 
             challenge = Challenge.objects.create(
                 owner=request.user,
@@ -58,7 +60,7 @@ def create_challenge(request):
                 member_limit=owned_product.max_members_per_challenge,
                 video_time_limit=owned_product.video_length_in_seconds,
                 submission_storage_cap=owned_product.max_submission_size_in_MB,
-                submission_types=submission_types,
+                submission_types=challenge_form.data['submission_types'],
             )
 
             if 'example_image' in request.FILES:
@@ -112,7 +114,7 @@ def create_challenge(request):
             return redirect(reverse('challenges'))
     else:
         # need to pull out user's account info and set some defaults for the form
-        challenge_forms = CreateChallengeForm()
+        challenge_forms = CreateChallengeForm(submission_choices)
 
     # first time create a challenge
     return render(request, "create_challenge.html", {
@@ -172,6 +174,7 @@ def update_challenge(request, id):
             'example_image': challenge.example_image,
             'example_video': challenge.example_video,
             'members': orig_members,
+            'submission_types': challenge.submission_types,
         })
         if request.method == 'POST':
             challenge_form = UpdateChallengeForm(request.POST, request.FILES)
@@ -323,7 +326,7 @@ def challenge_canceled_email(members, challenge):
     from_email = EMAIL_HOST_USER
     # email subject.
     subject = "Challenge Cancelled: " + challenge.name.title() + " On " + datetime.strftime(challenge.start_date,
-                                                                                          '%m/%d/%Y')
+                                                                                            '%m/%d/%Y')
     if challenge.start_date != challenge.end_date:
         subject += " until " + datetime.strftime(challenge.end_date, '%m/%d/%Y')
 
@@ -334,7 +337,7 @@ def challenge_canceled_email(members, challenge):
     if challenge.start_date != challenge.end_date:
         msg_text += ' until ' + datetime.strftime(challenge.end_date, '%m/%d/%Y')
     msg_text += '\n\n\tDETAILS: ' + challenge.description
-    msg_text +="\n\nYour account is still active and you can still set up your own challenges and view other active ones at <" + DEFAULT_DOMAIN + "/challenges/>."
+    msg_text += "\n\nYour account is still active and you can still set up your own challenges and view other active ones at <" + DEFAULT_DOMAIN + "/challenges/>."
     msg_text += '\n\nHave Fun and Challenger on!'
 
     # build out HTML version of email body

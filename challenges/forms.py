@@ -11,6 +11,9 @@ class DatetimeInput(forms.DateInput):
 
 
 class CreateChallengeForm(forms.Form):
+    """
+    Form for Create challenge
+    """
     name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
     description = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control"}))
     start_date = forms.DateField(widget=DateInput)
@@ -18,6 +21,10 @@ class CreateChallengeForm(forms.Form):
     example_image = forms.ImageField(label="Example Image")
     example_video = forms.FileField(label="Example Video", required=False)
     members = forms.CharField(widget=forms.HiddenInput(), required=False)
+    submission_types = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+        label="Submission Type(s)")
 
     class Meta:
         model = Challenge
@@ -28,7 +35,8 @@ class CreateChallengeForm(forms.Form):
             'end_date',
             'example_image',
             'example_video',
-            'members'
+            'members',
+            'submission_types'
         ]
 
     def clean_end_date(self):
@@ -41,8 +49,10 @@ class CreateChallengeForm(forms.Form):
         if end_date < date.today():
             raise forms.ValidationError('End Date cannot be in the past.')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, submission_choices, *args, **kwargs):
+        self.submission_choices = submission_choices
+        super(CreateChallengeForm, self).__init__(*args, **kwargs)
+        self.fields['submission_types'].choices = self.submission_choices
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -58,6 +68,25 @@ class CreateChallengeForm(forms.Form):
             Row(
                 Column('start_date', css_class='form-group col-md-6 mb-0'),
                 Column('end_date', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                HTML(
+                    '<div class="form-group col-md-6 mb-0">'
+                    '<div id="div_id_submission_types" class="form-group">'
+                    '<label for="div_id_submission_types" class="">Submission Types</label>'
+                    '<div class="">'
+                    '{% for value, text in challenge_form.submission_types.field.choices %}'
+                    '<div class="field multi_select_form_field checkbox_select_multiple">'
+                    '<label class="" for="id_submission_types_{{ forloop.counter0 }}">'
+                    '<input type="checkbox" class="" name="submission_types" id="id_submission_types_{{ forloop.counter0 }}" value="{{value}}">'
+                    '{{ text }}</label>'
+                    '</div>'
+                    '{% endfor %}'
+                    '</div>'
+                    '</div>'
+                    '</div>'
+                ),
                 css_class='form-row'
             ),
             Row(
@@ -82,9 +111,9 @@ class CreateChallengeForm(forms.Form):
         )
 
 
-class UpdateChallengeForm(CreateChallengeForm):
+class UpdateChallengeForm(forms.Form):
     """
-    Update is basically the Create challenge form with different submit button name
+    Update is basically the Create challenge form with different submit button name and no ability to change submission types
     """
     name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))
     description = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control"}))
