@@ -25,8 +25,22 @@
                             <h3 class="carousel-title">Title: {{ item.title|title }}</h3>
                             <p class="item-count">Entry: {{ forloop.counter }} of {{ submissions|length }}</p>
                             <div class="slider-img">
-                                <img class="img-fluid d-block" src="{{ item.image_file.url }}"
-                                     alt="image for {{ item.title }}">
+                                {% if item.image_file %}
+                                    <img class="img-fluid d-block" src="{{ item.image_file.url }}"
+                                         alt="image for {{ item.title }}">
+                                {% endif %}
+                                {% if item.video_file %}
+                                    <video controls>
+                                        <source src='{{ item.video_file.url }}' type='video/mp4'>
+                                        Your browser does not support the video tag.
+                                    </video>
+                                {% endif %}
+                                {% if item.audio_file %}
+                                    <audio controls>
+                                        <source src='{{ item.audio_file.url }}' type='audio/mp3'>
+                                        Your browser does not support the video tag.
+                                    </audio>
+                                {% endif %}
                             </div>
                             <div class="carousel-caption">
                                 {# include aggregate rating for this entry #}
