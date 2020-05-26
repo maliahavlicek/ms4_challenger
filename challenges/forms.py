@@ -122,10 +122,6 @@ class UpdateChallengeForm(forms.Form):
     example_image = forms.ImageField(label="Example Image")
     example_video = forms.FileField(label="Example Video", required=False)
     members = forms.CharField(widget=forms.HiddenInput(), required=False)
-    submission_types = forms.MultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple,
-        required=True,
-        label="Submission Type(s)")
 
     class Meta:
         model = Challenge
@@ -137,7 +133,6 @@ class UpdateChallengeForm(forms.Form):
             'example_image',
             'example_video',
             'members',
-            'submission_types',
         ]
 
     def clean_end_date(self):

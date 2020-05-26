@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from .forms import CreateFreeEntryForm, CreateBlastOffEntryForm, CreateInterstellarEntryForm
+from .forms import CreateEntryForm
 from django.contrib import messages
 from .models import Entry
 from challenges.models import Challenge
@@ -62,32 +62,30 @@ def create_submission(request, challenge_id):
 
     # see what type of submission is allowed and choose correct form
     types = challenge.submission_types
-    if 'submission_video' in types:
-        form = CreateInterstellarEntryForm()
-    elif 'submission_audio' in types:
-        form = CreateBlastOffEntryForm()
-    else:
-        form = CreateFreeEntryForm()
+    form = CreateEntryForm(types)
 
     # see if user posted something
     if request.method == 'POST':
         # see what type of submission is allowed and set correct form
-        if 'submission_video' in types:
-            form = CreateInterstellarEntryForm(request.POST, request.FILES)
-        elif 'submission_audio' in types:
-            form = CreateBlastOffEntryForm(request.POST, request.FILES)
-        else:
-            form = CreateFreeEntryForm(request.POST, request.FILES)
+        form = CreateEntryForm(types, request.POST, request.FILES)
         # see if user is canceling
         if 'cancel' in request.POST:
             return redirect(reverse('challenges'))
         elif form.is_valid():
+            # must have at least one file in POST to be valid
+            if not('video_file' in request.FILES or 'audio_file' in request.FILES or'image_file' in request.FILES):
+                messages.error(request, "You must upload a file for your entry.")
+                return render(request, "create_submission.html", {
+                    "challenge": challenge,
+                    "form": form,
+                })
+
             # create entry
             entry = Entry.objects.create(
                 user=request.user,
                 title=form.data['title'],
             )
-            # all forms must have at least 1 file uploaded, so add that in
+            # add in the files that were uploaded by challenge member
             if 'video_file' in request.FILES:
                 entry.video_file = request.FILES['video_file']
             if 'audio_file' in request.FILES:
@@ -96,6 +94,7 @@ def create_submission(request, challenge_id):
                 entry.image_file = request.FILES['image_file']
             # save entry with file
             entry.save()
+
             # add submission to challenge
             challenge.submissions.add(entry)
 
@@ -134,47 +133,32 @@ def update_submission(request, challenge_id):
 
     # see what type of submission is allowed and choose correct form and preload expect file(s)
     types = challenge.submission_types
+    initial = {
+        'title': entry.title
+    }
+
     if 'VIDEO' in (name.upper() for name in types):
-        form = CreateInterstellarEntryForm(initial={
-            'title': entry.title,
-            'image_file': entry.image_file,
-            'audio_file': entry.audio_file,
-            'video_file': entry.video_file,
-        })
-        # video file is an option Blast Off and Interstallar entries, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
+        # video file is an option for an entries, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
         if entry.video_file and 'video_file' not in request.FILES.keys() and entry.video_file.file:
             request.FILES.appendlist('video_file', entry.video_file.file)
-        # aduio file is an option Blast Off and Interstallar entries, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
+            initial['video_file'] = entry.video_file
+    if 'AUDIO' in (name.upper() for name in types):
+        # audio_file is an option when updating, but it's not going to be in the form unless user is changing it out, restore to original if not in request
         if entry.audio_file and 'audio_file' not in request.FILES.keys() and entry.audio_file.file:
             request.FILES.appendlist('audio_file', entry.audio_file.file)
-    elif 'AUDIO' in (name.upper() for name in types):
-        form = CreateBlastOffEntryForm(initial={
-            'title': entry.title,
-            'image_file': entry.image_file,
-            'audio_file': entry.audio_file,
-        })
-        # audio_file is an option Blast Off and Interstallar entries, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
-        if entry.audio_file and 'audio_file' not in request.FILES.keys() and entry.audio_file.file:
-            request.FILES.appendlist('audio_file', entry.audio_file.file)
-    else:
-        form = CreateFreeEntryForm(initial={
-            'title': entry.title,
-            'image_file': entry.image_file,
-        })
+            initial['audio_file'] = entry.audio_file
 
+    if 'IMAGE' in (name.upper() for name in types):
+        # image_file is an option updating, but it's not going to be in the form unless user is changing it out, restore to original if not in request
+        if entry.image_file and 'image_file' not in request.FILES.keys() and entry.image_file.file:
+            request.FILES.appendlist('image_file', entry.image_file.file)
+            initial['image_file'] = entry.image_file
+    form = CreateEntryForm(submission_types=types, initial=initial)
 
-    # image_file is an option for all entries, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
-    if entry.image_file and 'image_file' not in request.FILES.keys() and entry.image_file.file:
-        request.FILES.appendlist('image_file', entry.image_file.file)
-    # see if user posted something
     if request.method == 'POST':
         # see what type of submission is allowed and set correct form
-        if 'submission_video' in types:
-            form = CreateInterstellarEntryForm(request.POST, request.FILES)
-        elif 'submission_audio' in types:
-            form = CreateBlastOffEntryForm(request.POST, request.FILES)
-        else:
-            form = CreateFreeEntryForm(request.POST, request.FILES)
+        form = CreateEntryForm(request.POST, request.FILES)
+
         # see if user is canceling
         if 'cancel' in request.POST:
             return redirect(reverse('challenges'))

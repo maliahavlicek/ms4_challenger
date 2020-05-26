@@ -133,7 +133,7 @@ def delete_challenge(request, id):
     challenge = Challenge.objects.get(id=id)
     if challenge.owner == user:
         members = []
-        message = challenge.name.title() + "Has been deleted. \n\tA cancellation email has been sent to the following users:"
+        message = challenge.name.title() + "Has been deleted. \n\tA cancellation email has been sent to the members."
         for member in members:
             members.append({'user': member})
             user1 = User.objects.filter(id=member).first()
@@ -296,22 +296,13 @@ def challenge_update_email_builder(member_status, challenge, change_matrix):
         # Send out email to distinct groups
         if len(already_in_challenge) > 0:
             challenge_update_email(already_in_challenge, challenge, change_matrix)
-            message += '\n\tUpdate Challenge To:'
-            for member in already_in_challenge:
-                user = User.objects.get(pk=member['user'])
-                message += '\n\t\t' + user.email
+            message += 'Update Challenge to existing members.'
         if len(new_to_challenge) > 0:
             challenge_initial_email(new_to_challenge, challenge)
-            message += '\n\tChallenge Invite To:'
-            for member in new_to_challenge:
-                user = User.objects.get(pk=member['user'])
-                message += '\n\t\t' + user.email
+            message += 'Challenge Invite to new members.'
         if len(out) > 0:
             challenge_canceled_email(out, challenge)
-            message += '\n\tChallenge Cancelled To:'
-            for member in out:
-                user = User.objects.get(pk=member['user'])
-                message += '\n\t\t' + user.email
+            message += 'Challenge Cancelled to dropped members.'
     return message
 
 

@@ -21,6 +21,16 @@
     margin: 10px 0;
 }
 
+.image-hide .image-file{
+    display:none;
+}
+.audio-hide .audio-file{
+    display:none;
+}
+.video-hide .video-file{
+    display:none;
+}
+
 
 /* TABLET STYLES */
 @media screen and (min-width: 769px) {

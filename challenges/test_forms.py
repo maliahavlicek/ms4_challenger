@@ -14,7 +14,8 @@ class TestCreateChallengeForm(TestCase):
 
     def test_create_error_start_after_end(self):
         # start date is after end date
-        form = CreateChallengeForm({
+        submission_choices = [('image', 'Image')]
+        form = CreateChallengeForm(submission_choices,{
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
             'start_date': (datetime.now() + timedelta(days=5)).date(),
@@ -26,12 +27,14 @@ class TestCreateChallengeForm(TestCase):
 
     def test_create_error_past_end_date(self):
         # end date in past error
-        form = CreateChallengeForm({
+        submission_choices = [('image', 'Image')]
+        form = CreateChallengeForm(submission_choices,{
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
             'start_date': (datetime.now() - timedelta(days=5)).date(),
             'end_date': (datetime.now() - timedelta(days=5)).date(),
             'example_image': 'challenges/fixtures/challenge_vid.mp4',
+            'submission_types': ['image'],
         })
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['end_date'], [u'End Date cannot be in the past.'])
@@ -54,11 +57,13 @@ class TestCreateChallengeForm(TestCase):
             'start_date': (datetime.now() - timedelta(days=5)).date(),
             'end_date': date.today(),
             'members': [{"first_name": "first name", "last_name": "last name", "email": "email@email.com", "user": ""}],
+            'submission_types': ['image'],
         }
         file_data = {
             'example_image': img
         }
-        form = CreateChallengeForm(data, file_data)
+        submission_choices = [('image', 'Image')]
+        form = CreateChallengeForm(submission_choices, data, file_data)
         self.assertTrue(form.is_valid())
 
     def test_create_invalid_bad_file_type(self):
@@ -82,7 +87,8 @@ class TestCreateChallengeForm(TestCase):
         file_data = {
             'example_image': img
         }
-        form = CreateChallengeForm(data, file_data)
+        submission_choices = [('image', 'Image')]
+        form = CreateChallengeForm(submission_choices, data, file_data)
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['example_image'],
                          [u'Upload a valid image. The file you uploaded was either not an image or a corrupted image.'])

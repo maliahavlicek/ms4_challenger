@@ -213,7 +213,7 @@ a[data-toggle=tooltip] {
     margin: 0.5rem;
 }
 
-/* product imagery */
+/* product imagery Common to Checkout and Product page so not making separate file */
 .product-img-wrap {
     height: 150px;
     width: 150px;
