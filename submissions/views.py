@@ -75,13 +75,6 @@ def create_submission(request, challenge_id):
         if 'cancel' in request.POST:
             return redirect(reverse('challenges'))
         elif form.is_valid():
-            # must have at least one file in POST to be valid
-            if not('video_file' in request.FILES or 'audio_file' in request.FILES or'image_file' in request.FILES):
-                messages.error(request, "You must upload a file for your entry.")
-                return render(request, "create_submission.html", {
-                    "challenge": challenge,
-                    "form": form,
-                })
 
             # create entry
             entry = Entry.objects.create(

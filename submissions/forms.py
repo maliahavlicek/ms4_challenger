@@ -49,8 +49,8 @@ class CreateEntryForm(forms.Form):
                 self.add_error('audio_file', 'Unacceptable file extension, expecting .mp3')
 
             if audio_file.size > size_limit:
-                self.add_error('audio_file','Please keep file size under %s. Current size %s' % (
-                filesizeformat(size_limit), filesizeformat(audio_file.size)))
+                self.add_error('audio_file', 'Please keep file size under %s. Current size %s' % (
+                    filesizeformat(size_limit), filesizeformat(audio_file.size)))
 
         video_file = cleaned_data.get('video_file')
         if video_file:
@@ -62,14 +62,18 @@ class CreateEntryForm(forms.Form):
             if ext.lower() not in valid_file_extensions:
                 self.add_error('video_file', 'Unacceptable file extension, expecting .mp4')
             if video_file.size > size_limit:
-               self.add_error('video_file', 'Please keep file size under %s. Current size %s') % (
-                    filesizeformat(size_limit), filesizeformat(video_file.size))
+                self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
+                    filesizeformat(size_limit), filesizeformat(video_file.size)))
 
         image_file = cleaned_data.get('image_file')
         if image_file:
             if image_file.size > size_limit:
-                self.add_error('image_file', 'Please keep file size under %s. Current size %s') % (
-                    filesizeformat(size_limit), filesizeformat(image_file.size))
+                self.add_error('image_file', 'Please keep file size under %s. Current size %s' % (
+                    filesizeformat(size_limit), filesizeformat(image_file.size)))
+
+        # must have at least one file in POST to be valid
+        if not 'video_file' and not 'audio_file' and not 'image_file':
+            raise ValidationError("You must upload a file for your entry.")
 
     def __init__(self, submission_types, *args, **kwargs):
         self.submission_types = submission_types
