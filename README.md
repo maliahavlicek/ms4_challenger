@@ -144,6 +144,7 @@ The formal wire-ream process identified the need for the following User Interfac
 | datepicker      | checkboxes  | multiple selection | cards        |
 | icons           | file picker | video player       | audio player |
 | tabbed content  | tooltips    | ratings            | carousel     |
+| tables          | accordions  | alerts             |              |
 
 To save some development time bootstrap 4 was chosen as the CSS framework. I haven't actually used it before but it's well documented and there are many examples that you can modify and the amount of support is hard to beat. (Hoping to avoid date picker issues I had with bulma)
 
@@ -188,20 +189,15 @@ The wire-frame process identified the need for the following User Interface Comp
 #### Reset Password Page
 
 ### Features Left to Implement
+- Monthly and Annual Pricing Tiers.
+- Account Managers/ dual ownership based on Service Levels.
+- Private Comments from challenge masters to members about their entries.
+- Observer Accounts based on Service Levels.
+- Challenge Master Designated Time Limits for audio and video file submissions
+- Group Emails initiated by users vs auto generated emails about challenge creation, update, cancellations.
 
 ## Information Architecture
-
-### Database Choice
-
-### Data Models
-
-#### User
-#### Profile
-#### Tag
-#### ServiceLevel
-#### Challenge
-#### Submission
-#### Rating
+Initial Database Structure Considerations, an ERD and details about the Database models, CRUD functionality, model functions and validations can be found in the [DATA.md](documentation/DATA.md) file.
 
 ## Technologies Used
 
