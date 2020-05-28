@@ -53,14 +53,14 @@ def create_challenge(request):
 
             challenge = Challenge.objects.create(
                 owner=request.user,
-                name=challenge_form.data['name'],
-                description=challenge_form.data['description'],
-                start_date=challenge_form.data['start_date'],
-                end_date=challenge_form.data['end_date'],
+                name=challenge_form.cleaned_data['name'],
+                description=challenge_form.cleaned_data['description'],
+                start_date=challenge_form.cleaned_data['start_date'],
+                end_date=challenge_form.cleaned_data['end_date'],
                 member_limit=owned_product.max_members_per_challenge,
                 video_time_limit=owned_product.video_length_in_seconds,
                 submission_storage_cap=owned_product.max_submission_size_in_MB,
-                submission_types=challenge_form.data['submission_types'],
+                submission_types=challenge_form.cleaned_data['submission_types'],
             )
 
             if 'example_image' in request.FILES:
@@ -121,6 +121,7 @@ def create_challenge(request):
         "owned_challenges": owned_challenges,
         'owned_product': owned_product,
         'challenge_form': challenge_form,
+
     })
 
 
@@ -181,11 +182,11 @@ def update_challenge(request, id):
                 return redirect(reverse('challenges'))
             elif challenge_form.is_valid():
                 change_matrix = {}
-                if challenge.name != challenge_form.data['name']:
-                    challenge.name = challenge_form.data['name']
+                if challenge.name != challenge_form.cleaned_data['name']:
+                    challenge.name = challenge_form.cleaned_data['name']
                     change_matrix['name'] = True
-                if challenge.description != challenge_form.data['description']:
-                    challenge.description = challenge_form.data['description']
+                if challenge.description != challenge_form.cleaned_data['description']:
+                    challenge.description = challenge_form.cleaned_data['description']
                     change_matrix['description'] = True
                 if challenge.start_date.strftime('%Y-%m-%d') != challenge_form.data['start_date']:
                     challenge.start_date = challenge_form.data['start_date']
@@ -279,6 +280,7 @@ def challenge_update_email_builder(member_status, challenge, change_matrix):
     new_to_challenge = []
     already_in_challenge = []
     out = []
+    message = "Your changes were saved. "
     for member in member_status:
         # if no changes in matrix, that means only members were changed, or user didn't update and clicked save so don't send out.
         if member['status'] == 'existing-already-in-challenge':
@@ -289,10 +291,8 @@ def challenge_update_email_builder(member_status, challenge, change_matrix):
         else:
             new_to_challenge.append(member)
 
-    if len(already_in_challenge) + len(new_to_challenge) + len(out) == 0:
-        message = "You didn't make any updates"
-    else:
-        message = "The following emails were sent:"
+    if len(already_in_challenge) + len(new_to_challenge) + len(out) != 0:
+        message += "The following emails were sent:"
         # Send out email to distinct groups
         if len(already_in_challenge) > 0:
             challenge_update_email(already_in_challenge, challenge, change_matrix)
@@ -303,6 +303,7 @@ def challenge_update_email_builder(member_status, challenge, change_matrix):
         if len(out) > 0:
             challenge_canceled_email(out, challenge)
             message += 'Challenge Cancelled to dropped members.'
+
     return message
 
 

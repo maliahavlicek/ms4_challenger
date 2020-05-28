@@ -124,6 +124,11 @@
     display: none;
 }
 
+/* errors for submission types */
+.is-invalid .checkbox_select_multiple input[type=checkbox]:before{
+    border-color: #dc3545;
+}
+
 /* TABLET STYLES */
 @media screen and (min-width: 769px) {
 

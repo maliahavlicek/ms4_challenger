@@ -6,10 +6,6 @@ from accounts.forms import DateInput
 from datetime import date
 
 
-class DatetimeInput(forms.DateInput):
-    input_type = 'datetime'
-
-
 class CreateChallengeForm(forms.Form):
     """
     Form for Create challenge
@@ -39,15 +35,16 @@ class CreateChallengeForm(forms.Form):
             'submission_types'
         ]
 
-    def clean_end_date(self):
+    def clean(self):
         """custom validation for end_date"""
         start_date = self.cleaned_data.get('start_date')
         end_date = self.cleaned_data.get('end_date')
-        if end_date < start_date:
-            raise forms.ValidationError('End Date must come after Start Date.')
+        if start_date and end_date:
+            if end_date < start_date:
+                self.add_error('end_date', 'End Date must come after Start Date.')
 
-        if end_date < date.today():
-            raise forms.ValidationError('End Date cannot be in the past.')
+            if end_date < date.today():
+                self.add_error('end_date', 'End Date cannot be in the past.')
 
     def __init__(self, submission_choices, *args, **kwargs):
         self.submission_choices = submission_choices
@@ -74,8 +71,8 @@ class CreateChallengeForm(forms.Form):
                 HTML(
                     '<div class="form-group col-md-6 mb-0">'
                     '<div id="div_id_submission_types" class="form-group">'
-                    '<label for="div_id_submission_types" class="">Submission Types</label>'
-                    '<div class="">'
+                    '<label for="div_id_submission_types requiredField" class="">Submission Types<span class="asteriskField">*</span></label>'
+                    '<div class="{% if "submission_types" in challenge_form.errors %}is-invalid{% endif %}">'
                     '{% for value, text in challenge_form.submission_types.field.choices %}'
                     '<div class="field multi_select_form_field checkbox_select_multiple">'
                     '<label class="" for="id_submission_types_{{ forloop.counter0 }}">'
@@ -84,6 +81,7 @@ class CreateChallengeForm(forms.Form):
                     '</div>'
                     '{% endfor %}'
                     '</div>'
+                    '{% if "submission_types" in challenge_form.errors %}<span class="invalid-feedback" id="error_submission_types_list">You must select a submission type.</span>{% endif %}'
                     '</div>'
                     '</div>'
                 ),
