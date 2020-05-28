@@ -311,7 +311,6 @@ If any of the following are unfamiliar, please click on their associated links a
  - a [stripe account](https://stripe.com/) - used to securely collect payments, testing API's level is fine unless you want collect payments for real
  - [AWS-S3 (Amazon Web Services - Simple Storage Storage Account)](https://docs.aws.amazon.com/AmazonS3/latest/gsg/SigningUpforS3.html) - web based cloud storage service for online backup of website assets
  - [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) - a cloud storage resource which is similar to file folders on a computer's hard drive
-  - [libmagic](https://pypi.org/project/python-magic/) - identifies file types by checking their headers according to a predefined list of file types
 
 
 ### Local

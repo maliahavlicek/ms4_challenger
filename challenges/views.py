@@ -134,7 +134,7 @@ def delete_challenge(request, id):
     challenge = Challenge.objects.get(id=id)
     if challenge.owner == user:
         members = []
-        message = challenge.name.title() + "Has been deleted. \n\tA cancellation email has been sent to the members."
+        message = challenge.name.title() + " has been deleted. A cancellation email has been sent to the members."
         for member in members:
             members.append({'user': member})
             user1 = User.objects.filter(id=member).first()
