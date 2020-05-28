@@ -62,7 +62,10 @@ def create_submission(request, challenge_id):
 
     # see what type of submission is allowed and choose correct form
     types = challenge.submission_types
-    form = CreateEntryForm(types)
+    form = CreateEntryForm(types, initial={
+        'submission_size_limit': challenge.submission_storage_cap,
+        'submission_time_limit': challenge.video_time_limit
+    })
 
     # see if user posted something
     if request.method == 'POST':
@@ -134,7 +137,9 @@ def update_submission(request, challenge_id):
     # see what type of submission is allowed and choose correct form and preload expect file(s)
     types = challenge.submission_types
     initial = {
-        'title': entry.title
+        'title': entry.title,
+        'submission_size_limit': challenge.submission_storage_cap,
+        'submission_time_limit': challenge.video_time_limit
     }
 
     if 'VIDEO' in (name.upper() for name in types):
@@ -153,11 +158,11 @@ def update_submission(request, challenge_id):
         if entry.image_file and 'image_file' not in request.FILES.keys() and entry.image_file.file:
             request.FILES.appendlist('image_file', entry.image_file.file)
             initial['image_file'] = entry.image_file
-    form = CreateEntryForm(submission_types=types, initial=initial)
+    form = CreateEntryForm(types, initial=initial)
 
     if request.method == 'POST':
         # see what type of submission is allowed and set correct form
-        form = CreateEntryForm(request.POST, request.FILES)
+        form = CreateEntryForm(types, request.POST, request.FILES)
 
         # see if user is canceling
         if 'cancel' in request.POST:
