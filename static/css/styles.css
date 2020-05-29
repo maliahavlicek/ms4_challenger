@@ -119,6 +119,9 @@ button, input, select, textarea, a.btn, input.btn {
     line-height: 24px;
     padding: .375rem .25rem;
 }
+input[type=checkbox]{
+    padding: 0;
+}
 
 /* buttons colors */
 button.btn, input.btn, a.btn {
@@ -396,6 +399,9 @@ label.control-label::after, .form-group label:after {
     /* outline */
     .profile-outline {
         padding: 1.25rem;
+    }
+    button, input, select, textarea, a.btn, input.btn {
+        padding: .375rem 1rem;
     }
 
     .table td, .table th {
