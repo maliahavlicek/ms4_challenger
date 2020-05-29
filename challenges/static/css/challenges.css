@@ -18,6 +18,7 @@
 .nav-tabs .nav-link {
     background-color: var(--gray-lightest);
     border-color: #FFF;
+    padding: .5rem;
 }
 
 .nav-tabs a.nav-link {

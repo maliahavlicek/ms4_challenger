@@ -31,8 +31,8 @@ The matrix for the browsers, operating systems and screen sizes is as follows:
 |       TOOL      	|    DEVICE    	| BROWSER 	|    OS   	|   SCREEN WIDTH  	|
 |:---------------:	|:------------:	|:-------:	|:-------:	|:---------------:	|
 |       N/A       	|    motog6    	|  chrome 	| android 	| XS 360px & less 	|
-|  browser stack  	|   iphone5s   	|  safari 	|   iOs   	| XS 360px & less 	|
-| chrome emulator 	|    pixel 2   	| firefox 	| android 	|    M 361-576    	|
+|  browser stack  	|   iphonese   	|  safari 	|   iOs   	| XS 360px & less 	|
+| chrome emulator 	|    pixel 3   	| firefox 	| android 	|    M 361-576    	|
 |   browserstack  	|  iPhone 10x  	|  Chrome 	|   iOs   	|    M 361-576    	|
 |   browserstack  	|     nexus    	|  Chrome 	| android 	|  T-vert 571-768 	|
 |   browserstack  	|   ipad mini  	|  safari 	|   iOs   	|  T-vert 571-768 	|
