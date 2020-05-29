@@ -119,7 +119,8 @@ button, input, select, textarea, a.btn, input.btn {
     line-height: 24px;
     padding: .375rem .25rem;
 }
-input[type=checkbox]{
+
+input[type=checkbox] {
     padding: 0;
 }
 
@@ -242,6 +243,18 @@ a[data-toggle=tooltip] {
     text-align: center;
 }
 
+/* card-deck, keep block longer than bootstrap */
+.card-deck {
+    display: block;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.card-deck .card {
+    margin: 15px 0;
+    flex: none
+}
+
 /* price formatting */
 .card-text.price {
     font-family: 'Orbitron', Tahoma, serif;
@@ -335,6 +348,7 @@ label.control-label::after, .form-group label:after {
     border-radius: 0;
     cursor: pointer;
     border: 0;
+    font-size: 0;
 }
 
 .checkbox_select_multiple input[type=checkbox]:before {
@@ -394,12 +408,30 @@ label.control-label::after, .form-group label:after {
 
 
 /* TABLET STYLES */
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 768px) {
+    /* card-deck */
+    .card-deck {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .card-deck .card {
+        -ms-flex: 1 0 0%;
+        flex: 1 0 0%;
+        margin-right: 10px;
+        margin-bottom: 0;
+        margin-left: 10px;
+    }
 
     /* outline */
     .profile-outline {
         padding: 1.25rem;
     }
+
     button, input, select, textarea, a.btn, input.btn {
         padding: .375rem 1rem;
     }
@@ -416,7 +448,7 @@ label.control-label::after, .form-group label:after {
 
     /* size links and headers */
     h1, h2, h3, h4, h5, h6, a.navbar-brand, a.nav-link {
-        font-size: 32px;
+        font-size: 31px;
     }
 
     h2 {

@@ -257,7 +257,7 @@
 
 
 /* TABLET STYLES */
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 768px) {
     .carousel-inner > .carousel-item > img {
         width: auto;
         height: 50vh;
