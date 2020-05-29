@@ -72,7 +72,7 @@ class CreateEntryForm(forms.Form):
                     filesizeformat(size_limit), filesizeformat(image_file.size)))
 
         # must have at least one file in POST to be valid
-        if not 'video_file' and not 'audio_file' and not 'image_file':
+        if not video_file and not audio_file and not image_file:
             raise ValidationError("You must upload a file for your entry.")
 
     def __init__(self, submission_types, *args, **kwargs):

@@ -22,7 +22,7 @@ Malia Havlicek
 >    + [Entry](#entry)
 >      - [Model Functions](#model-functions-3)
 >
->- [Back to README](https://github.com/maliahavlicek/ms4_challenger#wireframes)
+>- [Back to README](https://github.com/maliahavlicek/ms4_challenger#information-architecture)
 
 # Information Architecture
 
@@ -313,4 +313,4 @@ Entries can only be submitted by challenge members and viewed by members of the 
 - get_rating - returns aggregated average of ratings associated to entry or 0.
 
 
-- [Back to README](https://github.com/maliahavlicek/ms4_challenger#wireframes)
+- [Back to README](https://github.com/maliahavlicek/ms4_challenger#information-architecture)

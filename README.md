@@ -264,6 +264,8 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 
 - [AWS S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html) - allows seamless uploading of user files to cloud storage using application credentials
 - [stripe](https://stripe.com/) - payment platform to validate and accept credit card payments securely
+- ratings - home grown restful api that accepts ratings from users and sends back an average rating for a given entry
+
 
 ## Defensive Programming
 
@@ -276,6 +278,8 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
 1. Users cannot Update profiles for other users. The Profile Update view checks the user's id against the logged in user's id before allowing updates.
 1. Users cannot Checkout and enter a payment unless they are logged in and payments cannot be attributed to other profiles.
 1. Changing passwords requires sending registered email link and does not auto log in a user. While it's annoying to have to wait for a password reset email, then to login after setting it, this step prevents users from taking account ownership over if they manipulate a password reset for their account and attempt to hack another's.
+1. Before a user can view submissions, challenge ownership/membership is checked
+1. Before a user can rate a submission, challenge ownership/membership is checked
 
 ### Custom Validation
 1. Set up a virtual environment via this command in the terminal session:
@@ -287,6 +291,10 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
    - Before Creation, account limit is checked in case user is sharing account or has another tab open and exceeded limit
 1. Submissions
    - Before Creation and Update, dates are checked to ensure user hasn't left a window open hoping to beat time limit
+   - File size limits are checked before a user successfully uploads a file
+1. Account Management
+  - when a user updates their username or email, the system is crosschecked for uniqueness of values
+   
    
 ## Testing
 
