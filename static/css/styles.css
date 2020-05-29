@@ -435,6 +435,9 @@ label.control-label::after, .form-group label:after {
     button, input, select, textarea, a.btn, input.btn {
         padding: .375rem 1rem;
     }
+    a#add_member.btn{
+        padding: .375rem .5rem;
+    }
 
     .table td, .table th {
         padding: .75rem;

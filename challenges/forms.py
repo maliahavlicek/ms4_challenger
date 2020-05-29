@@ -97,7 +97,7 @@ class CreateChallengeForm(forms.Form):
                 HTML('<div class="form-group member-entry col-md-3 mb-0 d-none d-md-block"><div class="form-group"><div class><input class="form-control" id="last_name" type="text" max_length="50" placeholder="Last Name"/></div></div></div>'),
                 HTML('<div class="form-group member-entry col-md-4 mb-0"><div class="form-group"><div class><input class="form-control member email" id="email" type="email" placeholder="Email"/>'
                      '<span id="error_email"></span></div></div></div>'),
-                HTML('<div class="form-group member-entry col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary">Add Member</a></div></div></div>'),
+                HTML('<div class="form-group member-entry col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary"><i class="fas fa-user-plus"></i> Member</a></div></div></div>'),
                 css_class='form-row'
             ),
             Row(Column('members'), css_class='form-row'),
@@ -198,7 +198,7 @@ class UpdateChallengeForm(forms.Form):
                     '<div class="form-group member-entry col-md-4 mb-0"><div class="form-group"><div class><input class="form-control" id="email" type="email" placeholder="Email"/>'
                     '<span id="error_email"></span></div></div></div>'),
                 HTML(
-                    '<div class="form-group member-entry col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary">Add Member</a></div></div></div>'),
+                    '<div class="form-group member-entry col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary"><i class="fas fa-user-plus"></i> Member</a></div></div></div>'),
                 css_class='form-row'
             ),
             Row(HTML(

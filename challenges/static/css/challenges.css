@@ -167,6 +167,9 @@
         min-width: 200px;
         width: auto;
     }
+    #master .btn.primary{
+        min-width: 100%;
+    }
 
     /* limit image height for desktop challenge recap */
     .challenge_wrap img {
@@ -209,4 +212,8 @@
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {
 
+    #master .btn.primary{
+        min-width: 200px;
+        width: auto;
+    }
 }
