@@ -131,8 +131,6 @@ button.btn, input.btn, a.btn {
 
 input[type=file] {
     font-size: 16px;
-    background: var(--primary);
-    color: var(--black);
     font-family: Exo, Arial, sans-serif;
     font-weight: 500;
     line-height: 24px;
@@ -459,8 +457,5 @@ label.control-label::after, .form-group label:after {
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {
 
-    /* on desktop devices, button shows for file inputs */
-    input[type=file] {
-        background: none;
-    }
+
 }
