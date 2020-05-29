@@ -7,7 +7,7 @@
     Account Overview
 {% endblock %}
 {% block main_content %}
-    <div class="row">
+    <div class="row" xmlns="http://www.w3.org/1999/html">
         <div class="col-md-12">
             <h4>User Details:</h4>
         </div>
@@ -92,7 +92,7 @@
         </div>
     </div>
     <div class="row profile-outline">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <p>
                 <span class="label">Service Level: </span>
                 {% if request.user.profile.product_level.name %}
@@ -101,6 +101,20 @@
                     Free
                 {% endif %}
             </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <span class="label">Number of Active Challenges:</span>
+                {{ request.user.profile.product_level.max_number_of_challenges }}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <span class="label">Number of Members per Challenge:</span>
+                {{ request.user.profile.product_level.max_members_per_challenge }}
+            </p>
+        </div>
+        <div class="col-md-12">
             {% if orders|length > 0 %}
                 <div id="accordion">
                     <div class="" id="headingTwo">

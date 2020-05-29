@@ -18,11 +18,11 @@
 .nav-tabs .nav-link {
     background-color: var(--gray-lightest);
     border-color: #FFF;
-    padding: .5rem;
 }
 
 .nav-tabs a.nav-link {
     color: #034b98;
+    padding: .5rem;
 }
 
 .nav-tabs a.nav-link:hover {
@@ -39,6 +39,10 @@
     background: var(--gray-light);
     margin-bottom: 20px;
     padding-bottom: 10px;
+}
+
+.challenge-info {
+    padding: 10px 10px 0;
 }
 
 .challenge_wrap {
@@ -126,7 +130,7 @@
 }
 
 /* errors for submission types */
-.is-invalid .checkbox_select_multiple input[type=checkbox]:before{
+.is-invalid .checkbox_select_multiple input[type=checkbox]:before {
     border-color: #dc3545;
 }
 

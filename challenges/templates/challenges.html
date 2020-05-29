@@ -7,7 +7,7 @@
     Challenges
 {% endblock %}
 {% block head_css %}
-     <link rel="stylesheet" href="{% static 'css/challenges.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/challenges.css' %}" type="text/css">
 {% endblock %}
 {% block head_js %}
     <script>
@@ -54,11 +54,21 @@
 
         {# Tab for Special content when user is at limit user is Master of #}
         <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
-            <p>You have the maximum number of challenges allowed. You can delete an existing one on the 'Master
-                tab'.</p>
+            <div class="chg-header">You are the Master of {{ owned_challenges|length }}
+                challenges.
+            </div>
+            <div class="challenge-info">
+                The {{ owned_product.name|title }} product only allows {{ owned_product.max_number_of_challenges }}
+                challenges. You can delete
+                an existing one on the 'Master tab'.
+            </div>
             {% if owned_product.name != "Interstellar" %}
-                <p>Or you can <a href="{% url 'products' %}" class="btn primary">Upgrade</a> to a higher service level.
-                </p>
+                <div class="challenge-info">
+                    Or you can upgrade to a higher service level.
+                </div>
+                <div class="challenge-info">
+                    <a href="{% url 'products' %}" class="btn primary">Upgrade</a>
+                </div>
             {% endif %}
         </div>
     </div>
