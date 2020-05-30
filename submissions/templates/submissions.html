@@ -30,10 +30,7 @@
                                          alt="image for {{ item.title }}">
                                 {% endif %}
                                 {% if item.video_file %}
-                                    <video controls>
-                                        <source src='{{ item.video_file.url }}' type='video/mp4'>
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    {% vid_player video_url=item.video_file.url %}
                                 {% endif %}
                                 {% if item.audio_file %}
                                     <audio controls>

@@ -60,13 +60,13 @@ class CreateEntryForm(forms.Form):
 
         video_file = cleaned_data.get('video_file')
         if video_file:
-            valid_mime_types = ['video/mp4']
+            valid_mime_types = ['video/mp4', 'video/quicktime']
             if video_file.content_type not in valid_mime_types:
-                self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
-            valid_file_extensions = ['.mp4']
+                self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime')
+            valid_file_extensions = ['.mp4', '.mov']
             ext = os.path.splitext(video_file.name)[1]
             if ext.lower() not in valid_file_extensions:
-                self.add_error('video_file', 'Unacceptable file extension, expecting .mp4')
+                self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
             if video_file.size > size_limit:
                 self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
                     filesizeformat(size_limit), filesizeformat(video_file.size)))
@@ -105,7 +105,7 @@ class CreateEntryForm(forms.Form):
             Row(
                 Column('video_file', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0">{% if entry.video_file %}<video controls><source src="{{entry.video_file.url}}" type="video/mp4" /><p>Your browser does not support HTML5 video.</video>{% endif %}</div>'),
+                    '<div class="form-group col-md-6 mb-0">{% if entry.video_file %}<video controls><source src="{{entry.video_file.url}}" {% if ".mp4" in entry.video_file.url %}type="video/mp4"{% elif "mov" in entry.video_file.url %}type="video/quicktime"{% endif %}><p>Your browser does not support HTML5 video.</p></video>{% endif %}</div>'),
                 css_class='form-row video-file'
             ),
             Row(

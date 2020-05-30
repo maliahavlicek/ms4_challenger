@@ -4,6 +4,8 @@ from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from .models import Challenge
 from accounts.forms import DateInput
 from datetime import date
+import os
+from django.template.defaultfilters import filesizeformat
 
 
 class CreateChallengeForm(forms.Form):
@@ -45,6 +47,20 @@ class CreateChallengeForm(forms.Form):
 
             if end_date < date.today():
                 self.add_error('end_date', 'End Date cannot be in the past.')
+
+    def clean_example_video(self):
+        video_file = self.cleaned_data.get('example_video')
+        valid_mime_types = ['video/mp4', 'video/quicktime']
+        if video_file.content_type not in valid_mime_types:
+            self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
+        valid_file_extensions = ['.mp4', '.mov']
+        ext = os.path.splitext(video_file.name)[1]
+        if ext.lower() not in valid_file_extensions:
+            self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
+        size_limit = 429916160
+        if video_file.size > size_limit:
+            self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
+                filesizeformat(size_limit), filesizeformat(video_file.size)))
 
     def __init__(self, submission_choices, *args, **kwargs):
         self.submission_choices = submission_choices
@@ -143,6 +159,20 @@ class UpdateChallengeForm(forms.Form):
         if end_date < date.today():
             raise forms.ValidationError('End Date cannot be in the past.')
 
+    def clean_example_video(self):
+        video_file = self.cleaned_data.get('example_video')
+        valid_mime_types = ['video/mp4', 'video/quicktime']
+        if video_file.content_type not in valid_mime_types:
+            self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
+        valid_file_extensions = ['.mp4', '.mov']
+        ext = os.path.splitext(video_file.name)[1]
+        if ext.lower() not in valid_file_extensions:
+            self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
+        size_limit = 429916160
+        if video_file.size > size_limit:
+            self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
+                filesizeformat(size_limit), filesizeformat(video_file.size)))
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -160,7 +190,8 @@ class UpdateChallengeForm(forms.Form):
             Row(
                 Column('example_video', css_class='form-group col-md-4 mb-0'),
                 HTML(
-                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" alt="Example Video for challenge." type= "video/mp4" />Your browser does not support mp4 videos</video></div>{% endif %}'),
+                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" alt="Example Video for challenge."'
+                    '{% if ".mp4" in challenge.example_video.url %}type="video/mp4"{% elif "mov" in challenge.example_video.url %}type="video/quicktime"{% endif %}>Your browser does not support the vidoe tag</video></div>{% endif %}'),
                 css_class='form-row'
             ),
             Row(
