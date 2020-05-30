@@ -64,6 +64,7 @@ function postRating(data) {
                 'rating': data.rating,
                 'reviewer': data.reviewer,
                 'entry_id': data.entry,
+                'csrfmiddlewaretoken': csrftoken,
             })
         })
         .then(response => response.json())
