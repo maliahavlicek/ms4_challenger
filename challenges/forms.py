@@ -50,17 +50,18 @@ class CreateChallengeForm(forms.Form):
 
     def clean_example_video(self):
         video_file = self.cleaned_data.get('example_video')
-        valid_mime_types = ['video/mp4', 'video/quicktime']
-        if video_file.content_type not in valid_mime_types:
-            self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
-        valid_file_extensions = ['.mp4', '.mov']
-        ext = os.path.splitext(video_file.name)[1]
-        if ext.lower() not in valid_file_extensions:
-            self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
-        size_limit = 429916160
-        if video_file.size > size_limit:
-            self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
-                filesizeformat(size_limit), filesizeformat(video_file.size)))
+        if video_file:
+            valid_mime_types = ['video/mp4', 'video/quicktime']
+            if video_file.content_type not in valid_mime_types:
+                self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
+            valid_file_extensions = ['.mp4', '.mov']
+            ext = os.path.splitext(video_file.name)[1]
+            if ext.lower() not in valid_file_extensions:
+                self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
+            size_limit = 429916160
+            if video_file.size > size_limit:
+                self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
+                    filesizeformat(size_limit), filesizeformat(video_file.size)))
 
     def __init__(self, submission_choices, *args, **kwargs):
         self.submission_choices = submission_choices
@@ -161,17 +162,18 @@ class UpdateChallengeForm(forms.Form):
 
     def clean_example_video(self):
         video_file = self.cleaned_data.get('example_video')
-        valid_mime_types = ['video/mp4', 'video/quicktime']
-        if video_file.content_type not in valid_mime_types:
-            self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
-        valid_file_extensions = ['.mp4', '.mov']
-        ext = os.path.splitext(video_file.name)[1]
-        if ext.lower() not in valid_file_extensions:
-            self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
-        size_limit = 429916160
-        if video_file.size > size_limit:
-            self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
-                filesizeformat(size_limit), filesizeformat(video_file.size)))
+        if video_file:
+            valid_mime_types = ['video/mp4', 'video/quicktime']
+            if video_file.content_type not in valid_mime_types:
+                self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
+            valid_file_extensions = ['.mp4', '.mov']
+            ext = os.path.splitext(video_file.name)[1]
+            if ext.lower() not in valid_file_extensions:
+                self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
+            size_limit = 429916160
+            if video_file.size > size_limit:
+                self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
+                    filesizeformat(size_limit), filesizeformat(video_file.size)))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
