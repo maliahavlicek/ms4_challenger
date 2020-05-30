@@ -10,10 +10,16 @@ Malia Havlicek
 
 ## Project Overview
 
-Challenger provides a way for small groups to test each other with friendly competitions based on common skill sets and interests. Whether you are teaching music lessons, coaching a soccer team or just a group of friends trying to top each other, this forum allows you to quickly set up a group, designate a master of ceremonies and define the limits of the challenge. Members then can load up a video or image of their results. The master of ceremonies can privately grade submissions and peers can upvote each others' efforts. Members with a subscription service provide private links to families and fiends of their videos. 
+[![ms4-challenger](documentation/ResponsiveScreenShot.png "MS4-Challenger App")](http://ms4-challenger.herokuapp.com/)
+
+Challenger provides a way for small groups to test each other with friendly competitions based on common skill sets and interests. Whether you are teaching music lessons, coaching a soccer team or just a group of friends trying to top each other, this forum allows you to quickly set up a group, designate a master of ceremonies and define the limits of the challenge. Members then can load up a video or image of their results. The master of ceremonies can privately grade submissions and peers can rate each others' efforts. Members with a subscription service provide private links to families and fiends of their videos. 
 
 ### How to use
+Since this application has a wide range of users, I've placed a couple of tutorial videos on the homepage to help users who may be a bit tentative on using the app the very first time. 
 
+- [Register](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4)
+- [Create Challenge](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4)
+- [Submit Entry](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4)
 
 ## Table of Contents
 
@@ -43,7 +49,7 @@ Challenge Master Goals are:
 - Initiate a challenge to a group of people via email
 - Update an existing challenge
 - Delete a challenge so I don't have to spend more money if I hit my challenge limit
-- Upgrade my account so I can run more challenges
+- Upgrade my account so I can proctor more challenges
 - Be notified when a submission has been made
 - Approve Submissions before rest of team can see them
 - Provide private constructive criticism to challenge members about their submissions

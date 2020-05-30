@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = [os.environ.get('HOSTNAME'), "127.0.0.1", "ms4-challenger.herokuapp.com", "https://responsivedesignchecker.com/", "http://ami.responsivedesign.is/"]
+ALLOWED_HOSTS = [os.environ.get('HOSTNAME'), "127.0.0.1", "ms4-challenger.herokuapp.com"]
 DEFAULT_DOMAIN = 'https://{}'.format(ALLOWED_HOSTS[0])
 # Application definition
 
