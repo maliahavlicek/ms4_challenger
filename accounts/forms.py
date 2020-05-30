@@ -1,10 +1,12 @@
+import sqlite3
+
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.safestring import mark_safe
-
+from django.db.utils import OperationalError
 from .models import Profile, Tag
 from datetime import date
 
@@ -111,11 +113,16 @@ class ProfileForm(forms.ModelForm):
     """
     Collect Updated Profile Info From User
     """
+    try:
+        INTERESTS = ((c.pk, mark_safe(c.name)) for c in Tag.objects.all())
+    except OperationalError:
+        INTERESTS = []
+
     birth_date = forms.DateField(widget=DateInput)
     profile_pic = forms.ImageField(label="Profile Picture")
     tags = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        choices=((c.pk, mark_safe(c.name)) for c in Tag.objects.all()),
+        choices=INTERESTS,
         required=False,
         label="Interests")
 

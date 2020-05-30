@@ -11,7 +11,7 @@ class Tag(models.Model):
     """
     Used to help profile user for newer products or ads
     """
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50, null=True ,blank=True)
 
     def __str__(self):
         return self.name
