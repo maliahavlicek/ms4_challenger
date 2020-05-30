@@ -115,6 +115,8 @@ a.nav-link i {
 video, audio {
     margin: 0 auto;
 	border: 1px solid #92a9bf;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 /* outline
