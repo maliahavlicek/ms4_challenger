@@ -7,10 +7,10 @@
     User Login
 {% endblock %}
 {% block main_content %}
+    <p>If you dot not have an account, you can <a href="{% url 'registration' %}">register</a>.</p>
     <form method="POST" novalidate>
         {% csrf_token %}
         {% crispy login_form %}
     </form>
-
     <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
 {% endblock %}

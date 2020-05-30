@@ -4,6 +4,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserLoginForm, UserRegistrationFrom, ProfileForm, UserUpdateForm
 from checkout.models import Order
+from products.models import ServiceLevel
 
 from django.contrib.auth.models import User
 
@@ -65,11 +66,24 @@ def registration(request):
         registration_form = UserRegistrationFrom(request.POST)
         if registration_form.is_valid():
             registration_form.save()
+            # login user automatically
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
             if user:
+                # first time need to set up service_level as Free
+                product = user.profile.get_product_level()
+                # create order for free product
+                Order(
+                    user=user,
+                    product=product,
+                    total=product.price,
+                    payment_status='payment_collected',
+                )
+
+                # auto login newly created user
                 auth.login(user=user, request=request)
                 messages.success(request, "You have successfully registered.")
+
                 return redirect(reverse('index'))
             else:
                 messages.error(request, 'Unable to register your account at this time')
@@ -136,8 +150,9 @@ def update_user(request):
                     form.fields['username'].error_messages = {'required': 'That username is already in use.'}
                     messages.error(request, f'That user name is already in use.')
                 if User.objects.filter(email=email).exclude(id=user.id).count() > 0:
-                    form.fields['username'].default_error_messages ={'required': 'That email address is already in use.'}
-                    form.fields['username'].error_messages ={'required': 'That email address is already in use.'}
+                    form.fields['username'].default_error_messages = {
+                        'required': 'That email address is already in use.'}
+                    form.fields['username'].error_messages = {'required': 'That email address is already in use.'}
                     messages.error(request, f'That email is already in use.')
                 return render(request, 'user_update.html', {'form': form})
 

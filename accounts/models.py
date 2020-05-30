@@ -68,6 +68,9 @@ class Profile(models.Model):
                     max_submission_size_in_MB=500,
                     image="images/products/hot-air-balloon.png",
                 )
+            # save off owned product since it wasn't set
+            self.product_level = owned_product
+            self.save()
         return owned_product
 
     def get_tags(self):

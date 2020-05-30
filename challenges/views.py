@@ -8,8 +8,8 @@ import json
 from .password import random_string
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from ms4_challenger.settings import EMAIL_HOST_USER, DEFAULT_DOMAIN
-from datetime import datetime, date
-from pytz import timezone
+from datetime import datetime
+from checkout.models import Order
 
 
 @login_required
@@ -95,6 +95,8 @@ def create_challenge(request):
                         first_name=member['first_name'],
                         last_name=member['last_name'],
                     )
+                    # set free product tier
+                    set_free_tier(user1)
 
                     challenge.members.add(user1)
                     member_status.append({
@@ -241,6 +243,8 @@ def update_challenge(request, id):
                             first_name=member['first_name'],
                             last_name=member['last_name'],
                         )
+                        # set free product tier
+                        set_free_tier(user1)
 
                         challenge.members.add(user1)
                         member_status.append({
@@ -470,3 +474,14 @@ def challenge_initial_email(members, challenge):
     msg.send()
 
     return True
+
+
+def set_free_tier(user):
+    """helper function to set free product tier for newly created user"""
+    product = user.profile.get_product_level()
+    Order(
+        user=user,
+        product=product,
+        total=product.price,
+        payment_status='payment_collected',
+    )

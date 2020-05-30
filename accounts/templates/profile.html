@@ -104,8 +104,8 @@
         </div>
         <div class="col-md-4">
             <p>
-                <span class="label">Number of Active Challenges:</span>
-                {{ request.user.profile.product_level.max_number_of_challenges }}
+                <span class="label">Master of Challenges:</span>
+               {% if request.user.profile.get_owned_challenges %}{{ request.user.profile.get_owned_challenges }}{% else %} 0 {% endif %}/ {{ request.user.profile.product_level.max_number_of_challenges }}
             </p>
         </div>
         <div class="col-md-4">

@@ -17,8 +17,8 @@ class Order(models.Model):
     product - cross references Product model
     status - payment status, if not payment_collected, user will default to FREE tier
     """
-    product = models.ForeignKey(ServiceLevel, null=True, on_delete=models.SET_NULL)
-    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(ServiceLevel, null=True, blank=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=6, decimal_places=2,validators=[
                                              MinValueValidator(0.00),
                                              MaxValueValidator(1500.00)
