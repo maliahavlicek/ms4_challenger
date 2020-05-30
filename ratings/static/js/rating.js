@@ -17,12 +17,11 @@ var csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
 // set array of selectors we want to match heights for:
 var selectors = ['.carousel-title', '.item-count', '.slider-img', '.peerRating'];
 
-
 //on ready function set handlers for rating click
 $(document).ready(function () {
 
     // initial alignment, a bit after page has loaded since image loading is a bit delayed
-     setTimeout(function () { alignItems(selectors, false)}, 300);
+     alignItems(selectors, false);
     // add listener if user changes size of window/viewport
     window.addEventListener('resize', function () {
         alignItems(selectors, false);

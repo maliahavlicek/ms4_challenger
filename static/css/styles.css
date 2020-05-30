@@ -111,10 +111,13 @@ a.nav-link i {
     margin: 0 10px;
 }
 
-/* outline videos as some browser's don't do that automatically */
-video {
-    border: 1px solid var(--gray-lightest);
+/* outline video and audio as some browser's don't do that automatically */
+video, audio {
+    margin: 0 auto;
+	border: 1px solid #92a9bf;
 }
+
+/* outline
 
 /* set fonts buttons and inputs */
 button, input, select, textarea, a.btn, input.btn {
@@ -438,9 +441,6 @@ label.control-label::after, .form-group label:after {
     }
 
     button, input, select, textarea, a.btn, input.btn {
-        padding: .375rem 1rem;
-    }
-    a#add_member.btn{
         padding: .375rem .5rem;
     }
 
@@ -522,6 +522,10 @@ label.control-label::after, .form-group label:after {
 /* DESKTOP STYLES */
 /* desktop and larger styles */
 @media screen and (min-width: 1024px) {
-
-
+  button, input, select, textarea, a.btn, input.btn {
+        padding: .375rem 1rem;
+    }
+    a#add_member.btn{
+        padding: .375rem .5rem;
+    }
 }

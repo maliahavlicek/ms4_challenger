@@ -3,7 +3,8 @@
 
 /* Match heights of items on page based on incoming array of selectors */
 function alignItems(selectors, skipSmall) {
-    var skip_small = (typeof skipSmall === 'undefined') ? true : skip_small;
+    //wait a little bit before moving forward
+    setTimeout(function () {  var skip_small = (typeof skipSmall === 'undefined') ? true : skip_small;}, 300);
 
 // figure out width of screen
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);

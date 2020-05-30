@@ -38,17 +38,11 @@ function member_list() {
     for (var i in list) {
 
         var item = `
-                <div id="member-row-${list[i].email}" class="row member-row">    
-                    <div class="col-md-3 member d-none d-md-block">
-                      <div class="member">${list[i].first_name}</div>
-                    </div> 
-                    <div class="col-md-3 member d-none d-md-block">
-                      <div class="member">${list[i].last_name}</div>
-                    </div>          
-                    <div class="col-md-3 col-10">
+                <div id="member-row-${list[i].email}" class="row member-row">            
+                    <div class="col-10">
                       <div class="member">${list[i].email}</div>
                     </div>            
-                    <div class="member-remove">
+                    <div class="col-2 member-remove">
                       <a onclick="remove('${list[i].email}');" class="btn member-remove">X</a>
                     </div>
                 </div>

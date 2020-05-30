@@ -107,9 +107,7 @@
 }
 
 /* member entry */
-.member-row .member {
-    border-bottom: 1px solid var(--gray-light);
-}
+
 
 .member-row:first-of-type {
     margin-top: -15px;
