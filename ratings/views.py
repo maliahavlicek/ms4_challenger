@@ -3,7 +3,6 @@ from rest_framework.decorators import api_view
 from .serializers import RatingsInputSerializer, TotalTrophiesSerializer
 from rest_framework.response import Response
 from .models import Rating
-from django.db.models import Avg
 from django.contrib.auth.models import User
 from datetime import datetime
 import pytz
@@ -11,7 +10,7 @@ import pytz
 utc = pytz.UTC
 
 
-@api_view(['POST'])
+@api_view(['post'])
 def send(request):
     """
     Create or update a rating if input form is valid and user is really allowed to rate given entry
