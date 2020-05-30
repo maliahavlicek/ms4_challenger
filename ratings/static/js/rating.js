@@ -52,9 +52,11 @@ $(document).ready(function () {
 // send rating to api view url
 function postRating(data) {
     var url = '/ratings/send/';
+
     fetch(url,
         {
             method: 'POST',
+            credentials: 'same-origin',
             headers: {
                 'Content-type': 'application/json',
                 'X-CSRFTOKEN': csrftoken,
