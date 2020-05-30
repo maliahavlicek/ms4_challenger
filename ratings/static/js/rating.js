@@ -21,8 +21,8 @@ var selectors = ['.carousel-title', '.item-count', '.slider-img', '.peerRating']
 //on ready function set handlers for rating click
 $(document).ready(function () {
 
-    // initial alignment
-    alignItems(selectors, false);
+    // initial alignment, a bit after page has loaded since image loading is a bit delayed
+     setTimeout(function () { alignItems(selectors, false)}, 300);
     // add listener if user changes size of window/viewport
     window.addEventListener('resize', function () {
         alignItems(selectors, false);

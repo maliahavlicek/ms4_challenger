@@ -111,6 +111,11 @@ a.nav-link i {
     margin: 0 10px;
 }
 
+/* outline videos as some browser's don't do that automatically */
+video {
+    border: 1px solid var(--gray-lightest);
+}
+
 /* set fonts buttons and inputs */
 button, input, select, textarea, a.btn, input.btn {
     font-family: Exo, Arial, sans-serif;
