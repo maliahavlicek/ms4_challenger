@@ -444,6 +444,10 @@ label.control-label::after, .form-group label:after {
         padding: .375rem .5rem;
     }
 
+    a#add_member.btn{
+        padding: .375rem .2rem;
+    }
+
     .table td, .table th {
         padding: .75rem;
         font-size: 18px;

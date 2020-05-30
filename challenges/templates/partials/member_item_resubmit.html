@@ -55,10 +55,7 @@
 
         {% if entry.video_file %}
             <div class="ch-vid-wrap ch-item">
-                <video width='auto' height="250px" controls>
-                    <source src='{{ entry.video_file.url }}' type='video/mp4'>
-                    Your browser does not support the video tag.
-                </video>
+                {% vid_player video_url=entry.video_file.url width='auto' height="250px" %}
             </div>
         {% endif %}
     </div>
@@ -119,10 +116,7 @@
 
         {% if entry.video_file %}
             <div class="ch-vid-wrap ch-item">
-                <video width='auto' height="250px" controls>
-                    <source src='{{ entry.video_file.url }}' type='video/mp4'>
-                    Your browser does not support the video tag.
-                </video>
+                {% vid_player video_url=entry.video_file.url width='auto' height="250px" %}
             </div>
         {% endif %}
     </div>

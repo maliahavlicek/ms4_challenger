@@ -73,10 +73,7 @@
             </div>
             {% if item.example_video %}
                 <div class="ch-vid-wrap ch-item">
-                    <video width='100%' height="auto" controls>
-                        <source src='{{ item.example_video.url }}' type='video/mp4'>
-                        Your browser does not support the video tag.
-                    </video>
+                    {% vid_player video_url=item.example_video.url width='100%' height="auto" %}
                 </div>
             {% endif %}
             {% if item.example_image %}
