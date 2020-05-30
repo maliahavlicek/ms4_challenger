@@ -202,6 +202,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+# REST FRAMEWORK PERMISSIONS
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 if DEBUG:
     TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
