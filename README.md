@@ -195,12 +195,15 @@ The wire-frame process identified the need for the following User Interface Comp
 #### Reset Password Page
 
 ### Features Left to Implement
-- Monthly and Annual Pricing Tiers.
+- Monthly and Annual Pricing Tiers / Reoccurring payments with Stripe
 - Account Managers/ dual ownership based on Service Levels.
 - Private Comments from challenge masters to members about their entries.
-- Observer Accounts based on Service Levels.
+- Observer Accounts based on Service Level of user
+- Automated reminders when challenge opens and day of closure
 - Challenge Master Designated Time Limits for audio and video file submissions
 - Group Emails initiated by users vs auto generated emails about challenge creation, update, cancellations.
+- Workflow for Inappropriate Content reporting/resolution
+- Policy/Privacy Terms acknowledgement within checkout/registration process
 
 ## Information Architecture
 Initial Database Structure Considerations, an ERD and details about the Database models, CRUD functionality, model functions and validations can be found in the [DATA.md](documentation/DATA.md) file.
@@ -290,7 +293,7 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
 ### Custom Validation
 1. Set up a virtual environment via this command in the terminal session:
    - Emails and user names are unique to the account. 
-   - Users must be 13 years or older.
+   - Users must be 10 years or older to set up profile
 1. Challenges
    - Challenge end dates must be in the future for creation and updates
    - Creation and Updates check current service level of user for submission types and features

@@ -62,29 +62,30 @@ class UserRegistrationFrom(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-    def clean_email(self):
+    def clean(self):
+        # Make sure email isn't already in system
         email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).count() > 0:
+            self.add_error('email', 'That email address is already registered.')
+        # Make sure user name isn't already in system
         username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username).count() > 0:
-            raise forms.ValidationError('That email address is already registered.')
-        return email
+        if User.objects.filter(username=username).count() > 0:
+            self.add_error('email', 'That username is already registered.')
 
-    def clean_password2(self):
+        # make sure passwords match up and don't contain username or email
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
         username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
 
         if password1 != password2:
-            raise forms.ValidationError('Passwords must match.')
+            self.add_error('password2', 'Passwords must match.')
 
         if username in password2:
-            raise forms.ValidationError('Your username cannot be part of your password.')
+            self.add_error('password2', 'Your username cannot be part of your password.')
 
         if email in password2:
-            raise forms.ValidationError('Your email cannot be part of your password.')
-
-        return password2
+            self.add_error('password2', 'Your email cannot be part of your password.')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -121,7 +122,7 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['user']
 
-    def clean_birth_date(self):
+    def clean(self):
         birth_date = self.cleaned_data.get('birth_date')
 
         # Don't really care if usr is leap year or not, +-2 days does not really matter if usr can sign up or not
@@ -129,13 +130,11 @@ class ProfileForm(forms.ModelForm):
 
         # birthdate should be in past
         if birth_date > date.today():
-            raise forms.ValidationError('Please enter a valid birth date.')
+            self.add_error('birth_date', 'Please enter a valid birth date.')
 
         # user has to be 10 years or older
         if num_years < 10:
-            raise forms.ValidationError('You must be 10 years or older to use this platform.')
-
-        return birth_date
+            self.add_error('birth_date', 'You must be 10 years or older to use this platform.')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
