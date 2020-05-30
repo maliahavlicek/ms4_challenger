@@ -51,7 +51,7 @@ $(document).ready(function () {
 
 // send rating to api view url
 function postRating(data) {
-    var url = '/ratings/send';
+    var url = '/ratings/send/';
     fetch(url,
         {
             method: 'POST',
