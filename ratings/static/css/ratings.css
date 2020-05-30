@@ -245,14 +245,6 @@
         visibility: visible;
     }
 
-    /* rating buttons */
-    .difficultyLevel {
-        margin: 5px;
-    }
-
-    .rating-input {
-        margin: 10px 0;
-    }
 }
 
 
@@ -303,5 +295,20 @@
 
     .slider-img img {
         margin: 0 auto;
+    }
+
+}
+
+
+/* DESKTOP STYLES */
+/* desktop and larger styles */
+@media screen and (min-width: 1024px) {
+    /* rating buttons */
+    .rating-input {
+        margin: 5px 0;
+    }
+
+    .difficultyLevel {
+        margin: 2px;
     }
 }
