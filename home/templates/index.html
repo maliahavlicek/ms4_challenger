@@ -1,22 +1,50 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_heading %}
-    Bring the next level of competition to your group.
+Bring the next level of competition to your group.
 {% endblock %}
 {% block main_content %}
     <div class="container-fluid rocket">
         <div class="main-item">
-            <h2>Why Challenger?</h2>
-            <p>
-                Our Site brings small groups with common interests together, providing a forum to challenge each other's
-                skills. From taking a picture of the sunset, to building a Rube Goldberg machine to close a door, throw
-                down
-                the gauntlet and Challenger On! The sky's the limit.
-            </p>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        The Challenger site brings small groups with common interests together, providing a forum to challenge each
+                        other's
+                        skills. From taking a picture of the sunset, to building a Rube Goldberg machine to close a
+                        door, throw
+                        down
+                        the gauntlet and Challenger On! The sky's the limit.
+                    </p>
+                    <p>
+                        We offer a tiered set of products from a basic Free Package to a Deluxe Suite of Features with Pricing for Life.
+                    </p>
+                    <div>
+                        <a href="{% url 'products' %}" class="btn btn-primary">Get Started</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h4>Registering</h4>
+                    <video width='100%' height="auto" controls>
+                        <source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/challenges/videos/ChangeZoomBackground.mp4" type='video/mp4'>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="col-md-4">
+                    <h4>Creating A Challenge</h4>
+                    <video width='100%' height="auto" controls>
+                        <source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/challenges/videos/ChangeZoomBackground.mp4" type='video/mp4'>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="col-md-4">
+                    <h4>Submitting An Entry</h4>
+                    <video width='100%' height="auto" controls>
+                        <source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/challenges/videos/ChangeZoomBackground.mp4" type='video/mp4'>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
         </div>
-        <div class="main-item">
-            <h2>Tutorials</h2>
-        </div>
-
     </div>
 {% endblock %}
