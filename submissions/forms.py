@@ -14,7 +14,9 @@ FILE_SIZE_TO_BYTES = {
     50: 5242880,
     100: 104857600,
     250: 214958080,
-    500: 429916160
+    500: 429916160,
+    1000: 1048576000,
+    10000: 10485760000,
 }
 
 
@@ -37,7 +39,11 @@ class CreateEntryForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        size_limit = FILE_SIZE_TO_BYTES[cleaned_data.get('submission_size_limit')]
+        # just in case not in table, do rough calc instead
+        if cleaned_data.get('submission_size_limit') in FILE_SIZE_TO_BYTES:
+            size_limit = FILE_SIZE_TO_BYTES[cleaned_data.get('submission_size_limit')]
+        else:
+            size_limit = cleaned_data.get('submission_size_limit') * 1000000
         audio_file = cleaned_data.get('audio_file')
         if audio_file:
             valid_mime_types = ['audio/mp3', 'audio/mpeg']
