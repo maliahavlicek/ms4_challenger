@@ -196,7 +196,7 @@ body, nav, footer {
 
 /* tooltips */
 a[data-toggle=tooltip] {
-    color: #26d3ea;
+    color: #6DE2EE;
 }
 
 .tooltip.show {

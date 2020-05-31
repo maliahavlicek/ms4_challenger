@@ -20,26 +20,26 @@
 {% block main_content %}
     {# Tabbed Navigation for Challenges Page #}
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-        {# Tab for Challenges user is member of  #}
         <li class="nav-item">
-            <a class="nav-link active" id="member-tab" data-toggle="tab" href="#member" role="tab"
+        {# Tab for Challenges user is member of  #}
+            <a class="nav-link active" id="member-tab" data-toggle="tab" href="#member-tab" role="tab"
                aria-controls="profile"
                aria-selected="false">Member</a>
         </li>
-        {# Tab for Challenges user is master of  #}
         <li class="nav-item">
-            <a class="nav-link" id="master-tab" data-toggle="tab" href="#master" role="tab"
+        {# Tab for Challenges user is master of  #}
+            <a class="nav-link" id="master-tab" data-toggle="tab" href="#master-tab" role="tab"
                aria-controls="master" aria-selected="true">Master</a>
         </li>
-        {# Tab for Creating a challenge, button if user can, special content if user is at service level limit  #}
         <li class="nav-item">
+        {# Tab for Creating a challenge, button if user can, special content if user is at service level limit  #}
             {% if owned_challenges and owned_challenges|length < owned_product.max_number_of_challenges %}
                 {# Create Button #}
-                <a class="nav-link" role="button" aria-controls="create" href="{% url 'create_challenge' %}"
-                   aria-selected="false">Create</a>
+                <a class="nav-link" role="button" aria-label="button to create a challenge" href="{% url 'create_challenge' %}"
+                   aria-pressed="false">Create</a>
             {% else %}
                 {# Special Over limit content #}
-                <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create"
+                <a class="nav-link" id="create-tab" data-toggle="tab" href="#create-tab" role="tab" aria-controls="create"
                    aria-selected="false">Create</a>
             {% endif %}
         </li>
