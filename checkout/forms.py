@@ -11,7 +11,7 @@ class MakePaymentForm(forms.Form):
     Input for Strip Payment Collection
     Default Expiration Year Range to current Year
     """
-    MONTH_CHOICES = [(i, i) for i in range(1, 12)]
+    MONTH_CHOICES = [(i, i) for i in range(1, 13)]
     YEAR_CHOICES = [(i, i) for i in range(year, year + 20)]
 
     credit_card_number = forms.CharField(label='Credit Card Number', required=False)
