@@ -228,7 +228,7 @@ class UpdateChallengeForm(forms.Form):
                 HTML(
                     '<div class="form-group  member-entry col-md-3 mb-0"><div class="form-group"><div class><input class="form-control" id="last_name" type="text" aria-label="last name" max_length="50" placeholder="Last Name"/></div></div></div>'),
                 HTML(
-                    '<div class="form-group member-entry col-md-4 mb-0"><div class="form-group"><div class><input class="form-control" id="email" type="email" aria-lable="email" placeholder="Email"/>'
+                    '<div class="form-group member-entry col-md-4 mb-0"><div class="form-group"><div class><input class="form-control" id="email" type="email" aria-label="email" placeholder="Email"/>'
                     '<span id="error_email"></span></div></div></div>'),
                 HTML(
                     '<div class="form-group member-entry col-md-2 mb-0"><div class="form-group"><div class><a onclick="add_member();" id="add_member" class="form-control btn btn-primary"><i class="fas fa-user-plus"></i> Member</a></div></div></div>'),
