@@ -22,13 +22,13 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
         {# Tab for Challenges user is member of  #}
-            <a class="nav-link active" id="member-tab" data-toggle="tab" href="#member-tab" role="tab"
+            <a class="nav-link active" id="member-tab" data-toggle="tab" href="#member" role="tab"
                aria-controls="profile"
                aria-selected="false">Member</a>
         </li>
         <li class="nav-item">
         {# Tab for Challenges user is master of  #}
-            <a class="nav-link" id="master-tab" data-toggle="tab" href="#master-tab" role="tab"
+            <a class="nav-link" id="master-tab" data-toggle="tab" href="#master" role="tab"
                aria-controls="master" aria-selected="true">Master</a>
         </li>
         <li class="nav-item">
@@ -39,7 +39,7 @@
                    aria-pressed="false">Create</a>
             {% else %}
                 {# Special Over limit content #}
-                <a class="nav-link" id="create-tab" data-toggle="tab" href="#create-tab" role="tab" aria-controls="create"
+                <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create"
                    aria-selected="false">Create</a>
             {% endif %}
         </li>
