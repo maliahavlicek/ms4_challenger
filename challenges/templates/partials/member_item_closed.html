@@ -1,5 +1,5 @@
-{% load filters %}
 {# Content for member item that end_date is in past (closed) #}
+{% load filters %}
 {# small devices layout #}
 <div class="challenge_wrap flex-grid hidden-tablet-up">
     <div class="full">
@@ -65,7 +65,7 @@
 
             {% if entry.video_file %}
                 <div class="ch-vid-wrap ch-item">
-                    {% vid_player video_url=entry.video_file.url width='auto' height="250px"%}
+                    {% vid_player video_url=entry.video_file.url width='auto' height="250px" %}
                 </div>
             {% endif %}
             <div class="ch-item">

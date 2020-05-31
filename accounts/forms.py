@@ -75,6 +75,7 @@ class UserRegistrationFrom(UserCreationForm):
             self.add_error('username', 'That username is already registered.')
 
     def clean_password2(self):
+        # Make sure passwords match
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
         username = self.cleaned_data.get('username')

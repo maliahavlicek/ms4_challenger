@@ -1,5 +1,5 @@
-{% load filters %}
 {#  master content tab #}
+{% load filters %}
 <div class="tab-pane fade" id="master" role="tabpanel" aria-labelledby="master-tab">
     <div class="chg-header">You are the Master of {{ owned_challenges|length }}
         challenges.
@@ -30,14 +30,14 @@
             </div>
             <div class="ch-half">
                 <div class="full">
-                <a href="{% url 'update_challenge' id=item.id %}" class="btn primary"><i
-                        class="fas fa-edit"></i> Edit</a>
+                    <a href="{% url 'update_challenge' id=item.id %}" class="btn primary"><i
+                            class="fas fa-edit"></i> Edit</a>
                 </div>
             </div>
             <div class="ch-half">
                 <div class="full">
-                <a href="{% url 'delete_challenge' id=item.id %}" class="btn primary"><i
-                        class="fas fa-trash-alt"></i> Delete</a>
+                    <a href="{% url 'delete_challenge' id=item.id %}" class="btn primary"><i
+                            class="fas fa-trash-alt"></i> Delete</a>
                 </div>
             </div>
             {% if item.get_submissions|length > 0 %}

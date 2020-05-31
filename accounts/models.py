@@ -92,9 +92,11 @@ class Profile(models.Model):
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
+        ## keep profile and user synced
         if created:
             Profile.objects.create(user=instance)
 
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
+        ## keep profile and user synced
         instance.profile.save()

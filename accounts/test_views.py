@@ -9,6 +9,7 @@ from datetime import datetime, date, timedelta
 
 
 class TestAccountViews(TestCase):
+    # setup a product
     def setUp(self):
         self.client = Client()
         product = ServiceLevel(
