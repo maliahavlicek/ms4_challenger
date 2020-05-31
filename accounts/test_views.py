@@ -1,11 +1,10 @@
-from django.test import TestCase, Client
-from django.shortcuts import get_object_or_404
-from .models import Profile, User
+from django.test import TestCase
+from .models import User
 from products.models import ServiceLevel
-from django.urls import reverse
 from django.contrib import auth
 from .models import Tag
-from datetime import datetime, date, timedelta
+from datetime import datetime, timedelta
+import time
 
 
 class TestAccountViews(TestCase):
@@ -117,6 +116,10 @@ class TestAccountViews(TestCase):
         self.assertContains(page, 'Challenges')
         self.assertContains(page, 'My Account')
 
+        # check user has profile
+        user = auth.get_user(self.client)
+        self.assertEqual(user.profile.product_level, ServiceLevel.objects.first())
+
         # login user with email, expectation that they will go to update profile page
         page = self.client.get('/accounts/login/?next=/accounts/profile/update/', {
             'username': 'testing@test.com',
@@ -158,6 +161,7 @@ class TestAccountViews(TestCase):
         self.assertContains(page, 'Your profile was successfully updated!')
 
         self.assertTemplateUsed(page, 'profile.html')
+
 
         # logout user, should go to home page, no user in session
         page = self.client.post('/accounts/logout/', follow=True)
@@ -223,7 +227,8 @@ class TestAccountViews(TestCase):
     def test_update_user(self):
         # user is redirected to login before updating user info
         page = self.client.get("/accounts/user/update/", follow=True)
-        self.assertRedirects(page, '/accounts/login/?next=/accounts/user/update/', status_code=302, target_status_code=200,
+        self.assertRedirects(page, '/accounts/login/?next=/accounts/user/update/', status_code=302,
+                             target_status_code=200,
                              msg_prefix='', fetch_redirect_response=True)
 
         # register a user
@@ -314,18 +319,5 @@ class TestAccountViews(TestCase):
         self.assertEqual(user.first_name, "joe")
         self.assertEquals(user.last_name, "cool")
 
-        # go to profile update page
-        page = self.client.get("/accounts/profile/update/", follow=True)
-        self.assertContains(page, "Update Profile for")
-        # post to profile with too young of birthday
-        page = self.client.post('/accounts/profile/update/', {
-            'profile_pic': 'accounts/fixtures/profile2.png',
-            'birth_date': (datetime.now() - timedelta(days=4000)).date(),
-            'tags': [1],
-        }, follow=True)
-
-        self.assertContains(page,'Account Overview')
-        self.assertTemplateUsed('profile.html')
-        self.assertContains(page, 'Sports')
 
 
