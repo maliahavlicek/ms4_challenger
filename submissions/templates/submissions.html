@@ -19,7 +19,7 @@
             {% csrf_token %}
             <div id="carousel" class="carousel slide" data-ride="carousel">
 
-                <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                <div class="carousel-inner row w-100 mx-auto" role="listbox" aria-label="All entries for {{ challenge.name|title }}">
                     {% for item in submissions %}
                         <div class="carousel-item col-12 col-md-6 {% if forloop.counter == 1 %}active{% endif %}"
                              role="option" aria-selected="{% if forlop.counter == 1 %}true{% else %}false{% endif %}" aria-label="{{ item.title }}. Entry: {{ forloop.counter }} of {{ submissions|length }}">
