@@ -1,0 +1,97 @@
+[
+{
+  "model": "challenges.challenge",
+  "pk": 1,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 1 ",
+    "description": "Challenge 1",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "submission_storage_cap": 5,
+    "submission_types": "submission_image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 2,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 2 ",
+    "description": "Challenge 2",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "submission_storage_cap": 5,
+    "submission_types": "submission_image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 3,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 3 ",
+    "description": "Challenge 31",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "submission_storage_cap": 5,
+    "submission_types": "submission_image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 4,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 4 ",
+    "description": "Challenge 4",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "submission_storage_cap": 5,
+    "submission_types": "submission_image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 5,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 5 ",
+    "description": "Challenge 5",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "submission_storage_cap": 5,
+    "submission_types": "submission_image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+}
+]

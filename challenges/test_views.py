@@ -8,6 +8,9 @@ from .forms import CreateChallengeForm, UpdateChallengeForm
 from products.models import ServiceLevel
 from checkout.models import Order
 from accounts.models import Profile
+from django.core.files.uploadedfile import SimpleUploadedFile
+from datetime import datetime, date, timedelta
+from django.contrib import auth
 
 
 class TestChallengeViews(TestCase):
@@ -21,8 +24,8 @@ class TestChallengeViews(TestCase):
         # every test needs access to the request factory
         self.factory = RequestFactory()
 
-        # create 4 users
-        for i in range(1, 5):
+        # create a users
+        for i in range(1, 2):
             User.objects.create_user(
                 username=f'testing_{i}',
                 email=f'testing_{i}@test.com',
@@ -74,6 +77,26 @@ class TestCreateChallenge(TestCase):
         product = ServiceLevel.objects.get(pk=3)
         self.user3 = order(product, self.user3)
 
+        # img_file
+        with open(
+                "challenges/fixtures/challenge_img.jpg",
+                "rb",
+        ) as f:
+            img_content = f.read()
+        self.img_file = SimpleUploadedFile(
+            "challenge.jpg", img_content, content_type="image/jpg"
+        )
+
+        # vid_file
+        with open(
+                "challenges/fixtures/challenge_vid.mp4",
+                "rb",
+        ) as f:
+            img_content = f.read()
+        self.vid_file = SimpleUploadedFile(
+            "challenge.mp4", img_content, content_type="video/mp4"
+        )
+
         self.client = Client()
 
     def test_loaded_template(self):
@@ -120,6 +143,124 @@ class TestCreateChallenge(TestCase):
         self.assertIn(('video', 'Video'), choices)
         self.assertIn(('audio', 'Audio'), choices)
         self.assertIn(('image', 'Image'), choices)
+
+    def test_create_free_tier(self):
+        self.client.login(username='testuser', password="testing_1234")
+        response = self.client.get('/challenges/create/')
+        form = response.context['challenge_form']
+        form_type = type(form)
+        self.assertEqual(form_type, CreateChallengeForm)
+
+        response = self.client.post('/challenges/create/', {
+            'name': 'Challenge 5 name',
+            'description': 'Challenge 5 description',
+            'start_date': (datetime.now() - timedelta(days=5)).date(),
+            'end_date': date.today(),
+            'members': [{"first_name": "first name", "last_name": "last name", "email": "email@email.com", "user": ""}],
+            'submission_types': ['image'],
+            'example_image': self.img_file
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('challenges.html')
+        self.assertContains(response, 'You are the Master of 1')
+        self.assertContains(response, 'Challenge 5 Name')
+        self.assertContains(response, "Your challenge: Challenge 5 Name was successfully created.")
+        self.assertContains(response, "update your member list if you want people to participate")
+
+    def test_create_medium_tier(self):
+        self.client.login(username=self.user2.username, password="testing_1234")
+        response = self.client.get('/challenges/create/')
+        form = response.context['challenge_form']
+        form_type = type(form)
+        self.assertEqual(form_type, CreateChallengeForm)
+
+        response = self.client.post('/challenges/create/', {
+            'name': 'Challenge Medium name',
+            'description': 'Challenge Medium description',
+            'start_date': (datetime.now() - timedelta(days=5)).date(),
+            'end_date': date.today(),
+            'members': '[{"first_name":"","last_name":"","email":"malia.havlicek@gmail.com","user":""}]',
+            'submission_types': ['image', 'audio'],
+            'example_image': self.img_file,
+            'example_video': self.vid_file,
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('challenges.html')
+        self.assertContains(response, 'You are the Master of 1')
+        self.assertContains(response, 'Challenge Medium name')
+        self.assertContains(response, "Your challenge: Challenge Medium Name was successfully created")
+        self.assertContains(response, "an invite has been sent to the members")
+
+
+class TestCreateLimits(TestCase):
+    def setUp(self):
+        # set up 3 base products from json
+        call_command('loaddata', 'products/fixtures/servicelevel.json', verbosity=0)
+        self.factory = RequestFactory()
+        # create 4 users
+        for i in range(1, 5):
+            user = User.objects.create_user(
+                username=f'testuser_{i}', email=f'testuser_{i}t@email.com', password="testing_1234"
+            )
+            # tie Free product to each user
+            user.profile.get_product_level()
+
+        # load challenges from json, assuming user 1 is master of 5 challenges [the limit]
+        call_command('loaddata', 'challenges/fixtures/challenge_views.json', verbosity=0)
+
+        # img_file
+        with open(
+                "challenges/fixtures/challenge_img.jpg",
+                "rb",
+        ) as f:
+            img_content = f.read()
+        self.img_file = SimpleUploadedFile(
+            "challenge.jpg", img_content, content_type="image/jpg"
+        )
+
+        # vid_file
+        with open(
+                "challenges/fixtures/challenge_vid.mp4",
+                "rb",
+        ) as f:
+            img_content = f.read()
+        self.vid_file = SimpleUploadedFile(
+            "challenge.mp4", img_content, content_type="video/mp4"
+        )
+        self.client = Client()
+
+    def test_create_get_stops_cannot_exceed_limit_stops(self):
+        # cannot start to add a 6th challenge from get /challenges/create/
+        self.client.login(username='testuser_1', password="testing_1234")
+        user = auth.get_user(self.client)
+        response = self.client.get('/challenges/create/', follow=True)
+        self.assertRedirects(response, '/challenges/',  status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+        self.assertContains(response, 'You are at your limit for challenges, please delete one before creating a new one')
+
+    def test_create_post_stops_cannot_exceed_limit_stops(self):
+        # cannot start to add a 6th challenge from post /challenges/create/
+        self.client.login(username='testuser_1', password="testing_1234")
+        user = auth.get_user(self.client)
+        response = self.client.post('/challenges/create/', {
+            'name': 'Challenge Medium name',
+            'description': 'Challenge Medium description',
+            'start_date': (datetime.now() - timedelta(days=5)).date(),
+            'end_date': date.today(),
+            'members': '[{"first_name":"","last_name":"","email":"malia.havlicek@gmail.com","user":""}]',
+            'submission_types': ['image', 'audio'],
+            'example_image': self.img_file,
+            'example_video': self.vid_file,
+        }, follow=True)
+
+        self.assertRedirects(response, '/challenges/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+        self.assertContains(response,
+                            'You are at your limit for challenges, please delete one before creating a new one')
+
+        # form = response.context['challenge_form']
+        # form_type = type(form)
+        # self.assertEqual(form_type, UpdateChallengeForm)
 
 
 # Helper functions
