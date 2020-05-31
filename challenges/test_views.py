@@ -74,7 +74,7 @@ class TestCreateChallenge(TestCase):
         product = ServiceLevel.objects.get(pk=3)
         self.user3 = order(product, self.user3)
 
-        client = Client()
+        self.client = Client()
 
     def test_loaded_template(self):
         self.client.login(username='testuser', password="testing_1234")
