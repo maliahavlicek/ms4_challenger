@@ -13,7 +13,7 @@
     --black: #000;
 
     --warning: #EC4646;
-    --link: #007BFF;
+    --link: #0068DB;
     --gold: #fc0;
     --gold-dark: #FF8C1C;
 
@@ -33,6 +33,9 @@ form {
     margin: 10px 0;
 }
 
+a{
+    color: var(--link);
+}
 /* empty form display */
 span.empty-form {
     border-bottom: 1px solid black;
