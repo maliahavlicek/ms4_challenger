@@ -161,7 +161,7 @@ class ProfileForm(forms.ModelForm):
                 HTML(
                     '<div class="form-group col-md-6 mb-0">'
                     '<img class="profile-pic profile-outline"'
-                    'src="{{ request.user.profile.profile_pic.url }}"/></div>'
+                    'src="{{ request.user.profile.profile_pic.url }}" alt="Profile pic for {{ request.user.username }}"/></div>'
                 ),
                 css_class='form-row'
             ),
