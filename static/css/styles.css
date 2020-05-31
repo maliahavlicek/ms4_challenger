@@ -164,6 +164,7 @@ button.btn-default:hover, input.btn-primary:hover, a.btn {
 
 a.btn-cancel, button.btn-cancel, input.btn-cancel, a.btn.btn-cancel {
     background: var(--gray-lightest);
+    color: #262626;
 }
 
 a.btn-cancel:hover, button.btn-cancel:hover, input.btn-cancel:hover, a.btn.btn-cancel:hover {
