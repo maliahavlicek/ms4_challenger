@@ -208,7 +208,7 @@ class UpdateChallengeForm(forms.Form):
             Row(
                 HTML(
                     '<div class="form-group col-md-6 mb-0">'
-                    '<div id="div_id_submission_types" class="form-group">'
+                    '<div class="form-group">'
                     '<label for="div_id_submission_types" class="">Submission Types</label>'
                     '<div id="div_id_submission_types" class=""><ul>{% for type in challenge.submission_types %}<li>{{type}}</li>{% endfor %}</ul><p>Submission Types are not editable.</p>'                    
                     '</div>'
