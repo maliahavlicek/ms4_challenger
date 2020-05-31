@@ -9,9 +9,10 @@ from datetime import datetime, date, timedelta
 
 
 class TestAccountViews(TestCase):
-    # setup a product
-    def setUp(self):
-        self.client = Client()
+    # setup objects for testing
+
+    @classmethod
+    def setUp(cls):
         product = ServiceLevel(
             name='Free',
             price=0.00,
@@ -31,6 +32,12 @@ class TestAccountViews(TestCase):
         )
         Tag.objects.create(
             name='Music',
+        )
+
+        User.objects.create(
+            username='alreadyUsed',
+            email='alreadyUsed@test.com',
+            password="testing_1234",
         )
 
     # test home page can be hit and that user is not logged in
@@ -212,3 +219,113 @@ class TestAccountViews(TestCase):
             'next': '/accounts/profile',
         }, follow=True)
         self.assertTemplateUsed('profile.html')
+
+    def test_update_user(self):
+        # user is redirected to login before updating user info
+        page = self.client.get("/accounts/user/update/", follow=True)
+        self.assertRedirects(page, '/accounts/login/?next=/accounts/user/update/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+
+        # register a user
+        page = self.client.post('/accounts/register/', {
+            'email': 'test1_user_1@test1.com',
+            'username': 'username1',
+            'password1': 'testing_1234',
+            'password2': 'testing_1234',
+        }, follow=True)
+        # verify user is on expected page
+        self.assertTemplateUsed('You have successfully registered.')
+
+        user = auth.get_user(self.client)
+
+        # go to update user page
+        page = self.client.get('/accounts/user/update/')
+
+        # verify user is on expected page
+        self.assertTemplateUsed('user_update.html')
+        self.assertContains(page, 'Updating User Info')
+        # verify username is on page
+        self.assertContains(page, "username1")
+        self.assertEqual('username1', user.username)
+        # verify email is on page
+        self.assertContains(page, "test1_user_1@test1.com")
+        self.assertEqual('test1_user_1@test1.com', user.email)
+
+        # update first name
+        page = self.client.post('/accounts/user/update/', {
+            'email': user.email,
+            'username': user.username,
+            'first_name': "joe",
+            'last_name': '',
+        }, follow=True)
+        self.assertEqual(page.status_code, 200)
+
+        # verify user goes to profile page
+        self.assertTemplateUsed('profile.html')
+        self.assertContains(page, 'Account Overview')
+        # verify user's first name was updated
+        self.assertContains(page, "test1_user_1@test1.com")
+        self.assertContains(page, "joe")
+
+        # try to take over AlreadyUser username
+        page = self.client.post('/accounts/user/update/', {
+            'email': user.email,
+            'username': "alreadyUsed",
+            'first_name': "joe",
+            'last_name': '',
+        }, follow=True)
+        # verify user is on expected page
+        self.assertTemplateUsed('user_update.html')
+        self.assertContains(page, 'Updating User Info')
+        self.assertContains(page, 'A user with that username already exists.')
+
+        # try to take over AlreadyUser email
+        page = self.client.post('/accounts/user/update/', {
+            'username': user.username,
+            'email': "alreadyUsed@test.com",
+            'first_name': "joe",
+            'last_name': '',
+        }, follow=True)
+        # verify user is on expected page
+        self.assertTemplateUsed('user_update.html')
+        self.assertContains(page, 'Updating User Info')
+        self.assertContains(page, 'That email is already in use.')
+
+        # update last name
+        page = self.client.post('/accounts/user/update/', {
+            'email': user.email,
+            'username': user.username,
+            'first_name': "joe",
+            'last_name': 'cool',
+        }, follow=True)
+        self.assertEqual(page.status_code, 200)
+        # verify user goes to profile page
+        self.assertTemplateUsed('profile.html')
+        self.assertContains(page, 'Account Overview')
+        # verify user's first name was updated
+        self.assertContains(page, "test1_user_1@test1.com")
+        self.assertContains(page, "joe")
+        self.assertContains(page, "cool")
+        self.assertContains(page, "username1")
+
+        user = auth.get_user(self.client)
+        self.assertEqual('test1_user_1@test1.com', user.email)
+        self.assertEqual('username1', user.username)
+        self.assertEqual(user.first_name, "joe")
+        self.assertEquals(user.last_name, "cool")
+
+        # go to profile update page
+        page = self.client.get("/accounts/profile/update/", follow=True)
+        self.assertContains(page, "Update Profile for")
+        # post to profile with too young of birthday
+        page = self.client.post('/accounts/profile/update/', {
+            'profile_pic': 'accounts/fixtures/profile2.png',
+            'birth_date': (datetime.now() - timedelta(days=4000)).date(),
+            'tags': [1],
+        }, follow=True)
+
+        self.assertContains(page,'Account Overview')
+        self.assertTemplateUsed('profile.html')
+        self.assertContains(page, 'Sports')
+
+
