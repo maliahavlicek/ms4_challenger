@@ -19,84 +19,107 @@ Since this application has a wide range of users, I've placed a couple of tutori
 
 Register
 
-<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/register_vid_screen_shot.png"></a>
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4" target="_blank"><img width="350" height="auto" src="documentation/tutorial/register_vid_screen_shot.png"></a>
 
 Create Challenge
 
-<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/create_challenge_vid_screen_shot.png"></a>
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" target="_blank"><img width="350" height="auto" src="documentation/tutorial/create_challenge_vid_screen_shot.png"></a>
 
 Submit Entry
 
-<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/submit_entry_vid_screen_shot.png"></a>
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" target="_blank"><img width="350" height="auto" src="documentation/tutorial/submit_entry_vid_screen_shot.png"></a>
 
 
 ## Table of Contents
-- [UX](#ux)
-  * [Goals](#goals)
-    + [Challenge Member Goals](#challenge-member-goals)
-    + [Master of Ceremonies Goals](#master-of-ceremonies-goals)
-    + [Business Goals](#business-goals)
-  * [User Stories](#user-stories)
-  * [Wireframes](#wireframes)
-  * [Design Choices](#design-choices)
-    + [Color Choice](#color-choice)
-    + [Typography](#typography)
-      - [Title Font](#title-font)
-      - [Base Font](#base-font)
-    + [Image Choice](#image-choice)
-      - [Service Levels](#service-levels)
-    + [Design Elements](#design-elements)
-    + [Animations & Transitions](#animations--transitions)
-- [Features](#features)
-  * [Implemented Features](#implemented-features)
-    + [Page Components](#page-components)
-    + [Home Page](#home-page)
-    + [Products Page](#products-page)
-    + [Login Page](#login-page)
-    + [Register Page](#register-page)
-    + [Profile Page](#profile-page)
-    + [Change User Info Page](#change-user-info-page)
-      - [Update Profile Page](#update-profile-page)
-    + [Checkout Page](#checkout-page)
-    + [Challenges Page](#challenges-page)
-      - [Challenge Member Tab](#challenge-member-tab)
-        * [Open](#open)
-          + [Submit](#submit)
-          + [Re-Submit](#re-submit)
-        * [Closed](#closed)
-      - [Challenge Master Tab](#challenge-master-tab)
-      - [Create Challenge Tab](#create-challenge-tab)
-    + [Create Challenge.](#create-challenge)
-    + [Update Challenge Page](#update-challenge-page)
-    + [Submit Entry Page](#submit-entry-page)
-    + [Update Entry Page](#update-entry-page)
-    + [See All Entries Page](#see-all-entries-page)
-    + [Password Rest Initiate Page](#password-reset-initiate-page)
-    + [Reset Password Link Sent Page](#reset-password-link-sent-page)
-    + [Reset Password Email](#reset-password-email)
-      - [Password Reset Entry Page](#password-reset-entry-page)
-      - [Password Reset Complete Page](#password-reset-complete-page)
-  * [Features Left to Implement](#features-left-to-implement)
-- [Information Architecture](#information-architecture)
-- [Technologies Used](#technologies-used)
-  * [Programming Languages](#programming-languages)
-  * [Framework & Extensions](#framework--extensions)
-  * [Fonts](#fonts)
-  * [Tools](#tools)
-  * [APIs](#apis)
-- [Defensive Programming](#defensive-programming)
-  * [Additional Security Checks](#additional-security-checks)
-  * [Custom Validation](#custom-validation)
-- [Testing](#testing)
-- [Deployment](#deployment)
-  * [Requirements](#requirements)
-  * [Local](#local)
-  * [Heroku](#heroku)
-- [Credits](#credits)
-  * [Content](#content)
-  * [Media](#media)
-  * [Acknowledgements](#acknowledgements)
-
+>- [UX](#ux)
+>  * [Goals](#goals)
+>    + [Challenge Member Goals](#challenge-member-goals)
+>    + [Challenge Master Goals](#challenge-master-goals)
+>    + [Business Goals](#business-goals)
+>  * [User Stories](#user-stories)
+>  * [Wireframes](#wireframes)
+>  * [Design Choices](#design-choices)
+>    + [Color Choice](#color-choice)
+>    + [Typography](#typography)
+>      - [Title Font](#title-font)
+>      - [Base Font](#base-font)
+>    + [Image Choice](#image-choice)
+>      - [Service Levels](#service-levels)
+>    + [Design Elements](#design-elements)
+>    + [Animations & Transitions](#animations--transitions)
+>- [Features](#features)
+>  * [Implemented Features](#implemented-features)
+>    + [Page Components](#page-components)
+>      - [Navigation Menu](#navigation-menu)
+>          + [Desktop](#desktop)
+>          + [Mobile](#mobile)
+>      - [Date Picker](#date-picker)
+>      - [Buttons](#buttons)
+>        * [No Icons](#no-icons)
+>        * [With Icons](#with-icons)
+>      - [Check Boxes & Multiple Selection](#check-boxes--multiple-selection)
+>      - [Cards](#cards)
+>      - [File Pickers](#file-pickers)
+>      - [Video Player](#video-player)
+>      - [Audio Player](#audio-player)
+>        * [Tabbed Content](#tabbed-content)
+>      - [Tooltips](#tooltips)
+>      - [Ratings Inputs](#ratings-inputs)
+>      - [Ratings Aggregated](#ratings-aggregated)
+>      - [Carousel](#carousel)
+>      - [Tables and Accordions](#tables-and-accordions)
+>      - [Forms](#forms)
+>      - [Alerts](#alerts)
+>    + [Home Page](#home-page)
+>    + [Products Page](#products-page)
+>    + [Login Page](#login-page)
+>    + [Register Page](#register-page)
+>    + [Profile Page](#profile-page)
+>    + [Change User Info Page](#change-user-info-page)
+>      - [Update Profile Page](#update-profile-page)
+>    + [Checkout Page](#checkout-page)
+>    + [Challenges Page](#challenges-page)
+>      - [Challenge Member Tab](#challenge-member-tab)
+>        * [Open](#open)
+>          + [Submit](#submit)
+>          + [Re-Submit](#re-submit)
+>        * [Closed](#closed)
+>      - [Challenge Master Tab](#challenge-master-tab)
+>      - [Create Challenge Tab](#create-challenge-tab)
+>    + [Create Challenge.](#create-challenge)
+>      - [Welcome to Challenger Email](#welcome-to-challenger-email)
+>      - [Welcome to the Challenge Email](#welcome-to-the-challenge-email)
+>    + [Update Challenge Page](#update-challenge-page)
+>      - [Challenge Updated Email](#challenge-updated-email)
+>      - [Challenge Terminated Email](#challenge-terminated-email)
+>    + [Submit Entry Page](#submit-entry-page)
+>    + [Re-submit Entry Page](#re-submit-entry-page)
+>    + [See All Entries Page](#see-all-entries-page)
+>    + [Password Reset Initiate Page](#password-reset-initiate-page)
+>    + [Reset Password Link Sent Page](#reset-password-link-sent-page)
+>    + [Reset Password Email](#reset-password-email)
+>      - [Password Reset Entry Page](#password-reset-entry-page)
+>      - [Password Reset Complete Page](#password-reset-complete-page)
+>  * [Features Left to Implement](#features-left-to-implement)
+>- [Information Architecture](#information-architecture)
+>- [Technologies Used](#technologies-used)
+>  * [Programming Languages](#programming-languages)
+>  * [Framework & Extensions](#framework--extensions)
+>  * [Fonts](#fonts)
+>  * [Tools](#tools)
+>  * [APIs](#apis)
+>- [Defensive Programming](#defensive-programming)
+>  * [Additional Security Checks](#additional-security-checks)
+>  * [Custom Validation](#custom-validation)
+>- [Testing](#testing)
+>- [Deployment](#deployment)
+>  * [Requirements](#requirements)
+>  * [Local](#local)
+>  * [Heroku](#heroku)
+>- [Credits](#credits)
+>  * [Content](#content)
+>  * [Media](#media)
+>  * [Acknowledgements](#acknowledgements)
 
 # UX
 
@@ -114,15 +137,15 @@ Challenge Member Goals are:
  - Receive an email when a challenge is opened
  - Receive a reminder email when a challenge is nearing closure
  - Review past challenges and their submissions
- - Send a link to friends and family that are not members so they can watch my submissions
+ - Send a link to friends and family that are not members so they can view my submissions
 
-### Master of Ceremonies Goals
+### Challenge Master Goals
 
-Masters of Ceremonies are user that own a challenge. 
+Challenge Masters are user that created have created a challenge. 
 
 Challenge Master Goals are:
-- Initiate a challenge to a group of people via email
-- Update an existing challenge
+- Initiate a challenge to a group of people via email through an intuitive interface
+- Update an existing challenge without much hassle
 - Delete a challenge so I don't have to spend more money if I hit my challenge limit
 - Upgrade my account so I can proctor more challenges
 - Be notified when a submission has been made
@@ -131,28 +154,30 @@ Challenge Master Goals are:
 
 ### Business Goals
 - Provide a professional forum that allows users to challenge each other and interact online in a respectful, positive manner
-- Provide a safe environment where privacy is key such that adults will be comfortable allowing minor aged members to interact with peers online via the Challenger forum
-- Connect like minded peers on a stable, scalable platform
-- Keep track of user self-tagging to be informed about cross selling and ad space revenue
-- Keep track of user feature requests to make informed decisions on improvements and enhancements
+- Provide a safe environment where privacy is key such that adults will be comfortable allowing minor-aged members to interact with peers online via the Challenger forum
+- Connect like-minded peers on a stable, scalable platform
+- Keep track of user self-tagging to be aligned to make informed decisions about cross-selling and ad space revenue
+- Keep track of user feature requests to make informed decisions on improvements and enhancements so my site stays ahead of the crowd
 
 ## User Stories
 As a member of Challenger's website, I expect/want/need:
 - To find a challenge easily, I want the email I receive to take me to the correct challenge immediately
-- To easily see my peer's submissions for a challenge and see an averaged by group rating for each entry
-- To be able to rate my peer's submissions and change my mind as much a I desire
+- To easily see my peer's submissions for a challenge and see an averaged group rating for each entry
+- To be able to rate my peer's submissions and change my mind as much a I desire about the ratings I give
 - To easily see all the challenges I belong to
 - To know which challenges I am the master of and those that I am a member of
 - To share a private link of my submission to my friends and family so they can see the cool stuff I am doing
 - To easily set up my account
-- To upgrade my account once I know I like the product and am willing to pay for a higher tier
+- To retrieve a new password without too many hoops if I forgot what it was
+- To upgrade my account with very few steps once I know I like the product and am willing to pay for a higher tier
 - To downgrade my account if I discover I'm not using the site as much at a future time to save money
-- To be able to tell what my account settings are easily
+- To be able to tell what my account settings are easily and know when I made changes to my service level
 - To see what Service Level tiers exist at what price points and terms without digging through pages of documentation
 - To pay for a Service Level securely 
-- To set up a challenge for my friends easily
-- To delete a challenge so I don't have to pay for a more costly product when I hit my limit
-- To update an existing challenge
+- To set up a challenge for my friends easily if I find I like being a member
+- To delete my entry form a challenge at any time because it embarrasses me
+- To update an entry fast because I am ever so fond of typos
+- To update an existing challenge because my description wasn't clear or I uploaded the wrong file
 - To report abusive content anonymously so I don't see offensive things and minors don't either 
 
 ## Wireframes
@@ -242,40 +267,132 @@ User goals cross over many pages within the MS4-Challenger site. To best organiz
 
 ## Implemented Features
 
+The features implemented are documented with desktop screenshots. There were fully tested on small devices but the ease of organizing data from phone screenshots was not a task I was willing to take.
 
 ### Page Components 
 The wire-frame process identified the need for the following User Interface Components:
 
-Despite being built with Bootstrap, the forms are all customized to insure a tight, user friendly, not super spacious set of input fields are presented to the users.
+#### Navigation Menu
+To provide users with an easy intuitive navigation, main links are in an ever present top navigation bar.
+
+###### Desktop
+
+<img width="auto" height="auto" src="documentation/pages/components/ms-4-challenger-navigation-desktop.png">
+
+###### Mobile
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-navigation-mobile.png">
+
+#### Date Picker
+The default bootstrap via cripsy form date picker is rendered.
+
+<img width="auto" height="auto" documentation/pages/components/ms4-challenger-datepicker.png">
+
+#### Buttons
+Buttons abound on the site. They stick to the same primary green color unless they are associated with canceling or deleting options. Icons are used with the buttons on the challenges tabs to help differentiate them from each other.
+
+##### No Icons
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-buttons.png">
+
+##### With Icons
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-buttons-with-icons.png">
+
+#### Check Boxes & Multiple Selection
+Check boxes are notoriously small and multi selection drop downs are cumbersome for users. I enhanced the size of the checkboxes and display multi-selections as a group of checkboxes:
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-checkboxes.png">
+
+#### Cards
+Bootstrap has a nice flex box container with some predefined behaviors. I used the card-deck enhancement on the products page. I still had issues with inner heights so I added some custom jQuery to even the heights based on CSS classes within the on page ready function.  
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-card.png">
+
+#### File Pickers
+I used the default file pickers, but would love to take the time to restyle
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-filepicker.png">
+
+#### Video Player
+I used the default video players and didn't find much on how to make them standardized across browsers. I did add an outline as some browsers put them up with just a play button and no background.  I would love to take the time to restyle these across the site for all browsers.
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-video-player.png">
+
+#### Audio Player
+I used the default audio players but could not figoure out the exact controls to standadize background colors and border shapes. Like the video player, I did add an outline as some browsers put them up with a white background and black controlsns with no background.  I would love to take the time to restyle these across the site for all browsers.
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-audio-player.png">
+
+##### Tabbed Content
+I used bootstraps tabbed content but modified it be WCAG compliant for aria roles and names. Then styled to fit the color scheme of the site. The tabs are found on the challenge page to help compartmentalize challenges users are members of and those that they are the master of and house the create functionality so users do not have to dig through navigation to find them.
+
+<img width="350" height="auto" src="documentation/pages/components/ms4-challenger-tabs.png">
+
+#### Tooltips
+Tooltips are used to help minimize content on mobile challenge views and hide descriptions of challenges if a user have submitted an entry. I restyled them to match the color scheme and remove the semitransparent background. 
+
+<img width="auto" height="auto" src="documentation/pages/components/msr-challenger-tooltip.png">
+
+#### Ratings Inputs
+Ratings are custom buttons that I created using CSS. The buttons are consolidated and styled differently on small devices to allow them to sit side by side on the smallest phones.
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-ratings-input-small.png">
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-rating-input-buttons.png">
+
+#### Ratings Aggregated
+The aggregated rating is made with some pretty slick CSS. The results from the ajax post to the Ratings API is used with a calc to produce the shaded vs Yellow Trophies peers give each other.  
+
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-aggregated-rating.png">
+
+#### Carousel
+The All Submissions page is presented as a carousel. It auto rotates through the submissions unless the user interacts with it.
+
+<img width="350" height="auto" src="documentation/pages/components/ms4-challenger-carousel.png">
+
+#### Tables and Accordions
+I have the payment history on the account overview as a button button that is an accordion that expands a payment history table.
+
+<img width="350" height="auto" src="documentation/pages/components/ms4-challenger-table-accordion.png">
+
+#### Forms 
+Despite being built with Bootstrap, the forms are all customized to insure a tight, user friendly, not super spacious set of input fields are presented to the users. Here's a view of the create challenge form on a small device (320 wide)
+
+<img width="320" height="auto" documentation/pages/components/ms4-challenger-form-mobile.png">
+
+#### Alerts
+Django's messaging is used throughout the site. To provide consistent user action feedback Bootstrap alerts are used below the header and above the Page Title heading. I make use of the yellow for warnings, red for errors and green for success messages.
+
+<img width="350" height="auto" src="documentation/pages/components/ms4-challenger-alerts.png">
 
 ### Home Page
 The Home page displays verbiage about why the site exists and what needs it meets. It also provides tutorials to help users get familiar with the site quickly. Authentication is not required to see this page.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-home-page.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-home-page.png">
 
 ### Products Page
 The Products page displays the service levels that the MS4-challenger app provides. It displays a brief overview of the features side by side in desktop so users can make a quick choice about what product they want. Price points are above the page fold. For small devices the items are stacked vertically with the lowest price point and predicted highest used product first. Authentication is not required to see this page.
 
 Once a user is logged in the current product associated with their account will have the checkout button grayed out. If a user clicks on a checkout button, they will be required to authenticate. By default a user is assigned the Free product. 
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-product-page.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-product-page.png">
 
 ### Login Page
 The login page is the front door for the authenticated user experience. It has a password reset and registration link so users that can't remember their password or those new to the site that want to join do not have to hunt and search for those options.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-login-page.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-login-page.png">
 
 ### Register Page
 
 The Registration Page provides a way for users to sign up for access to the authenticated services provided by the challenger site. Usernames are unique to the system as are emails. 
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-register-page.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-register-page.png">
 
 ### Profile Page
 
 The profile page is a one stop shop account overview page. Users can initiate a password reset, make changes to their user information, update their profile, change their service level and see their order history.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-profile.png" >
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-profile.png" >
 
 ### Change User Info Page
 
@@ -283,19 +400,19 @@ The Change user information page allows the user to update information tightly t
 
 This form checks to make sure when updating the username or password that you cannot take over another user's account.
 
-<img width="300" height="auto" src="documentation/pages/ms4-user-update.png">
+<img width="350" height="auto" src="documentation/pages/ms4-user-update.png">
 
 #### Update Profile Page
 
 The update profile page allows a user to set/change more personalized information associated with their account like their avatar and interests. Ideally this information would be collect when a user registers, but for the initial deployment it is opt in only.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-profile-update.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-profile-update.png">
 
 
 ### Checkout Page
 When a user clicks the checkout button for a product with a price value greater than 0, then they are taken to a checkout page where payment information is collected using stripe's payment API.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-checkout.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-checkout.png">
 
 Payment details are whipped from the page before a status it passed onto the backend server and are never stored in the system or sent across except through the iframe protocols hosted by stripe.
 
@@ -308,7 +425,7 @@ When the user lands on the page they are presented 3 tabs.
 #### Challenge Member Tab
 The first and default displayed tab on the challenges page is the member's tab. This tab recaps the challenges a user belongs to.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-challenges.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-challenges.png">
 
 All the data on the Member tab is ordered by Challenge End Date from most future to most recent in past, then by name ascending.
 
@@ -321,71 +438,75 @@ An open challenge indicates that it is active and that the end date has not yet 
 An open challenge has two sub states:
 
 ###### Submit
-The user sees the example image and example video if one was suppplied as well as the description if the challenge has no entry from associated to the user.
+The user sees the example image and example video if one was supplied as well as the description if the challenge has no entry from associated to the user.
 
-<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-open-no-submission.png">
+<img width="350" height="auto" src="documentation/pages/challenges/member-list/challenges-open-no-submission.png">
 
 ###### Re-Submit
 If the user has submitted an entry, the documents they uploaded will be displayed along with re-submit and delete buttons.
 
-<img width="300" height="auto" src="challenges-member-open-with-image-entry.png">
+<img width="350" height="auto" src="documentation/pages/challenges/member-list/challenges-member-open-with-image-entry.png">
 
 Depending on the challenge master's service level, the type of files requested for a submission might change. They could also have a
 video:
 
-<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-open-with-video-entry.png">
+<img width="350" height="auto" src="documentation/pages/challenges/member-list/challenges-open-with-video-entry.png">
 
 or audio file:
 
-<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-member-open-with-audio-entry.png">
+<img width="350" height="auto" src="documentation/pages/challenges/member-list/challenges-member-open-with-audio-entry.png">
 
 ##### Closed
 If the end date has passed, the presentation of the member recap changes slightly. The challenge member will see a button labeled SEE ENTRIES which is the portal to review other's entries if any were made.
 
-<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-member-complete-with-submissions.png">
+<img width="350" height="auto" src="documentation/pages/challenges/member-list/challenges-member-complete-with-submissions.png">
 
 If they did not submit an entry their recap-entry box will be empty.
 
-<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-member-closed-no-submission.png">
+<img width="350" height="auto" src="documentation/pages/challenges/member-list/challenges-member-closed-no-submission.png">
 
 #### Challenge Master Tab
 The Challenges Master tab is similar to the Member's content except the user is the owner of the challenge and has update and delete authority. It shows additional buttons to edit or delete a challenge as well as recaps the number of members and submissions for each challenge the user is a master of. If there are submissions, the SEE ENTRIES gateway button to all entries for the challenge will be displayed.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-master-tab.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-master-tab.png">
 
 #### Create Challenge Tab
 The create challenge tab's treatment is conditional. If the user is at their limit of challenges, they cannot create a new challenge. They are provided a recap screen with some directions about how to free up challenges or raise their limit.
 
-<img width="300" height="auto" src="documentation/pages/challenges/create/ms4-challenger-create.png">
+<img width="350" height="auto" src="documentation/pages/challenges/create/ms4-challenger-create.png">
 
 ### Create Challenge.
 Creating a challenge takes just a minute unless you waste your time word-smithing the description.  There form requires the name, example image, description, start date, end date and submission type in order to pass validation.
 
-Example video files take only .mov and .mp4 entries at this time. 
+Example video files take only ```*.mov``` and ```*.mp4``` entries at this time. 
 
-<img width="300" height="auto" src="documentation/pages/challenges/create/ms4-challenger-create.png">
+<img width="350" height="auto" src="documentation/pages/challenges/create/ms4-challenger-create.png">
 
-Adding members is optional. But if you add them, they are bound by your service level.
+Adding members is optional. But if you add them, they are bound by your service level agreement. In the screenshot below, the challenge master has the Free tier and is limited to 5 members.
 
-<img width="300" height="auto" src="documentation/pages/challenges/create/ms4-challenger-challenges-create-too-many-members.png">
+<img width="350" height="auto" src="documentation/pages/challenges/create/ms4-challenger-challenges-create-too-many-members.png">
 
 If you create a challenge, you will be messaged at the top of the challenges page if invites were sent or if you need to add members. If a user isn't in the system yet, no worries, their account is auto created, they receive a welcome email with an automatically generated password. They then receive a follow up invite to join the challenge email. 
 
 
 #### Welcome to Challenger Email
-If a user is auto created via being added as a member to a challenge, an welcoming email with their username and password.
+If a user is auto created via being added as a member to a challenge, a welcoming email with their username and password.
 
-<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-welcome-email.png">
+<img width="350" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-welcome-email.png">
+
+This email is in text format only.
 
 #### Welcome to the Challenge Email
 Once a user has been added to a challenge, they are sent an email with the details and a link back to the application.
 
-<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-welcome-email.png">
+<img width="350" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-welcome-email.png">
+
+This email is sent as both text and HTML so they example image can be used to entice participation.
 
 ### Update Challenge Page
-The challenge update page is very similar to the create challgne page, but it provides a preview of the example image and example video and pre-populates the field forms. Users can be added and removed from this page. 
+The challenge update page is very similar to the create challenge page, but it provides a preview of the example image and example video and pre-populates the field forms. Users can be added and removed from this page. 
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-update-challenge.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-update-challenge.png">
 
 The only unmodifiable attribute is the submission type. The submission type is not adjustable as users may have submitted an entry already and that would lead to data integrity issues. Another requirement of an update is you must adjust the end date to sometime in the future.
 
@@ -394,12 +515,14 @@ New users will receive an initial email as if the challenge was newly created.
 #### Challenge Updated Email
 Existing users that were retained through the update process will receive an update email where the changes will be highlighted in read if they were contextual in nature:
 
-<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-updated-email.png">
+<img width="350" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-updated-email.png">
+
+This email is sent as both text and HTML to encourage participation by displaying the example image.
 
 #### Challenge Terminated Email
 A challenge master may delete a challenge to free up space, or they may drop users that aren't interacting with their challenges to open a spot for a more engaged friend. Either way, if a user is dropped or a challenge was willfully destroyed, all members will receive a cancellation email. 
 
-<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-cancelled-email.png">
+<img width="350" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-cancelled-email.png">
 
 Don't worry I check that you have to be the owner to delete a challenge so no monkey business with the url is allowed.
 
@@ -408,7 +531,7 @@ To submit an entry, the user just clicks on a submit button from the Challenge M
 
 File size limits and extensions are driven by the challenge owner's service level as well as the submission types they chose when setting up the challenge.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-create-entry.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-create-entry.png">
 
 Currently most image types are accepted. For videos only .mp4 and .mov files are allowed. Only .mp3 files are accepted for audio at this point in time. If a user uploads the wrong file type, they will receive direction about what file types and sizes are expected.
 
@@ -417,43 +540,43 @@ One the user designated as the entry owner can update an entry. You can find you
 
 The re-submit page is much like the entry page with the data already pre-populated an a preview of any media you had previously uploaded.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-submissions-update.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-submissions-update.png">
 
 ### See All Entries Page
 You can see all submissions from the challenge member tab once a challenge has closed. Or you can see them as they anytime from the challenge Master tab. Clicking a SEE ENTRIES button is the ticket to this view.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-all-submissions.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-all-submissions.png">
 
 A custom DJANGO Rest Framework API was written to accept user's clicking on the rating buttons. The view looks the incoming data and will either create or update a rating if the user is a member of the challenge for the entry being rated and then send back a json object of the agregated view. Javasript on the client side then updates the trophies peer rating section to reflect real time opinions.
 
 ### Password Reset Initiate Page
 If users have forgotten their passwords, they can request an email to be sent to aide in resetting their passwords. The Django admin screens were styled to look like the MS4-challenger app for this purpose.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-password-intiate.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-password-reset-password-intiate.png">
 
 ### Reset Password Link Sent Page
 When a user has requested a password reset, they are presented a restyled Django Admin screen letting them know to expect an emil.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-sent.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-password-reset-sent.png">
 
 ### Reset Password Email
 To ensure the correct user receives a password reset link, Django sends an email to that user rather than providing one in screen. A future enhancement would be a two stage recovery associated with a stricter registration process.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-email.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-password-reset-email.png">
 
 #### Password Reset Entry Page
 Once a user clicks the link form the password reset email, they are presented with a screen to collect and confirm their new password. It was a conscious choice to put password requirement text between the two fields in hopes of improving password retention and accuracy of input.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-set-password.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-password-reset-set-password.png">
 
 #### Password Reset Complete Page
 Again, to help with newly formed password retention, the user is not automatically logged in but forced to use the password immediately.
 
-<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-done.png">
+<img width="350" height="auto" src="documentation/pages/ms4-challenger-password-reset-done.png">
 
 ## Features Left to Implement
 - Monthly and Annual Pricing Tiers / Reoccurring payments with Stripe
-- Account Managers/ dual ownership based on Service Levels.
+- Account Managers / Dual ownership based on Service Levels.
 - Private Comments from challenge masters to members about their entries.
 - Feedback Form to Collect Ideas for Future Enhancements
 - Observer Accounts based on Service Level of user
@@ -462,9 +585,12 @@ Again, to help with newly formed password retention, the user is not automatical
 - Group Emails initiated by users vs auto generated emails about challenge creation, update, cancellations.
 - Workflow for Inappropriate Content reporting/resolution
 - Policy/Privacy Terms acknowledgement within checkout/registration process
+- Switch email to distributed with celery so emails don't hold up use creation and occur asynchronously from creation, edits and cancellations.
+- Service Level agreement and Privacy policy acknowledgments upon user registration
+- Profile and secondary account required upon first time sign for automatically created users
 
 # Information Architecture
-Initial Database Structure Considerations, an ERD and details about the Database models, CRUD functionality, model functions and validations can be found in the [DATA.md](documentation/DATA.md) file.
+Initial Database Structure Considerations, an [ERD](documentation/database/output.png) and details about the Database models, CRUD functionality, model functions and validations can be found in the [DATA.md](documentation/DATA.md) file.
 
 # Technologies Used
 
@@ -531,8 +657,7 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 
 - [AWS S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html) - allows seamless uploading of user files to cloud storage using application credentials
 - [stripe](https://stripe.com/) - payment platform to validate and accept credit card payments securely
-- ratings - home grown restful api that accepts ratings from users and sends back an average rating for a given entry
-
+- [ratings](ratings/views.py) - home grown Django Rest Framework api that accepts ratings from users and sends back an average rating for a given entry
 
 # Defensive Programming
 
@@ -540,28 +665,28 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
 
 ## Additional Security Checks
 1. Users cannot adjust their submissions outside of the challenge start and end dates. The Submission Delete, Submission Update, and Submission Create all check that the timezone adjusted date does not fall outside the Challenge Master's settings.
-1. Users cannot Delete or Update other's submissions. The Submit Delete and Submit Update views check for Entry Id's to prevent logged in users from guessing the ID of a peer's entry.
+1. Users cannot Delete or Update other's submissions. The Submit Delete and Submit Update views check for Entry Id's to prevent logged in users from guessing the ID of a peer's entry and wrecking havoc on the system.
 1. Users cannot Update or Delete others' challenges. The Challenge Update and Challenge Delete views check for an owner's id before allowing someone manipulate the settings.
 1. Users cannot Update profiles for other users. The Profile Update view checks the user's id against the logged in user's id before allowing updates.
+1. Users cannot Update User Information for other users. The User Update view checks the user's id against the logged in user's id before allowing updates.
 1. Users cannot Checkout and enter a payment unless they are logged in and payments cannot be attributed to other profiles.
-1. Changing passwords requires sending registered email link and does not auto log in a user. While it's annoying to have to wait for a password reset email, then to login after setting it, this step prevents users from taking account ownership over if they manipulate a password reset for their account and attempt to hack another's.
-1. Before a user can view submissions, challenge ownership/membership is checked
-1. Before a user can rate a submission, challenge ownership/membership is checked
+1. Changing passwords requires sending registered email link and does not auto log in a user. While it's annoying to have to wait for a password reset email, then to login after setting it, this step prevents users from taking account ownership over if they manipulate a password reset for their account and attempt to hack another's and it leads to better retention of the password.
+1. Before a user can view submissions, challenge ownership/membership is checked.
+1. Before a user can rate a submission, challenge ownership/membership is checked.
 
 ## Custom Validation
-1. Set up a virtual environment via this command in the terminal session:
-   - Emails and user names are unique to the account. 
-   - Users must be 10 years or older to set up profile
+1. User Registration and User information Updates
+   - Emails and user names are unique to the system, the same user name cannot be used by another person likewise for the email address. 
+   - Users must be 10 years or older to set up profile (-3 calendar days are permitted to account for 2 leap years)
 1. Challenges
    - Challenge end dates must be in the future for creation and updates
-   - Creation and Updates check current service level of user for submission types and features
-   - Before Creation, account limit is checked in case user is sharing account or has another tab open and exceeded limit
+   - Creation and Updates check current service level of user for submission types and features before allowing a user to create a new challenge.
+   - Before Creation, account limit is checked in case user is sharing account or has another tab open and exceeded limit in that manner
 1. Submissions
    - Before Creation and Update, dates are checked to ensure user hasn't left a window open hoping to beat time limit
    - File size limits are checked before a user successfully uploads a file
 1. Account Management
   - when a user updates their username or email, the system is crosschecked for uniqueness of values
-   
    
 # Testing
 
@@ -728,7 +853,6 @@ To run this application in a cloud environment to allow visibility to external u
 1. On the Deployment Tab, scroll a bit further down to the "Manual Deploy" section, select the master branch then click "Deploy Branch".
 1. If you have errors, look at the logs for your application, most common errors are forgetting to add the hostname and  disabling collectstatic.
 1. Once your application is running, you may want to update the Deployment method from Manual to Automatic.
-
 
 # Credits
 
