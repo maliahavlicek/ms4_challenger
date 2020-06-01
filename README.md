@@ -22,11 +22,65 @@ Since this application has a wide range of users, I've placed a couple of tutori
 - [Submit Entry](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4)
 
 ## Table of Contents
+>- [UX](#ux)
+>  * [Goals](#goals)
+>    + [Challenge Member Goals](#challenge-member-goals)
+>    + [Master of Ceremonies Goals](#master-of-ceremonies-goals)
+>    + [Business Goals](#business-goals)
+>  * [User Stories](#user-stories)
+>  * [Wireframes](#wireframes)
+>  * [Design Choices](#design-choices)
+>    + [Color Choice](#color-choice)
+>    + [Typography](#typography)
+>      - [Title Font](#title-font)
+>      - [Base Font](#base-font)
+>    + [Image Choice](#image-choice)
+>      - [Service Levels](#service-levels)
+>    + [Design Elements](#design-elements)
+>    + [Animations & Transitions](#animations--transitions)
+>- [Features](#features)
+>  * [Implemented Features](#implemented-features)
+>    + [Page Components](#page-components)
+>    + [Home Page](#home-page)
+>    + [Products Page](#products-page)
+>    + [Login Page](#login-page)
+>    + [Register Page](#register-page)
+>    + [Profile Page](#profile-page)
+>    + [Logout Page](#logout-page)
+>    + [Checkout Page](#checkout-page)
+>    + [Challenges Page](#challenges-page)
+>    + [Challenge Detail Page](#challenge-detail-page)
+>    + [Submission Page](#submission-page)
+>    + [Contact Page](#contact-page)
+>    + [Terms and Conditions Page](#terms-and-conditions-page)
+>    + [Forgot Password Page](#forgot-password-page)
+>    + [Reset Password Page](#reset-password-page)
+>  * [Features Left to Implement](#features-left-to-implement)
+>- [Information Architecture](#information-architecture)
+>- [Technologies Used](#technologies-used)
+>  * [Programming Languages](#programming-languages)
+>  * [Framework & Extensions](#framework--extensions)
+>  * [Fonts](#fonts)
+>  * [Tools](#tools)
+>  * [APIs](#apis)
+>- [Defensive Programming](#defensive-programming)
+>  * [Additional Security Checks](#additional-security-checks)
+>  * [Custom Validation](#custom-validation)
+>- [Testing](#testing)
+>- [Deployment](#deployment)
+>  * [Requirements](#requirements)
+>  * [Local](#local)
+>  * [Heroku](#heroku)
+>- [Credits](#credits)
+>  * [Content](#content)
+>  * [Media](#media)
+>  * [Acknowledgements](#acknowledgements)
 
-## UX
 
-### Goals
-#### Challenge Member Goals
+# UX
+
+## Goals
+### Challenge Member Goals
 
 The largest user group for the Challenger website will be those who are challenge members. 
 These users are people who want to highlight their talents and skills. They can be students of a music school, members of a sports team, people learning a new language or those that want to share new found skills with like minded peers.
@@ -41,7 +95,7 @@ Challenge Member Goals are:
  - Review past challenges and their submissions
  - Send a link to friends and family that are not members so they can watch my submissions
 
-#### Master of Ceremonies Goals
+### Master of Ceremonies Goals
 
 Masters of Ceremonies are user that own a challenge. 
 
@@ -54,14 +108,14 @@ Challenge Master Goals are:
 - Approve Submissions before rest of team can see them
 - Provide private constructive criticism to challenge members about their submissions
 
-#### Business Goals
+### Business Goals
 - Provide a professional forum that allows users to challenge each other and interact online in a respectful, positive manner
 - Provide a safe environment where privacy is key such that younger audience can interact with peers online
 - Connect like minded peers 
 - Keep track of user self-tagging to inform future cross selling
 - Keep track of user feature requests to make informed decisions on improvements
 
-### User Stories
+## User Stories
 As a member of Challenger's website, I expect/want/need:
 - To find a challenge easily, I want the email I receive to take me to the correct challenge immediately
 - To easily see my peer's submissions for a challenge and any ratings
@@ -78,15 +132,15 @@ As a member of Challenger's website, I expect/want/need:
 - To delete a challenge
 - To update an existing challenge
 
-### Wireframes
+## Wireframes
 This product aims to deliver a private small team feel similar to [teamsnap](https://teamsnap.com) and the ability to quickly view and like items similar to [instagram](https://www.instagram.com/). I started wireframes early in the design process while flipping between the two pre-existing apps. Then tackled some tough user interaction like adding members before I invested several hours to mock-up and fine-tuning the user experience around challenges using Balsamiq to create [detailed mockups](documentation/WIREFRAMES.md) like the one below:
 [![view Balsamiq deck](documentation/mockups/Challenges_Member%20List.png)](documentation/WIREFRAMES.md)
 
-### Design Choices
+## Design Choices
 
 The intent is to provide a clean, intuitive design to users with subtle imagery and animation to spice up the pages in order to keep users engaged.
 
-#### Color Choice
+### Color Choice
 To provide a striking contrast between the header and footer vs the body of the page, onyx and white with bold highlighting colors were picked. 
 [![Final Palette](documentation/challenger_color_palete.png "color palette App")](https://coolors.co/ffffff-007bff-12eccb-343a40-ec4646)
 
@@ -98,7 +152,7 @@ Salsa Red is used for warnings.
  
 Azure blue was picked to represent textual links to aide older users by staying true to original html link coloration.
 
-#### Typography
+### Typography
 
 The target age group for this site is rather wide. Children from the ages of 10 to octogenarians and beyond could make use of the application. With that in mind, the base font size is 18px to make it easy to read. 
 
@@ -106,7 +160,7 @@ The purpose of the site is to allow peers to interact in friendly challenges fro
 
 Several Google Fonts were explored and only those without any lower case l and upper case i differentiation issues were chosen.
 
-##### Title Font
+#### Title Font
 
 [Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 
 
@@ -114,7 +168,7 @@ Several Google Fonts were explored and only those without any lower case l and u
 
 Titles, navigation links and buttons use the title font. Headings use a base font of 32px and size down.
 
-##### Base Font
+#### Base Font
 
 [Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) 
 
@@ -122,11 +176,11 @@ Titles, navigation links and buttons use the title font. Headings use a base fon
 
 The base font size is 18px to accommodate for a wider age range of users. Exo is a bit easier to read than Orbitron but it has a futuristic feel to it to help carry out the space travel theme. 
 
-#### Image Choice
+### Image Choice
 
 This site is to be used by people aged 10 to 80 and beyond. Images were picked in an attempt to be colorful with high contrast and within the chosen color palette.
 
-##### Service Levels
+#### Service Levels
 Large iconic imagery was selected with bold red colors to help users easily identify with product levels and the price commitment associated with such.
 
 The Free product tier is represented by a balloon:
@@ -141,7 +195,7 @@ The Interstellar (High End Tier) Product is represented by a futuristic space sh
 
 <img src="https://github.com/maliahavlicek/ms4_challenger/blob/master/documentation/products/clipart-rocket-red-rocket-17.png?raw=true" width="150" height="auto" alt="Futuristic Rocket Ship for high end product" />
 
-#### Design Elements
+### Design Elements
 The formal wire-ream process identified the need for the following User Interface Components:
 
 |                 |             |                    |              |
@@ -154,47 +208,47 @@ The formal wire-ream process identified the need for the following User Interfac
 
 To save some development time bootstrap 4 was chosen as the CSS framework. I haven't actually used it before but it's well documented and there are many examples that you can modify and the amount of support is hard to beat. (Hoping to avoid date picker issues I had with bulma)
 
-#### Animations & Transitions
+### Animations & Transitions
 
 Due to the vast age diversity of users targeted for this website, animations are subtle and slower than average.
 If viewed on desktop the rails are filled with a star field image that slowly transitions up and to the left to tie into the space travel/futuristic theme of the website.
 
-## Features
+# Features
 
-### Implemented Features
+## Implemented Features
 
-#### Page Components 
+### Page Components 
 The wire-frame process identified the need for the following User Interface Components:
 
-#### Home Page
+### Home Page
 
-#### Products Page
+### Products Page
 
-#### Login Page
+### Login Page
 
-#### Register Page
+### Register Page
 
-#### Profile Page
+### Profile Page
 
-#### Logout Page
+### Logout Page
 
-#### Checkout Page
+### Checkout Page
 
-#### Challenges Page
+### Challenges Page
 
-#### Challenge Detail Page
+### Challenge Detail Page
 
-#### Submission Page
+### Submission Page
 
-#### Contact Page
+### Contact Page
 
-#### Terms and Conditions Page
+### Terms and Conditions Page
 
-#### Forgot Password Page
+### Forgot Password Page
 
-#### Reset Password Page
+### Reset Password Page
 
-### Features Left to Implement
+## Features Left to Implement
 - Monthly and Annual Pricing Tiers / Reoccurring payments with Stripe
 - Account Managers/ dual ownership based on Service Levels.
 - Private Comments from challenge masters to members about their entries.
@@ -205,14 +259,14 @@ The wire-frame process identified the need for the following User Interface Comp
 - Workflow for Inappropriate Content reporting/resolution
 - Policy/Privacy Terms acknowledgement within checkout/registration process
 
-## Information Architecture
+# Information Architecture
 Initial Database Structure Considerations, an ERD and details about the Database models, CRUD functionality, model functions and validations can be found in the [DATA.md](documentation/DATA.md) file.
 
-## Technologies Used
+# Technologies Used
 
 This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Postgres Databased served up via Heroku are the core components. 
 
-### Programming Languages
+## Programming Languages
 
 - [CSS3](https://www.w3schools.com/w3css/default.asp) - used to style DOM appearance. 
 - [HTML5](https://www.w3schools.com/html/default.asp) -  used to define DOM elements. 
@@ -222,7 +276,7 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [Django](https://docs.djangoproject.com/en/3.0/) Object Relational Mapper, HTML templating, URL routing, Form validation, Authentication, Admin and Security, does a lot of the heavy lifting for a website without much developer input 
 - [Markdown](https://www.markdownguide.org/) Documentation within the readme was generated using markdown
 
-### Framework & Extensions
+## Framework & Extensions
 
 - [dj-database-url](https://pypi.org/project/dj-database-url/) - allows use of environment variable for database connections
 - [bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/) - a mobile friendly CSS framework based on a responsive grid system. Provides out of the box UI components such as navigation menu bar, carousels, and cards. 
@@ -243,13 +297,13 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [pytz](https://pypi.org/project/pytz/) - world timezone calculations
 
 
-### Fonts
+## Fonts
 
 - Base Font: [Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 
 - Header Font: [Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) 
 - Button Icons: [Font Awesome 5](https://fontawesome.com/icons?d=gallery)
 
-### Tools
+## Tools
 - [Pycharm](https://www.jetbrains.com/) The IDE used for developing ms4-challenger
 - [github](https://github.com/) - used for version control of project files and branching out to try different things without adversely affecting a functional set of code
 - [travis](https://travis-ci.org/) - supports continuous integration by building the code and running tests before deploying to Heroku
@@ -269,18 +323,18 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [django-nose](https://pypi.org/project/django-nose/) - used to help configure and run tests with coverage output
 
 
-### APIs
+## APIs
 
 - [AWS S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html) - allows seamless uploading of user files to cloud storage using application credentials
 - [stripe](https://stripe.com/) - payment platform to validate and accept credit card payments securely
 - ratings - home grown restful api that accepts ratings from users and sends back an average rating for a given entry
 
 
-## Defensive Programming
+# Defensive Programming
 
 Sites with ownership rules and roles opens a site up to hacking especially if your users are savvy and notice url parameters correlate to database object manipulation. Django is pretty good allowing you to hook in login required for views associated with CRUD options, and form validation is top notch if you definite it yourself. Still I felt the need to add a bit more to prevent more tech aware users from doing naughty things:
 
-### Additional Security Checks
+## Additional Security Checks
 1. Users cannot adjust their submissions outside of the challenge start and end dates. The Submission Delete, Submission Update, and Submission Create all check that the timezone adjusted date does not fall outside the Challenge Master's settings.
 1. Users cannot Delete or Update other's submissions. The Submit Delete and Submit Update views check for Entry Id's to prevent logged in users from guessing the ID of a peer's entry.
 1. Users cannot Update or Delete others' challenges. The Challenge Update and Challenge Delete views check for an owner's id before allowing someone manipulate the settings.
@@ -290,7 +344,7 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
 1. Before a user can view submissions, challenge ownership/membership is checked
 1. Before a user can rate a submission, challenge ownership/membership is checked
 
-### Custom Validation
+## Custom Validation
 1. Set up a virtual environment via this command in the terminal session:
    - Emails and user names are unique to the account. 
    - Users must be 10 years or older to set up profile
@@ -305,15 +359,15 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
   - when a user updates their username or email, the system is crosschecked for uniqueness of values
    
    
-## Testing
+# Testing
 
 Validation, manual unit, cross browser/cross device, accessibility, travis, coverage, this app has a dash of everything test related. See the separate [TESTING.md](documentation/TESTING.md) file for the details.
 
-## Deployment
+# Deployment
 
 This application can be run locally or deployed to a live environment. Directions are provided for deploying to Heroku.
 
-### Requirements
+## Requirements
 If any of the following are unfamiliar, please click on their associated links as they are necessary when setting the environmental variables required to run this application:
 
  - an IDE such as [pycharm](https://www.jetbrains.com/pycharm/download) - a tool to help develop software
@@ -326,7 +380,7 @@ If any of the following are unfamiliar, please click on their associated links a
  - [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) - a cloud storage resource which is similar to file folders on a computer's hard drive
 
 
-### Local
+## Local
 1. Save a copy of the github repository located at https://github.com/maliahavlicek/ms4_challenger by clicking the 'download.zip' button at the top of the page and extracting the zip file to your chosen folder. If you have Git installed on your system, you can clone the repository with the following command:
    ```bash
    $ git clone https://github.com/maliahavlicek/ms4_challenger.git
@@ -404,7 +458,7 @@ If any of the following are unfamiliar, please click on their associated links a
     python manage.py collectstatic
     ```
 
-### Heroku
+## Heroku
 
 To run this application in a cloud environment to allow visibility to external users, you can deploy the code to Heroku. If you wish to do the same, follow the steps below. Please note this section assumes you have succeeded at running the application in your local environment first.
 
@@ -472,22 +526,22 @@ To run this application in a cloud environment to allow visibility to external u
 1. Once your application is running, you may want to update the Deployment method from Manual to Automatic.
 
 
-## Credits
+# Credits
 
 No website can be created without the community resources found on the web. Searching [stackoverflow](https://stackoverflow.com/) and [GeeksfoGeeks](https://www.geeksforgeeks.org/) and reading blog about triumphs and fails has helped create this site. A special shout out for the articles that solved specific issues vs syntax questions can be found in the acknowledgements section.
 
-### Content
+## Content
 
 - The Product Level content was my own creation, but I did use the concept of a subscription based product pricing tier from [teamsnap](https://www.teamsnap.com/) 
 
-### Media
+## Media
 - [flavicon](https://www.google.com/url?sa=i&url=https%3A%2F%2Fclipartix.com%2Frocket-clipart-image-11754%2F&psig=AOvVaw3osFDBKQwlWi5l_ED0kzix&ust=1588579579787000&source=images&cd=vfe&ved=0CA0QjhxqFwoTCKifqZ6el-kCFQAAAAAdAAAAABAD) rocket falvicon image before recoloring and rotation 
 - [interstellar product image](https://www.stickpng.com/img/cartoons/little-einsteins/little-einsteins-rocket-ship
 ) - futuristic space craft
 - [blast off product image](https://www.flaticon.com/free-icon/startup_639373?term=rocket&page=1&position=23) - 1970's rocket ship
 - [free product image'](https://www.flaticon.com/free-icon/hot-air-balloon_2233035?term=hot%20air%20balloon&page=1&position=27) - hot air balloon
 
-### Acknowledgements
+## Acknowledgements
 - [ragoli](https://codemyui.com/parallax-pixel-stars-using-pure-css/) animated star field background for desktop
 - [coderwall](https://coderwall.com/p/mvsoyg/django-dumpdata-and-loaddata) for examples on how to dump data and load it which saves a bunch of time when deploying the application from a local database to a hosted database
 - [Wade Williams](https://wadewilliams.com/technology-software/generating-erd-for-django-applications/)- blog walking you through how to create ERD's from django automatically. Saved me a ton of time struggling with draw.io
