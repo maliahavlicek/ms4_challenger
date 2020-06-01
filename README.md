@@ -17,13 +17,14 @@ Challenger provides a way for small groups to test each other with friendly comp
 ### How to use
 Since this application has a wide range of users, I've placed a couple of tutorial videos on the homepage to help users who may be a bit tentative on using the app the very first time. 
 
-- *Register* 
+Register
 <a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/register_vid_screen_shot.png"></a>
-- *Create Challenge* <video width="300px" height="auto" controls><source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" type="video/mp4" /></video>
-<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/create_challenge_vid_screen_shot.png"></a>
-- *Submit Entry* 
-<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/submit_entry_vid_screen_shot.png"></a>
 
+Create Challenge
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/create_challenge_vid_screen_shot.png"></a>
+
+Submit Entry
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/submit_entry_vid_screen_shot.png"></a>
 
 
 ## Table of Contents
@@ -115,30 +116,32 @@ Challenge Master Goals are:
 
 ### Business Goals
 - Provide a professional forum that allows users to challenge each other and interact online in a respectful, positive manner
-- Provide a safe environment where privacy is key such that younger audience can interact with peers online
-- Connect like minded peers 
-- Keep track of user self-tagging to inform future cross selling
-- Keep track of user feature requests to make informed decisions on improvements
+- Provide a safe environment where privacy is key such that adults will be comfortable allowing minor aged members to interact with peers online via the Challenger forum
+- Connect like minded peers on a stable, scalable platform
+- Keep track of user self-tagging to be informed about cross selling and ad space revenue
+- Keep track of user feature requests to make informed decisions on improvements and enhancements
 
 ## User Stories
 As a member of Challenger's website, I expect/want/need:
 - To find a challenge easily, I want the email I receive to take me to the correct challenge immediately
-- To easily see my peer's submissions for a challenge and any ratings
-- To rate my peer's submissions
+- To easily see my peer's submissions for a challenge and see an averaged by group rating for each entry
+- To be able to rate my peer's submissions and change my mind as much a I desire
 - To easily see all the challenges I belong to
 - To know which challenges I am the master of and those that I am a member of
-- To share a private link of my submission to my friends and family
+- To share a private link of my submission to my friends and family so they can see the cool stuff I am doing
 - To easily set up my account
 - To upgrade my account once I know I like the product and am willing to pay for a higher tier
-- To be able to tell what my account settings are
-- To see what Service Level tiers exist
-- To pay for a Service Level securely
-- To set up a challenge
-- To delete a challenge
+- To downgrade my account if I discover I'm not using the site as much at a future time to save money
+- To be able to tell what my account settings are easily
+- To see what Service Level tiers exist at what price points and terms without digging through pages of documentation
+- To pay for a Service Level securely 
+- To set up a challenge for my friends easily
+- To delete a challenge so I don't have to pay for a more costly product when I hit my limit
 - To update an existing challenge
+- To report abusive content anonymously so I don't see offensive things and minors don't either 
 
 ## Wireframes
-This product aims to deliver a private small team feel similar to [teamsnap](https://teamsnap.com) and the ability to quickly view and like items similar to [instagram](https://www.instagram.com/). I started wireframes early in the design process while flipping between the two pre-existing apps. Then tackled some tough user interaction like adding members before I invested several hours to mock-up and fine-tuning the user experience around challenges using Balsamiq to create [detailed mockups](documentation/WIREFRAMES.md) like the one below:
+This product aims to deliver a private small team feel similar to [teamsnap](https://teamsnap.com) and the ability to quickly view and like items similar to [instagram](https://www.instagram.com/). I started wireframes early in the design process while flipping between the two pre-existing apps. Then tackled some tough user interaction like adding members before I invested several hours to mock-ups and fine-tuning the user experience. Once I had a handle on the scope of challenges, I utilized Balsamiq to create [detailed mockups](documentation/WIREFRAMES.md) like the one below:
 [![view Balsamiq deck](documentation/mockups/Challenges_Member%20List.png)](documentation/WIREFRAMES.md)
 
 ## Design Choices
@@ -155,7 +158,7 @@ Turquoise is a green tone which represents forward action and is used for naviga
 
 Salsa Red is used for warnings.
  
-Azure blue was picked to represent textual links to aide older users by staying true to original html link coloration.
+Azure blue was picked to represent textual links to aide older users by staying true to original html link coloration. Note in cases of contrast warning, the colors may have been slightly muted or brightened to overcome WCAG compliance issues due to dark and light backgrounds.
 
 ### Typography
 
@@ -166,20 +169,14 @@ The purpose of the site is to allow peers to interact in friendly challenges fro
 Several Google Fonts were explored and only those without any lower case l and upper case i differentiation issues were chosen.
 
 #### Title Font
-
-[Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) 
+Titles, navigation links and buttons use the [Orbitron](https://fonts.google.com/?query=orbitron&selection.family=Orbitron) font. Headings use a base font of 32px and size down to 20px.
 
 ![Orbitron](documentation/Orbitron-Title-Font.png "Orbitron")
 
-Titles, navigation links and buttons use the title font. Headings use a base font of 32px and size down.
-
 #### Base Font
-
-[Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) 
+The base font size is 18px to accommodate for a wider age range of users. [Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) is a bit easier to read than Orbitron but it has a futuristic feel to it to help carry out the space travel theme. 
 
 ![Exo](documentation/Exo-Base-Font.png "Exo")
-
-The base font size is 18px to accommodate for a wider age range of users. Exo is a bit easier to read than Orbitron but it has a futuristic feel to it to help carry out the space travel theme. 
 
 ### Image Choice
 
@@ -201,7 +198,7 @@ The Interstellar (High End Tier) Product is represented by a futuristic space sh
 <img src="https://github.com/maliahavlicek/ms4_challenger/blob/master/documentation/products/clipart-rocket-red-rocket-17.png?raw=true" width="150" height="auto" alt="Futuristic Rocket Ship for high end product" />
 
 ### Design Elements
-The formal wire-ream process identified the need for the following User Interface Components:
+The formal wire-frame process identified the need for the following User Interface Components:
 
 |                 |             |                    |              |
 |-----------------|-------------|--------------------|--------------|
@@ -216,47 +213,182 @@ To save some development time bootstrap 4 was chosen as the CSS framework. I hav
 ### Animations & Transitions
 
 Due to the vast age diversity of users targeted for this website, animations are subtle and slower than average.
-If viewed on desktop the rails are filled with a star field image that slowly transitions up and to the left to tie into the space travel/futuristic theme of the website.
+If viewed on desktop the rails are filled with a star field image that slowly transitions up and to the left to tie into the space travel/futuristic theme of the website. 
+
+The order history is held in an accordion that has animation to expose and hide it's contents.
+
+The See All Entries view has an animated carousel that auto plays unless it's being interacted with.
 
 # Features
 
+User goals cross over many pages within the MS4-Challenger site. To best organize thoughts, the implemented features were broken down by pages users can access.
+ 
+ Main features that were deferred to a later date can be found in the [features left to implement section](#features-left-to-implement)
+
 ## Implemented Features
+
 
 ### Page Components 
 The wire-frame process identified the need for the following User Interface Components:
 
+Despite being built with Bootstrap, the forms are all customized to insure a tight, user friendly, not super spacious set of input fields are presented to the users.
+
 ### Home Page
+The Home page displays verbiage about why the site exists and what needs it meets. It also provides tutorials to help users get familiar with the site quickly. Authentication is not required to see this page.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-home-page.png">
 
 ### Products Page
+The Products page displays the service levels that the MS4-challenger app provides. It displays a brief overview of the features side by side in desktop so users can make a quick choice about what product they want. Price points are above the page fold. For small devices the items are stacked vertically with the lowest price point and predicted highest used product first. Authentication is not required to see this page.
+
+Once a user is logged in the current product associated with their account will have the checkout button grayed out. If a user clicks on a checkout button, they will be required to authenticate. By default a user is assigned the Free product. 
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-product-page.png">
 
 ### Login Page
+The login page is the front door for the authenticated user experience. It has a password reset and registration link so users that can't remember their password or those new to the site that want to join do not have to hunt and search for those options.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-login-page.png">
 
 ### Register Page
 
+The Registration Page provides a way for users to sign up for access to the authenticated services provided by the challenger site. Usernames are unique to the system as are emails. 
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-register-page.png">
+
 ### Profile Page
 
-### Logout Page
+The profile page is a one stop shop account overview page. Users can initiate a password reset, make changes to their user information, update their profile, change their service level and see their order history.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-profile.png" >
+
+### Change User Info Page
+
+The Change user information page allows the user to update information tightly tied to the django default user. If a new version of this application is developed, it would be best to make a custom user object immediately rather than using the default out of the box one.
+
+This form checks to make sure when updating the username or password that you cannot take over another user's account.
+
+<img width="300" height="auto" src="documentation/pages/ms4-user-update.png'>
+
+#### Update Profile Page
+
+The update profile page allows a user to set/change more personalized information associated with their account like their avatar and interests. Ideally this information would be collect when a user registers, but for the initial deployment it is opt in only.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-profile-update.png">
+
 
 ### Checkout Page
 
 ### Challenges Page
+One could have guessed that the challenges page would be the most complex of the site. It's the hub of activity.
+When the user lands on the page they are presented 3 tabs. 
 
-### Challenge Detail Page
+#### Challenge Member Tab
+The first and default displayed tab on the challenges page is the member's tab. This tab recaps the challenges a user belongs to.
 
-### Submission Page
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-challenges.png">
 
-### Contact Page
+All the data on the Member tab is ordered by Challenge End Date from most future to most recent in past, then by name ascending.
 
-### Terms and Conditions Page
+There are many iterations of what users might see on this tab. There are 2 main states of a challenge:
 
-### Forgot Password Page
+##### Open
 
-### Reset Password Page
+An open challenge indicates that it is active and that the end date has not yet passed. Users can submit or resubmit their entries during this window. They cannot vote on each others or see other submissions until the challenge has closed.
+
+An open challenge has two sub states:
+
+###### Submit
+The user sees the example image and example video if one was suppplied as well as the description if the challenge has no entry from associated to the user.
+
+<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-open-no-submission.png">
+
+###### Re-Submit
+If the user has submitted an entry, the documents they uploaded will be displayed along with re-submit and delete buttons.
+
+<img width="300" height="auto" src="challenges-member-open-with-image-entry.png'>
+
+Depending on the challenge master's service level, the type of files requested for a submission might change. They could also have a
+video:
+
+<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-open-with-video-entry.png">
+
+or audio file:
+
+<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-member-open-with-audio-entry.png">
+
+##### Closed
+If the end date has passed, the presentation of the member recap changes slightly. The challenge member will see a button labeled SEE ENTRIES which is the portal to review other's entries if any were made.
+
+<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-member-complete-with-submissions.png">
+
+If they did not submit an entry their recap-entry box will be empty.
+
+<img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-member-closed-no-submission.png">
+
+#### Challenge Master Tab
+The Challenges Master tab is similar to the Member's content except the user is the owner of the challenge and has update and delete authority.
+
+
+#### Create Challenge Tab
+The create challenge tab's treatment is conditional. If the user is at their limit of challenges, they cannot create a new challenge. They are provided a recap screen with some directions about how to free up challenges or raise their limit.
+
+<img width="300" height="auto" src="documentation/pages/challenges/create/ms4-challenger-create.png">
+
+### Create Challenge.
+Creating a challenge takes just a minute unless you waste your time word-smithing the description.  There form requires the name, example image, description, start date, end date and submission type in order to pass validation.
+
+Example video files take only .mov and .mp4 entries at this time. 
+
+<img width="300" height="auto" src="documentation/pages/challenges/create/ms4-challenger-create.png">
+
+Adding members is optional. But if you add them, they are bound by your service level.
+
+<img width="300" height="auto" src="documentation/pages/challenges/create/ms4-challenger-challenges-create-too-many-members.png">
+
+If you create a challenge, you will be messaged at the top of the challenges page if invites were sent or if you need to add members. If a user isn't in the system yet, no worries, their account is auto created, they receive a welcome email with an automatically generated password. They then receive a follow up invite to join the challenge email. 
+
+
+
+
+### Update Challenge Page
+
+### Submit Entry Page
+
+### Update Entry Page
+
+### See All Entries Page
+
+### Password Rest Initiate Page
+If users have forgotten their passwords, they can request an email to be sent to aide in resetting their passwords. The Django admin screens were styled to look like the MS4-challenger app for this purpose.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-password-intiate.png">
+
+### Reset Password Link Sent Page
+When a user has requested a password reset, they are presented a restyled Django Admin screen letting them know to expect an emil.
+
+<img width="300" height="auto" src=documentation/pages/ms4-challenger-password-reset-sent.png">
+
+### Reset Password Email
+To ensure the correct user receives a password reset link, Django sends an email to that user rather than providing one in screen. A future enhancement would be a two stage recovery associated with a stricter registration process.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-email.png">
+
+#### Password Reset Entry Page
+Once a user clicks the link form the password reset email, they are presented with a screen to collect and confirm their new password. It was a conscious choice to put password requirement text between the two fields in hopes of improving password retention and accuracy of input.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-set-password.png">
+
+#### Password Reset Complete Page
+Again, to help with newly formed password retention, the user is not automatically logged in but forced to use the password immediately.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-done.png">
 
 ## Features Left to Implement
 - Monthly and Annual Pricing Tiers / Reoccurring payments with Stripe
 - Account Managers/ dual ownership based on Service Levels.
 - Private Comments from challenge masters to members about their entries.
+- Feedback Form to Collect Ideas for Future Enhancements
 - Observer Accounts based on Service Level of user
 - Automated reminders when challenge opens and day of closure
 - Challenge Master Designated Time Limits for audio and video file submissions
