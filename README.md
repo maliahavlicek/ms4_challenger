@@ -293,6 +293,13 @@ The update profile page allows a user to set/change more personalized informatio
 
 
 ### Checkout Page
+When a user clicks the checkout button for a product with a price value greater than 0, then they are taken to a checkout page where payment information is collected using stripe's payment API.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-checkout.png">
+
+Payment details are whipped from the page before a status it passed onto the backend server and are never stored in the system or sent across except through the iframe protocols hosted by stripe.
+
+At this point, the stripe payment collection is only in test most, so for success provide a future expiry date and ```4242424242424242``` as the Credit Card Number.
 
 ### Challenges Page
 One could have guessed that the challenges page would be the most complex of the site. It's the hub of activity.
@@ -342,8 +349,9 @@ If they did not submit an entry their recap-entry box will be empty.
 <img width="300" height="auto" src="documentation/pages/challenges/member-list/challenges-member-closed-no-submission.png">
 
 #### Challenge Master Tab
-The Challenges Master tab is similar to the Member's content except the user is the owner of the challenge and has update and delete authority.
+The Challenges Master tab is similar to the Member's content except the user is the owner of the challenge and has update and delete authority. It shows additional buttons to edit or delete a challenge as well as recaps the number of members and submissions for each challenge the user is a master of. If there are submissions, the SEE ENTRIES gateway button to all entries for the challenge will be displayed.
 
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-master-tab.png">
 
 #### Create Challenge Tab
 The create challenge tab's treatment is conditional. If the user is at their limit of challenges, they cannot create a new challenge. They are provided a recap screen with some directions about how to free up challenges or raise their limit.
@@ -364,15 +372,59 @@ Adding members is optional. But if you add them, they are bound by your service 
 If you create a challenge, you will be messaged at the top of the challenges page if invites were sent or if you need to add members. If a user isn't in the system yet, no worries, their account is auto created, they receive a welcome email with an automatically generated password. They then receive a follow up invite to join the challenge email. 
 
 
+#### Welcome to Challenger Email
+If a user is auto created via being added as a member to a challenge, an welcoming email with their username and password.
 
+<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-welcome-email.png">
+
+#### Welcome to the Challenge Email
+Once a user has been added to a challenge, they are sent an email with the details and a link back to the application.
+
+<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-welcome-email.png">
 
 ### Update Challenge Page
+The challenge update page is very similar to the create challgne page, but it provides a preview of the example image and example video and pre-populates the field forms. Users can be added and removed from this page. 
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-update-challenge.png">
+
+The only unmodifiable attribute is the submission type. The submission type is not adjustable as users may have submitted an entry already and that would lead to data integrity issues. Another requirement of an update is you must adjust the end date to sometime in the future.
+
+New users will receive an initial email as if the challenge was newly created.
+
+#### Challenge Updated Email
+Existing users that were retained through the update process will receive an update email where the changes will be highlighted in read if they were contextual in nature:
+
+<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-updated-email.png">
+
+#### Challenge Terminated Email
+A challenge master may delete a challenge to free up space, or they may drop users that aren't interacting with their challenges to open a spot for a more engaged friend. Either way, if a user is dropped or a challenge was willfully destroyed, all members will receive a cancellation email. 
+
+<img width="300" height="auto" src="documentation/pages/challenges/emails/ms4-challenger-challenge-cancelled-email.png">
+
+Don't worry I check that you have to be the owner to delete a challenge so no monkey business with the url is allowed.
 
 ### Submit Entry Page
+To submit an entry, the user just clicks on a submit button from the Challenge Member tab. The site opens a form for the user with the inputs on top and a recap of the challenge on the bottom half. 
 
-### Update Entry Page
+File size limits and extensions are driven by the challenge owner's service level as well as the submission types they chose when setting up the challenge.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-create-entry.png">
+
+Currently most image types are accepted. For videos only .mp4 and .mov files are allowed. Only .mp3 files are accepted for audio at this point in time. If a user uploads the wrong file type, they will receive direction about what file types and sizes are expected.
+
+### Re-submit Entry Page
+One the user designated as the entry owner can update an entry. You can find your entries on the Member's tab and if the challenge isn't closed you can re-submit it. After the challenge is closed, you can only delete your entries.
+
+The re-submit page is much like the entry page with the data already pre-populated an a preview of any media you had previously uploaded.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-submissions-update.png">
 
 ### See All Entries Page
+You can see all submissions from the challenge member tab once a challenge has closed. Or you can see them as they anytime from the challenge Master tab. Clicking a SEE ENTRIES button is the ticket to this view.
+
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-all-submissions.png">
+
+A custom DJANGO Rest Framework API was written to accept user's clicking on the rating buttons. The view looks the incoming data and will either create or update a rating if the user is a member of the challenge for the entry being rated and then send back a json object of the agregated view. Javasript on the client side then updates the trophies peer rating section to reflect real time opinions.
 
 ### Password Reset Initiate Page
 If users have forgotten their passwords, they can request an email to be sent to aide in resetting their passwords. The Django admin screens were styled to look like the MS4-challenger app for this purpose.

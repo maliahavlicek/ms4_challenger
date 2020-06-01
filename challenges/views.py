@@ -137,10 +137,8 @@ def delete_challenge(request, id):
     if challenge.owner == user:
         members = []
         message = challenge.name.title() + " has been deleted. A cancellation email has been sent to the members."
-        for member in members:
-            members.append({'user': member})
-            user1 = User.objects.filter(id=member).first()
-            message += '\t' + user1.email
+        for member in challenge.members.all():
+            members.append({'user': member.pk})
         challenge_canceled_email(members, challenge)
         Challenge.objects.filter(id=id).delete()
         messages.success(request, message)
@@ -430,7 +428,7 @@ def challenge_initial_email(members, challenge):
     # new to Challenger Welcome Email for auto created users, send them a welcome message with password [status=new]
     new_subject = "Welcome to Challenger!"
     new_msg_greeting = "Hello!\n\nYou have been declared a member in friendly competition hosted on our website. Since you have not yet been invited to our forum, we have auto created an account for you."
-    new_closing = "\n\nDon't worry, you can change your email once you login. The details about the challenge you've been invited to will follow shortly.\n\nHave Fun and Challenger on!"
+    new_closing = "\n\nDon't worry, you can change your email and password once you login. The details about the challenge you've been invited to will follow shortly.\n\nHave Fun and Challenger on!"
     to = []
     # loop through members and build list of users to get Join a challege email and send of welcome message
     for member in members:
