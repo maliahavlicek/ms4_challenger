@@ -17,9 +17,12 @@ Challenger provides a way for small groups to test each other with friendly comp
 ### How to use
 Since this application has a wide range of users, I've placed a couple of tutorial videos on the homepage to help users who may be a bit tentative on using the app the very first time. 
 
-- Register <video width="300px" height="auto" controls><source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4" type="video/mp4" /></video>
-- Create Challenge<video width="300px" height="auto" controls><source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" type="video/mp4" /></video>
-- Submit Entry<video width="300px" height="auto" controls><source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" type="video/mp4" /></video>
+*Register* <video width="300px" height="auto" controls><source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4" type="video/mp4" /></video>
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4" target="_blank"><img width="300" height="auto" src="ms4-challenger/documentation/tutorial/register_vid_screen_shot.png"></a>
+*Create Challenge* <video width="300px" height="auto" controls><source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" type="video/mp4" /></video>
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/create_challenge_vid_screen_shot.png"></a>
+*Submit Entry* <video width="300px" height="auto" controls><source src="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" type="video/mp4" /></video>
+<a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" target="_blank"><img width="300" height="auto" src="documentation/tutorial/submit_entry_vid_screen_shot.png"></a>
 
  [![Register](documentation/tutorial/register_vid_screen_shot.png "How To Register Video")](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/registration.mp4)
  [![Create Challenge](documentation/tutorial/create_challenge_vid_screen_shot.png "How To Create A Challenge Video")](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4)
