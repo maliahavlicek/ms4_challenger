@@ -71,7 +71,7 @@ Submit Entry
     + [Submit Entry Page](#submit-entry-page)
     + [Update Entry Page](#update-entry-page)
     + [See All Entries Page](#see-all-entries-page)
-    + [Password Rest Initiate Page](#password-rest-initiate-page)
+    + [Password Rest Initiate Page](#password-reset-initiate-page)
     + [Reset Password Link Sent Page](#reset-password-link-sent-page)
     + [Reset Password Email](#reset-password-email)
       - [Password Reset Entry Page](#password-reset-entry-page)
@@ -283,7 +283,7 @@ The Change user information page allows the user to update information tightly t
 
 This form checks to make sure when updating the username or password that you cannot take over another user's account.
 
-<img width="300" height="auto" src="documentation/pages/ms4-user-update.png'>
+<img width="300" height="auto" src="documentation/pages/ms4-user-update.png">
 
 #### Update Profile Page
 
@@ -321,7 +321,7 @@ The user sees the example image and example video if one was suppplied as well a
 ###### Re-Submit
 If the user has submitted an entry, the documents they uploaded will be displayed along with re-submit and delete buttons.
 
-<img width="300" height="auto" src="challenges-member-open-with-image-entry.png'>
+<img width="300" height="auto" src="challenges-member-open-with-image-entry.png">
 
 Depending on the challenge master's service level, the type of files requested for a submission might change. They could also have a
 video:
@@ -374,7 +374,7 @@ If you create a challenge, you will be messaged at the top of the challenges pag
 
 ### See All Entries Page
 
-### Password Rest Initiate Page
+### Password Reset Initiate Page
 If users have forgotten their passwords, they can request an email to be sent to aide in resetting their passwords. The Django admin screens were styled to look like the MS4-challenger app for this purpose.
 
 <img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-password-intiate.png">
