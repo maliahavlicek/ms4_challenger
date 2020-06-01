@@ -283,9 +283,9 @@ To provide users with an easy intuitive navigation, main links are in an ever pr
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-navigation-mobile.png">
 
 #### Date Picker
-The default bootstrap via cripsy form date picker is rendered.
+The default bootstrap via crispy form date picker is rendered.
 
-<img width="auto" height="auto" documentation/pages/components/ms4-challenger-datepicker.png">
+<img width="auto" height="auto" scr="documentation/pages/components/ms4-challenger-datepicker.png">
 
 #### Buttons
 Buttons abound on the site. They stick to the same primary green color unless they are associated with canceling or deleting options. Icons are used with the buttons on the challenges tabs to help differentiate them from each other.
@@ -319,7 +319,7 @@ I used the default video players and didn't find much on how to make them standa
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-video-player.png">
 
 #### Audio Player
-I used the default audio players but could not figoure out the exact controls to standadize background colors and border shapes. Like the video player, I did add an outline as some browsers put them up with a white background and black controlsns with no background.  I would love to take the time to restyle these across the site for all browsers.
+I used the default audio players but could not figure out the exact controls to standardize background colors and border shapes. Like the video player, I did add an outline as some browsers put them up with a white background and black controlsns with no background.  I would love to take the time to restyle these across the site for all browsers.
 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-audio-player.png">
 
@@ -358,7 +358,7 @@ I have the payment history on the account overview as a button button that is an
 #### Forms 
 Despite being built with Bootstrap, the forms are all customized to insure a tight, user friendly, not super spacious set of input fields are presented to the users. Here's a view of the create challenge form on a small device (320 wide)
 
-<img width="320" height="auto" documentation/pages/components/ms4-challenger-form-mobile.png">
+<img width="320" height="auto" src="documentation/pages/components/ms4-challenger-form-mobile.png">
 
 #### Alerts
 Django's messaging is used throughout the site. To provide consistent user action feedback Bootstrap alerts are used below the header and above the Page Title heading. I make use of the yellow for warnings, red for errors and green for success messages.
@@ -590,7 +590,7 @@ Again, to help with newly formed password retention, the user is not automatical
 - Profile and secondary account required upon first time sign for automatically created users
 
 # Information Architecture
-Initial Database Structure Considerations, an [ERD](documentation/database/output.png) and details about the Database models, CRUD functionality, model functions and validations can be found in the [DATA.md](documentation/DATA.md) file.
+Initial Database Structure Considerations, an [ERD](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/output.png) and details about the Database models, CRUD functionality, model functions and validations can be found in the [DATA.md](documentation/DATA.md) file.
 
 # Technologies Used
 

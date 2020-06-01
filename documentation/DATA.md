@@ -29,7 +29,7 @@ Malia Havlicek
 During the ideation phase of this project, I roughed out the relationships for the data in a spreadsheet before working on the wire-frames so I'd have a better idea of what data I needed to collect: [![Initial Data Structure](database/MS4_challenger_data.png "initial data structure")](https://docs.google.com/spreadsheets/d/1vHY-Ml27WeuLCfXmMhxcf0v3VBArTMUdrv1BuL8twIQ/edit?usp=sharing)
  
 Once the project was stable, and I got frustrated with attempting to draw out an ERD,  I discovered django has a wonderful plugin that will automatically draw one for you, here's the result:  
-[![Entity Relationship Diagram](database/output.png "Final Data Structure")](s3://mmh-challenger/media/output.png)
+[![Entity Relationship Diagram](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/output.png "Final Data Structure")](https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/output.png)
 
 # Database Choice
 Django plays nicely with many relational databases, but PostgreSQL is a well documented, free/open-source relational database that can be added-on with Heroku at the Free pricing tier. 
