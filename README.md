@@ -382,7 +382,7 @@ If users have forgotten their passwords, they can request an email to be sent to
 ### Reset Password Link Sent Page
 When a user has requested a password reset, they are presented a restyled Django Admin screen letting them know to expect an emil.
 
-<img width="300" height="auto" src=documentation/pages/ms4-challenger-password-reset-sent.png">
+<img width="300" height="auto" src="documentation/pages/ms4-challenger-password-reset-sent.png">
 
 ### Reset Password Email
 To ensure the correct user receives a password reset link, Django sends an email to that user rather than providing one in screen. A future enhancement would be a two stage recovery associated with a stricter registration process.
