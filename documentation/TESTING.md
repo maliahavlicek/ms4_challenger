@@ -16,7 +16,7 @@ Validation, manual unit, cross browser/cross device, accessibility, travis, cove
 
 ## Unit Testing
 
-As core functionality and features were delivered I created python tests to ensure functionality was not lost.
+As core functionality and features were delivered I attempted to create python tests to ensure functionality was not lost. I got behind after a point, but made up ground at the end to get some coverage of all models, forms and views.
 
 ## Cross Browser/Cross Device Verification
 
@@ -31,10 +31,10 @@ The matrix for the browsers, operating systems and screen sizes is as follows:
 |       TOOL      	|    DEVICE    	| BROWSER 	|    OS   	|   SCREEN WIDTH  	|
 |:---------------:	|:------------:	|:-------:	|:-------:	|:---------------:	|
 |       N/A       	|    motog6    	|  chrome 	| android 	| XS 360px & less 	|
-|  browser stack  	|   iphonese   	|  safari 	|   iOs   	| XS 360px & less 	|
+|  browser stack  	|   iphone7   	|  safari 	|   iOs   	| XS 360px & less 	|
 | chrome emulator 	|    pixel 3   	| firefox 	| android 	|    M 361-576    	|
 |   browserstack  	|  iPhone 10x  	|  Chrome 	|   iOs   	|    M 361-576    	|
-|   browserstack  	|     nexus    	|  Chrome 	| android 	|  T-vert 571-768 	|
+|   browserstack  	|     nexus 7  	|  Chrome 	| android 	|  T-vert 571-768 	|
 |   browserstack  	|   ipad mini  	|  safari 	|   iOs   	|  T-vert 571-768 	|
 |   browserstack  	|    galaxy    	| firefox 	| android 	|  T-hor 769-1024 	|
 | chrome emulator 	|     ipad     	|  safari 	|   iOs   	|  T-hor 769-1024 	|
@@ -66,26 +66,28 @@ Tests were written for Django views, forms, models. These files are located in e
 - test_models.py - for tests concerning models
 - test_views.py - for tests concerning views
 
-[django-nose](https://pypi.org/project/django-nose/) was used to help configure and run tests with coverage output. The configurations are stored in the [.coveragerc] (https://github.com/maliahavlicek/ms4_challenger/blob/master/.coveragerc) file.
+[django-nose](https://pypi.org/project/django-nose/) was used to help configure and run tests with coverage output. The configurations are stored in the [.coveragerc](https://github.com/maliahavlicek/ms4_challenger/blob/master/.coveragerc) file.
 
 To run these tests go to the command terminal and:
-1. ```python manage.py test --cover-tests --noinput ```
+1. ```python manage.py test --noinput --settings ms4_challenger.settings_test ```
 1. Generate a report ```coverage report```
 1. Generate the HTML ```coverage html```
 1. Open the newly created test_coverage directory in the root of your project folder.
 1. Open the index.html file inside it.
 1. Run the file in the browser to see the output.
 
-When coverage was first configured on May 18, 2020 it was at 25%:
+Because testing requires a local db and local storage I found myself accidentally checking in the wrong settings.py version. After the 5th plus time I finally reached out to a Tim White, my boss and work member on how to override key parts of the settings.py file with an environment specific one. [settings_text.py]() 
+
+When coverage was first configured and integrated on May 18, 2020 it was at 25%:
 
 ![First Coverage](testing/coverage_2020-05-18.png)
 
 Clicking on the items with less than 100% coverage helped identify holes in my test coverage and allowed me to get cover up to TODO level.
 
 ### Travis
-Travis was used throughout the unit testing of this project to provide continuous integration testing when pushing code to GitHub. Travis basically runs the command ```python manage.py test --noinput``` against a python 3.7 environment built with the requirements.txt file. It's configured via the [.travis.yml](https://github.com/maliahavlicek/ms4_challenger/blob/master/.travis.yml) file.
+Travis was used throughout the unit testing of this project to provide continuous integration testing when pushing code to GitHub. Travis basically runs the command ```python manage.py test --noinput --settings ms4_challenger.settings_test``` against a python 3.7 environment built with the requirements.txt file. It's configured via the [.travis.yml](https://github.com/maliahavlicek/ms4_challenger/blob/master/.travis.yml) file.
 
-Heroku settings for this project were configured to only allow deployment when the travis build tests had passed the latest push to the master branch on GitHub. This prevented a broken environment many times.  If you dare to be horrified by my trends of red, feel free to look at my [travis insights](https://travis-ci.org/github/maliahavlicek?tab=insights) for the past month
+Heroku settings for this project were configured to only allow deployment when the travis build tests had passed the latest push to the master branch on GitHub. This prevented a broken environment many times.  If you dare to be horrified by my trends of red, feel free to look at my [travis insights](https://travis-ci.org/github/maliahavlicek?tab=insights) for the past month.
 
 ![First Insight Report](testing/travis_insights2020-05-18.png)
 
@@ -95,7 +97,26 @@ Once I finished the initial layout of my file structure and had roughed in the b
 
 
 #### Noteworthy Bugs
+The most painful bugs always seem to show up right before you submit your project or have a meeting with your mentor. Everything works fine in your local and oops, you checked in a bad settings.py file, or suddenly heroku is off because of file storage differences between production and your local environment.
+
+Here are a list of some of the craziness I encountered:
+
+|| Short Name                                  | Description                                                                                                                 | Resolution                                                                                                                                                                                                                                        |   |   |
+|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|
+| Bad settings.py again                       | I lost track of how many times 5-10? I checked in my settings.py with if not DEBUG around either storage or testing engines | On June 2nd I talked to a co-worker and finally figured out how to use a settings_test.py file to override some of the settings.py values.                                                                                                        |   |   |
+| Account Profile Update error = empty form   | User updates profile but misses birthdate field. Avatar and interests are gone. Even if successfully set.                   | 1. form create with an instance=request.user.profile<br>2. If it's a POST use the request.POST data,<br>3. If post and invalid, check the changed items and use the cleaned data<br>4. If not changed but not in cleaned data, then make it empty |   |   |
+| Ratings on top of Entry image on iOs safari | Only in safari ipads, iphones and macbooks were the ratings not showing below the entry.                                    | It's a loading thing and on page Ready jQuery for safari had image heights of 0. Added a timeout function before resizing.                                                                                                                        |   |   |
+| Misaligned Columns on Product Pages         | Bootstrap cards would match card title, body and footer but not things in body. It looked wonky                             | Read up that bootstrap cards are not 100% flexbox, so added jQuery to match heights based on class names.                                                                                                                                         |   |   |
+| 500 error in production, local Django error | I got a dreaded yellow syntax error of doom when showing things off to my mentor during my mid-project review.              | Entries were made before the model changed to required image, some images were being displayed without an if image check first. This caused me to create custom 404 and 500 pages.                                                                |   |   |
+| Create Challenge Not respecting User Dates  | User selected dates are totally ignored and both start and end dates are today, update works fine                           | Data model had auto_add_now=True, which ignores any other inputs, set default=auto_add_now                                                                                                                                                        |   |   |
+| Heroku 405 error on rating/send post        | Had X-CSRFToken in fetch heading, had Host set up, works great locally, but Heroku had console errors                       | Updated settings.py with REST_FRAMEWORK and set up DEFAULT_PERMISSION_CLASSES and DEFAULT_AUTHENTICATION_CLASSES                                                                                                                                  |   |   |
+| Update Challenge goes to 500                | Update a challenge with a video, but don't change the video when updating gave a 500 error in heroku.                       | AWS vs Local Storage content_type is in a different spot. I added and instance check like  ```isinstance(example_video, S3Boto3StorageFile):``` around audio and video file uploads. ImageType fields doesn't run into this issue.                |   |   |
+| Update Profile, service level product lost  | When updating the profile, you come back to the service level page and there is 1/ __ challenges being reported.            | Need to update request with updated user otherwise product level is lost.                                                                                                                                                                         |   |   |
 
 #### Outstanding Defects
+
+- Takes a while to get to the next page when uploading files - I should add in a file processing status bar so user's know what is going on. The static state of the selected submit button is some visual indicator but I should prevent user input during this wait.
+-  Inefficient Email - I should use a celery task or distributed system to handle emailing users. Right now it's all inline and not done asynchronously thus adding to the time it takes to create or update a challenge.
+
 
 - [Back to README](https://github.com/maliahavlicek/ms4_challenger#wireframes)
