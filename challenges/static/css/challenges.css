@@ -169,8 +169,8 @@
         min-width: 100%;
     }
 
-    /* limit image height for desktop challenge recap */
-    .challenge_wrap img {
+    /* limit image height for desktop challenge recap and vidoes */
+    .challenge_wrap img, .challenge_wrap video {
         max-height: 250px;
     }
 

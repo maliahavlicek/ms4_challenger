@@ -160,22 +160,25 @@ def update_challenge(request, id):
         owned_product = request.user.profile.get_product_level()
         member_data = list(challenge.members.all().values('email', 'first_name', 'last_name'))
         orig_members = json.dumps(member_data)
+        initial = {
+            'name': challenge.name,
+            'description': challenge.description,
+            'example_image': challenge.example_image.file,
+            'example_video': challenge.example_video.file,
+            'start_date': challenge.start_date,
+            'end_date': challenge.end_date,
+            'members': orig_members,
+        }
         # challenge image is required, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
         if challenge.example_image and 'example_image' not in request.FILES.keys() and challenge.example_image.file:
             request.FILES.appendlist('example_image', challenge.example_image.file)
+            initial['example_image'] = challenge.example_image.file
         # challenge video is optional, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
         if challenge.example_video and 'example_video' not in request.FILES.keys() and challenge.example_video.file:
             request.FILES.appendlist('example_video', challenge.example_video.file)
+            initial['example_video'] = challenge.example_video.file
 
-        challenge_form = UpdateChallengeForm(initial={
-            'name': challenge.name,
-            'description': challenge.description,
-            'start_date': challenge.start_date,
-            'end_date': challenge.end_date,
-            'example_image': challenge.example_image,
-            'example_video': challenge.example_video,
-            'members': orig_members,
-        })
+        challenge_form = UpdateChallengeForm(initial=initial)
         if request.method == 'POST':
             challenge_form = UpdateChallengeForm(request.POST, request.FILES)
             if 'cancel' in request.POST:

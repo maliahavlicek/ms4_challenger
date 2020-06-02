@@ -5,6 +5,7 @@ from .models import Entry
 import os
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
+from storages.backends.s3boto3 import S3Boto3StorageFile
 
 FILE_SIZE_TO_BYTES = {
     2.5: 2621440,
@@ -43,12 +44,19 @@ class CreateEntryForm(forms.Form):
         if cleaned_data.get('submission_size_limit') in FILE_SIZE_TO_BYTES:
             size_limit = FILE_SIZE_TO_BYTES[cleaned_data.get('submission_size_limit')]
         else:
-            size_limit = cleaned_data.get('submission_size_limit') * 1000000
+            size_limit = cleaned_data.get('submission_size_limit') * 1048576
         audio_file = cleaned_data.get('audio_file')
         if audio_file:
             valid_mime_types = ['audio/mp3', 'audio/mpeg']
-            if audio_file.content_type not in valid_mime_types:
-                self.add_error('audio_file', 'Unsupported file type, expecting audio/mp3 or audio/mpeg.')
+
+            if isinstance(audio_file, S3Boto3StorageFile):
+                # aws storage MIME type check
+                if audio_file.obj.content_type not in valid_mime_types:
+                    self.add_error('audio_file', 'Unsupported file type, expecting audio/mp3 or audio/mpeg.')
+            else:
+                # local storage MIME type check
+                if audio_file.content_type not in valid_mime_types:
+                    self.add_error('audio_file', 'Unsupported file type, expecting audio/mp3 or audio/mpeg.')
             valid_file_extensions = ['.mp3']
             ext = os.path.splitext(audio_file.name)[1]
             if ext.lower() not in valid_file_extensions:
@@ -61,8 +69,16 @@ class CreateEntryForm(forms.Form):
         video_file = cleaned_data.get('video_file')
         if video_file:
             valid_mime_types = ['video/mp4', 'video/quicktime']
-            if video_file.content_type not in valid_mime_types:
-                self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime')
+
+            if isinstance(video_file, S3Boto3StorageFile):
+                # aws storage MIME type check
+                if video_file.obj.content_type and video_file.obj.content_type not in valid_mime_types:
+                    self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
+            else:
+                # local storage MIME type check
+                if video_file.content_type not in valid_mime_types:
+                    self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
+
             valid_file_extensions = ['.mp4', '.mov']
             ext = os.path.splitext(video_file.name)[1]
             if ext.lower() not in valid_file_extensions:
@@ -105,7 +121,7 @@ class CreateEntryForm(forms.Form):
             Row(
                 Column('video_file', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0">{% if entry.video_file %}<video controls><source src="{{entry.video_file.url}}" {% if ".mp4" in entry.video_file.url %}type="video/mp4"{% elif "mov" in entry.video_file.url %}type="video/quicktime"{% endif %}><p>Your browser does not support HTML5 video.</p></video>{% endif %}</div>'),
+                    '<div class="form-group col-md-6 mb-0">{% if entry.video_file %}<video height="150px" width="auto" controls><source src="{{entry.video_file.url}}" >Your browser does not support HTML5 video.</video>{% endif %}</div>'),
                 css_class='form-row video-file'
             ),
             Row(

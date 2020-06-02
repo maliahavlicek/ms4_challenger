@@ -132,44 +132,47 @@ def update_submission(request, challenge_id):
     initial = {
         'title': entry.title,
         'submission_size_limit': challenge.submission_storage_cap,
-        'submission_time_limit': challenge.video_time_limit
+        'submission_time_limit': challenge.video_time_limit,
+        'image_file': entry.image_file,
+        'audio_file': entry.audio_file,
+        'video_file': entry.video_file,
     }
 
-    if 'VIDEO' in (name.upper() for name in types):
-        # video file is an option for an entries, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
-        if entry.video_file and 'video_file' not in request.FILES.keys() and entry.video_file.file:
-            request.FILES.appendlist('video_file', entry.video_file.file)
-            initial['video_file'] = entry.video_file
-    if 'AUDIO' in (name.upper() for name in types):
-        # audio_file is an option when updating, but it's not going to be in the form unless user is changing it out, restore to original if not in request
-        if entry.audio_file and 'audio_file' not in request.FILES.keys() and entry.audio_file.file:
-            request.FILES.appendlist('audio_file', entry.audio_file.file)
-            initial['audio_file'] = entry.audio_file
 
-    if 'IMAGE' in (name.upper() for name in types):
-        # image_file is an option updating, but it's not going to be in the form unless user is changing it out, restore to original if not in request
-        if entry.image_file and 'image_file' not in request.FILES.keys() and entry.image_file.file:
-            request.FILES.appendlist('image_file', entry.image_file.file)
-            initial['image_file'] = entry.image_file
     form = CreateEntryForm(types, initial=initial)
 
     if request.method == 'POST':
-        # see what type of submission is allowed and set correct form
+        # make sure we get the files to the form if user didn't update them
+        if 'VIDEO' in (name.upper() for name in types):
+            # video file is an option for an entries, but when updating, it's not going to be in the form unless user is changing it out, restore to original if not in request
+            if entry.video_file and 'video_file' not in request.FILES.keys() and entry.video_file.file:
+                request.FILES.appendlist('video_file', entry.video_file.file)
+        if 'AUDIO' in (name.upper() for name in types):
+            # audio_file is an option when updating, but it's not going to be in the form unless user is changing it out, restore to original if not in request
+            if entry.audio_file and 'audio_file' not in request.FILES.keys() and entry.audio_file.file:
+                request.FILES.appendlist('audio_file', entry.audio_file.file)
+
+        if 'IMAGE' in (name.upper() for name in types):
+            # image_file is an option updating, but it's not going to be in the form unless user is changing it out, restore to original if not in request
+            if entry.image_file and 'image_file' not in request.FILES.keys() and entry.image_file.file:
+                request.FILES.appendlist('image_file', entry.image_file.file)
+
         form = CreateEntryForm(types, request.POST, request.FILES)
 
         # see if user is canceling
         if 'cancel' in request.POST:
             return redirect(reverse('challenges'))
+
         elif form.is_valid():
             # update entry
             entry.title = form.data['title']
             entry.date_created = utc.localize(datetime.today())
             # all forms must have at least 1 file uploaded, so add that in
-            if 'video_file' in request.FILES:
+            if 'video_file' in request.FILES and  entry.video_file != request.FILES['video_file']:
                 entry.video_file = request.FILES['video_file']
-            if 'audio_file' in request.FILES:
+            if 'audio_file' in request.FILES and entry.audio_file != request.FILES['audio_file']:
                 entry.audio_file = request.FILES['audio_file']
-            if 'image_file' in request.FILES:
+            if 'image_file' in request.FILES and entry.image_file != request.FILES['image_file']:
                 entry.image_file = request.FILES['image_file']
             # save entry so changes commit to DB
             entry.save()

@@ -1,11 +1,14 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML
+from storages.backends.s3boto3 import S3Boto3StorageFile
+
 from .models import Challenge
 from accounts.forms import DateInput
 from datetime import date
 import os
 from django.template.defaultfilters import filesizeformat
+
 
 
 class CreateChallengeForm(forms.Form):
@@ -52,8 +55,14 @@ class CreateChallengeForm(forms.Form):
         video_file = self.cleaned_data.get('example_video')
         if video_file:
             valid_mime_types = ['video/mp4', 'video/quicktime']
-            if video_file.content_type not in valid_mime_types:
-                self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
+            if isinstance(video_file, S3Boto3StorageFile):
+                # aws storage MIME type check
+                if video_file.obj.content_type not in valid_mime_types:
+                    self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
+            else:
+                # local storage MIME type check
+                if video_file.content_type not in valid_mime_types:
+                    self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
             valid_file_extensions = ['.mp4', '.mov']
             ext = os.path.splitext(video_file.name)[1]
             if ext.lower() not in valid_file_extensions:
@@ -161,20 +170,28 @@ class UpdateChallengeForm(forms.Form):
         if end_date < date.today():
             raise forms.ValidationError('End Date cannot be in the past.')
 
-    def clean_example_video(self):
-        video_file = self.cleaned_data.get('example_video')
-        if video_file:
+    def clean(self):
+        cleaned_data = super().clean()
+        example_video = cleaned_data.get('example_video')
+        if example_video:
             valid_mime_types = ['video/mp4', 'video/quicktime']
-            if video_file.content_type not in valid_mime_types:
-                self.add_error('video_file', 'Unsupported file type, expecting video/mp4.')
+            if isinstance(example_video, S3Boto3StorageFile):
+                # aws storage MIME type check
+                if example_video.obj.content_type not in valid_mime_types:
+                    self.add_error('example_video', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
+            else:
+                # local storage MIME type check
+                if example_video.content_type not in valid_mime_types:
+                    self.add_error('example_video', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
+
             valid_file_extensions = ['.mp4', '.mov']
-            ext = os.path.splitext(video_file.name)[1]
+            ext = os.path.splitext(example_video.name)[1]
             if ext.lower() not in valid_file_extensions:
-                self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
+                self.add_error('example_video', 'Unacceptable file extension, expecting .mp4 or .mov')
             size_limit = 429916160
-            if video_file.size > size_limit:
-                self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
-                    filesizeformat(size_limit), filesizeformat(video_file.size)))
+            if example_video.size > size_limit:
+                self.add_error('example_video', 'Please keep file size under %s. Current size %s' % (
+                    filesizeformat(size_limit), filesizeformat(example_video.size)))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
