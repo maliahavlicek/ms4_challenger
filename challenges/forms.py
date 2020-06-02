@@ -208,9 +208,9 @@ class UpdateChallengeForm(forms.Form):
                 css_class='form-row'
             ),
             Row(
-                Column('example_video', css_class='form-group col-md-4 mb-0'),
+                Column('example_video', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video class="vd-preview" controls><source src="{{challenge.example_video.url}}" alt="Example Video for challenge."'
+                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video controls><source src="{{challenge.example_video.url}}" alt="Example Video for challenge."'
                     '{% if ".mp4" in challenge.example_video.url %}type="video/mp4"{% elif "mov" in challenge.example_video.url %}type="video/quicktime"{% endif %}>Your browser does not support the vidoe tag</video></div>{% endif %}'),
                 css_class='form-row'
             ),

@@ -46,6 +46,6 @@ def num(value):
 
 
 @register.inclusion_tag("challenges/video_player.html", takes_context=False)
-def vid_player(video_url, width='100%', height='auto'):
+def vid_player(video_url, id=None, width='100%', height='auto'):
     """ take url value and does dynamic html for a video player"""
-    return {'video_url': video_url, 'width': width, 'height': height, }
+    return {'video_url': video_url, 'width': width, 'height': height, 'id': id }

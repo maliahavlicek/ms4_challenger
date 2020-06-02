@@ -1,11 +1,6 @@
 /* challenges */
-.img-preview {
+.img-preview, .vd-preview {
     max-height: 100px;
-    width: auto;
-}
-
-.vd-preview {
-    max-height: 120px;
     width: auto;
 }
 

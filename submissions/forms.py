@@ -121,7 +121,7 @@ class CreateEntryForm(forms.Form):
             Row(
                 Column('video_file', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0">{% if entry.video_file %}<video height="150px" width="auto" controls><source src="{{entry.video_file.url}}" >Your browser does not support HTML5 video.</video>{% endif %}</div>'),
+                    '<div class="form-group col-md-6 mb-0">{% if entry.video_file %}<video height="auto" width="auto" controls><source src="{{entry.video_file.url}}" >Your browser does not support HTML5 video.</video>{% endif %}</div>'),
                 css_class='form-row video-file'
             ),
             Row(

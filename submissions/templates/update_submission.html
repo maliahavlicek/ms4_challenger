@@ -48,10 +48,7 @@
             <div class="ch-vid-wrap ch-item">
                 {% if challenge.example_video %}
                     <label for="example_video">Example Video:</label>
-                    <video id="example_video" width='auto' height="150px" controls>
-                        <source src='{{ challenge.example_video.url }}' type='video/mp4'>
-                        Your browser does not support the video tag.
-                    </video>
+                    {% vid_player video_url=challenge.example_video.url id="example_video" %}
                 {% endif %}
             </div>
         </div>

@@ -44,7 +44,7 @@
         display: grid;
     }
 
-    .entry_wrap img {
+    .entry_wrap img, .entry_wrap video {
         max-height: 200px;
     }
 }

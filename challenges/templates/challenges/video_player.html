@@ -1,5 +1,5 @@
 {# simple template to build video player with right type #}
-<video width="{{ width }}" height="{{ height }}" controls>
+<video {% if id %}id={{ id }}{% endif %} width="{{ width }}" height="{{ height }}" controls>
     <source src="{{ video_url}}">
-        Your browser does not support the video tag.
+        Your browser does not support the HTML5 video tag.
 </video>

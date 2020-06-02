@@ -523,7 +523,7 @@ label.control-label::after, .form-group label:after {
     }
 
     /* limit image height for desktop challenge entry/update form */
-    .challenge_entry img, .challenge_wrap.entry img {
+    .challenge_entry img, .challenge_wrap.entry img, .challenge_entry video, .challenge_wrap.entry video {
         max-height: 150px;
     }
 

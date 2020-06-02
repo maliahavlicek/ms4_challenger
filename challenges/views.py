@@ -164,7 +164,6 @@ def update_challenge(request, id):
             'name': challenge.name,
             'description': challenge.description,
             'example_image': challenge.example_image.file,
-            'example_video': challenge.example_video.file,
             'start_date': challenge.start_date,
             'end_date': challenge.end_date,
             'members': orig_members,
