@@ -11,7 +11,9 @@
                         <div class="input-group">
                         <span class="input-group-btn">
                         {% if owned_product == product %}
-                            Currently Owned
+                            <p class="link">Currently Owned</p>
+                        {% elif owned_product.pk > product.pk %}
+                            <p class="warning">Included with {{ owned_product.name|title }}.</p>
                         {% else %}
                             <button class="btn btn-default" type="submit">Checkout</button>
                         {% endif %}

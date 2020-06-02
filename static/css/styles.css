@@ -246,6 +246,14 @@ a[data-toggle=tooltip] {
     display: none;
 }
 
+.products p.warning{
+    color: var(--warning);
+}
+
+.products p.link{
+    color: var(--link);
+}
+
 .ch-img-wrap img {
     width: 100%;
     max-height: 100%;
