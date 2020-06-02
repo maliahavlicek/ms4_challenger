@@ -1,9 +1,9 @@
-from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserLoginForm, UserRegistrationFrom, ProfileForm, UserUpdateForm
 from checkout.models import Order
+from .models import Profile
 
 from django.contrib.auth.models import User
 
@@ -72,6 +72,9 @@ def registration(request):
             if user:
                 # first time need to create a profile and set up service_level as Free and add order
                 product = user.profile.get_product_level()
+                profile = Profile.objects.get(user=user)
+                profile.product_level = product
+                profile.save()
 
                 # create order for free product
                 Order.objects.create(
@@ -112,6 +115,8 @@ def update_profile(request):
             return redirect(reverse('profile'))
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if profile_form.is_valid():
+            # don't stomp on product level, purposely not in form so user can't hack a change
+            profile_form.product_level = request.user.profile.get_product_level()
             profile_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect(reverse('profile'))

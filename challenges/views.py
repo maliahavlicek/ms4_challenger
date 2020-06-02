@@ -10,6 +10,7 @@ from django.core.mail import EmailMultiAlternatives, EmailMessage
 from ms4_challenger.settings import EMAIL_HOST_USER, DEFAULT_DOMAIN
 from datetime import datetime
 from checkout.models import Order
+from accounts.models import Profile
 
 
 @login_required
@@ -479,7 +480,12 @@ def challenge_initial_email(members, challenge):
 def set_free_tier(user):
     """helper function to set free product tier for newly created user"""
     product = user.profile.get_product_level()
-    Order(
+    profile = Profile.objects.get(user=user)
+    profile.product_level = product
+    profile.save()
+
+    # create order for free product
+    Order.objects.create(
         user=user,
         product=product,
         total=product.price,

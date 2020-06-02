@@ -2,7 +2,7 @@
 {% load filters %}
 <div class="tab-pane fade" id="master" role="tabpanel" aria-labelledby="master-tab">
     <div class="chg-header">You are the Master of {{ owned_challenges|length }}
-        challenges.
+        challenge{% if owned_challenges|length != 1 %}s{% endif %}.
     </div>
     {% for item in owned_challenges %}
         {# small devices layout #}
@@ -95,4 +95,31 @@
             </div>
         </div>
     {% endfor %}
+    {# content when not a member of a challenge #}
+    {% if owned_challenges|length == 0%}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        Creating a challenge is super quick. You just need to have an idea in mind, a picture to represent a
+                        challenge, and a few email addresses of friends you want to toss the gantlet at.
+                    </p>
+                    <p>
+                        We even put together a video that's shorter than 2 minutes to show you how simple it is.
+                    </p>
+
+                    {# Create Button #}
+                    <p>
+                        <a class="btn btn-primary" role="button" aria-label="button to create a challenge"
+                           href="{% url 'create_challenge' %}"
+                           aria-pressed="false"><i class="fas fa-cogs"></i> Create Challenge</a>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    {% vid_player video_url="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" width='100%' height="auto" %}
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
 </div>

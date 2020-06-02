@@ -1,7 +1,8 @@
 {# Member content tab #}
 {% load filters %}
 <div class="tab-pane fade show active" id="member" role="tabpanel" aria-labelledby="member-tab">
-    <div class="chg-header">You belong to {{ member_challenges|length }} challenges.</div>
+    <div class="chg-header">You belong to {{ member_challenges|length }} challenge{% if member_challenges|length != 1 %}s{% endif %}.
+    </div>
     {# loop through member challenges #}
     {% for item in member_challenges %}
         {% if item.is_closed %}
@@ -15,4 +16,31 @@
             {% include 'partials/member_item_open.html' %}
         {% endif %}
     {% endfor %}
+    {# content when not a member of a challenge #}
+    {% if member_challenges|length == 0 %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        Never fear, you can create your own challenge and make yourself a member to get the challenges
+                        rolling.
+                    </p>
+                    <p>
+                        We even put together a video that's shorter than 2 minutes to show you how simple it is.
+                    </p>
+
+                    {# Create Button #}
+                    <p>
+                        <a class="btn btn-primary" role="button" aria-label="button to create a challenge"
+                           href="{% url 'create_challenge' %}"
+                           aria-pressed="false"><i class="fas fa-cogs"></i> Create Challenge</a>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    {% vid_player video_url="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/create_challenge.mp4" width='100%' height="auto" %}
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
 </div>
