@@ -120,6 +120,16 @@ def update_profile(request):
             profile_form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect(reverse('profile'))
+        else:
+            # use initial to retain user entered values on invalid form
+            initial = {}
+            if 'profile_pic' in profile_form.cleaned_data:
+                initial['profile_pic'] = profile_form.cleaned_data['profile_pic']
+            if 'tags' in profile_form.cleaned_data:
+                initial['tags'] = profile_form.cleaned_data['tags']
+            if 'birth_date' in profile_form.cleaned_data:
+                initial['birth_date'] = profile_form.cleaned_data['birth_date']
+            profile_form = ProfileForm(request.POST, request.FILES, initial=initial)
 
     return render(request, "profile_update.html", {'profile_form': profile_form})
 
