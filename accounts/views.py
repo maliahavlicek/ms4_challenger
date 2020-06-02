@@ -4,7 +4,6 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserLoginForm, UserRegistrationFrom, ProfileForm, UserUpdateForm
 from checkout.models import Order
-from products.models import ServiceLevel
 
 from django.contrib.auth.models import User
 
@@ -69,11 +68,13 @@ def registration(request):
             # login user automatically
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
+
             if user:
-                # first time need to set up service_level as Free
+                # first time need to create a profile and set up service_level as Free and add order
                 product = user.profile.get_product_level()
+
                 # create order for free product
-                Order(
+                Order.objects.create(
                     user=user,
                     product=product,
                     total=product.price,

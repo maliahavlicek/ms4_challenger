@@ -23,6 +23,8 @@ omit =
     .venv/*
     /documentation/*
     /test_coverage/*
+    home/models.py
+    accounts/signals.py
 
 [report]
 # omit from report
@@ -39,6 +41,8 @@ omit =
     .venv/*
     /documentation/*
     /test_coverage/*
+    accounts/signals.py
+    home/models.py
 ignore_errors = True
 exclude_lines =
         pragma: no cover
