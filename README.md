@@ -285,7 +285,7 @@ To provide users with an easy intuitive navigation, main links are in an ever pr
 #### Date Picker
 The default bootstrap via crispy form date picker is rendered.
 
-<img width="auto" height="auto" scr="documentation/pages/components/ms4-challenger-datepicker.png">
+<img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-datepicker.png">
 
 #### Buttons
 Buttons abound on the site. They stick to the same primary green color unless they are associated with canceling or deleting options. Icons are used with the buttons on the challenges tabs to help differentiate them from each other.
@@ -304,7 +304,7 @@ Check boxes are notoriously small and multi selection drop downs are cumbersome 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-checkboxes.png">
 
 #### Cards
-Bootstrap has a nice flex box container with some predefined behaviors. I used the card-deck enhancement on the products page. I still had issues with inner heights so I added some custom jQuery to even the heights based on CSS classes within the on page ready function.  
+Bootstrap has a nice flex box container with some predefined behaviors. I used the card-deck enhancement on the products page. I still had issues with inner heights so I added some custom [jQuery](https://github.com/maliahavlicek/ms4_challenger/blob/master/static/js/utils.js) to even the heights based on CSS classes within the on page ready function.  
 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-card.png">
 
@@ -318,8 +318,10 @@ I used the default video players and didn't find much on how to make them standa
 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-video-player.png">
 
+To keep the look and feel of this repeated element the same and easy to maintain, I created a custom [inclusion_tag](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/templatetags/filters.py#L49), which passes context over to a common rendering [template](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/templates/challenges/video_player.html#L2).
+
 #### Audio Player
-I used the default audio players but could not figure out the exact controls to standardize background colors and border shapes. Like the video player, I did add an outline as some browsers put them up with a white background and black controlsns with no background.  I would love to take the time to restyle these across the site for all browsers.
+I used the default audio players but could not figure out the exact controls to standardize background colors and border shapes. Like the video player, I did add an outline as some browsers put them up with a white background and black controls with no background.  I would love to take the time to restyle these across the site for all browsers.
 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-audio-player.png">
 
@@ -329,41 +331,56 @@ I used bootstraps tabbed content but modified it be WCAG compliant for aria role
 <img width="350" height="auto" src="documentation/pages/components/ms4-challenger-tabs.png">
 
 #### Tooltips
-Tooltips are used to help minimize content on mobile challenge views and hide descriptions of challenges if a user have submitted an entry. I restyled them to match the color scheme and remove the semitransparent background. 
+Tooltips are used to help minimize content on mobile challenge views and hide descriptions of challenges if a user has submitted an entry. I restyled them to match the color scheme and remove the semitransparent background. 
 
 <img width="auto" height="auto" src="documentation/pages/components/msr-challenger-tooltip.png">
 
 #### Ratings Inputs
-Ratings are custom buttons that I created using CSS. The buttons are consolidated and styled differently on small devices to allow them to sit side by side on the smallest phones.
+Ratings are custom buttons that I created using [CSS](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/ratings/static/css/ratings.css#L44). The buttons are consolidated and styled differently on small devices to allow them to sit side by side on the smallest phones.
 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-ratings-input-small.png">
 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-rating-input-buttons.png">
 
+The ability to submit from these buttons is done through a custom [API](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/ratings/views.py#L14) using a JavaScript [fetch](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/ratings/static/js/rating.js#L52).
+
 #### Ratings Aggregated
-The aggregated rating is made with some pretty slick CSS. The results from the ajax post to the Ratings API is used with a calc to produce the shaded vs Yellow Trophies peers give each other.  
+The aggregated rating is made with some pretty slick [CSS](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/static/css/styles.css#L405). The results from the ajax post to the Ratings API is used with a calc to produce the shaded vs Yellow Trophies peers give each other.  
 
 <img width="auto" height="auto" src="documentation/pages/components/ms4-challenger-aggregated-rating.png">
+
+Aggregated ratings are updated on the fly if a user successfully posts to the custom API via [JavaScript](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/ratings/static/js/rating.js#L82).
+
+They are rendered by using a common [template](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/ratings/templates/aggregate_rating.html#L2) that's included with a combination of custom [filters](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/templatetags/filters.py#L41)
+
 
 #### Carousel
 The All Submissions page is presented as a carousel. It auto rotates through the submissions unless the user interacts with it.
 
 <img width="350" height="auto" src="documentation/pages/components/ms4-challenger-carousel.png">
 
+The side by side slider functionality seen on desktop is handled through [jQuery](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/ratings/static/js/rating.js#L96) and [CSS](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/ratings/static/css/ratings.css#L199). 
+
 #### Tables and Accordions
-I have the payment history on the account overview as a button button that is an accordion that expands a payment history table.
+I display the payment history on the account overview as a button button that is an accordion that expands a payment history table.
 
 <img width="350" height="auto" src="documentation/pages/components/ms4-challenger-table-accordion.png">
 
 #### Forms 
-Despite being built with Bootstrap, the forms are all customized to insure a tight, user friendly, not super spacious set of input fields are presented to the users. Here's a view of the create challenge form on a small device (320 wide)
+Despite being built with Bootstrap, the forms are all customized to insure a tight, user friendly, not super spacious set of input fields are presented to the users. Here's a view of the create challenge form on a small device (340 wide)
 
 <img width="320" height="auto" src="documentation/pages/components/ms4-challenger-form-mobile.png">
+
+Most forms utilize a crispy layout defined the their respective [forms.py](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/forms.py#L75) files. If custom  [validation](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/forms.py#L55) is needed, it's defined in the forms.py file too.
+
+For the collecting members on creating and updating challenges forms, custom [JavaScript](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/static/js/challenge.js#L16) is used to prevent needless chatter back and forth from the servers. I could have used a custom API or context listeners but that could bog down the server if there thousands of users doing similar requests at the same time. Thus, I have the client side handling for the embedded member input form and removal buttons. The data on the form is passed and prepopulated by stringifying JSON.
 
 #### Alerts
 Django's messaging is used throughout the site. To provide consistent user action feedback Bootstrap alerts are used below the header and above the Page Title heading. I make use of the yellow for warnings, red for errors and green for success messages.
 
 <img width="350" height="auto" src="documentation/pages/components/ms4-challenger-alerts.png">
+
+Messages are set in [views.py](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/views.py#L46) files before redirecting or rendering templates.
 
 ### Home Page
 The Home page displays verbiage about why the site exists and what needs it meets. It also provides tutorials to help users get familiar with the site quickly. Authentication is not required to see this page.
@@ -376,6 +393,8 @@ The Products page displays the service levels that the MS4-challenger app provid
 Once a user is logged in the current product associated with their account will have the checkout button grayed out. If a user clicks on a checkout button, they will be required to authenticate. By default a user is assigned the Free product. 
 
 <img width="350" height="auto" src="documentation/pages/ms4-challenger-product-page.png">
+
+To keep a consistent look of the price object on the checkout page as well as the products list page, a custom [filter](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/products/templatetags/products_tags.py#L9) was made so a ton of tedious HTML didn't have to be repeated.
 
 ### Login Page
 The login page is the front door for the authenticated user experience. It has a password reset and registration link so users that can't remember their password or those new to the site that want to join do not have to hunt and search for those options.
