@@ -108,6 +108,7 @@ def user_profile(request):
 @login_required
 def update_profile(request):
     """Update profile page"""
+    orig = Profile.objects.get(user=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
 
     if request.method == "POST":
@@ -122,16 +123,26 @@ def update_profile(request):
             return redirect(reverse('profile'))
         else:
             # use initial to retain user entered values on invalid form
-            initial = {}
-            if 'profile_pic' in profile_form.cleaned_data:
-                initial['profile_pic'] = profile_form.cleaned_data['profile_pic']
-            if 'tags' in profile_form.cleaned_data:
-                initial['tags'] = profile_form.cleaned_data['tags']
-            if 'birth_date' in profile_form.cleaned_data:
-                initial['birth_date'] = profile_form.cleaned_data['birth_date']
-            profile_form = ProfileForm(request.POST, request.FILES, initial=initial)
+            initial = request.user.profile
+            if 'profile_pic' in profile_form.changed_data:
+                if 'profile_pic' in profile_form.cleaned_data:
+                    initial.profile_pic = profile_form.cleaned_data['profile_pic']
+                    request.FILES['profile_pic']= profile_form.cleaned_data['profile_pic']
+                else:
+                    initial.profile_pic = ''
+            if 'tags' in profile_form.changed_data:
+                if 'tags' in profile_form.cleaned_data:
+                    initial.tags.set(profile_form.cleaned_data['tags'])
+                else:
+                    initial.tags.set([])
+            if 'birth_date' in profile_form.changed_data:
+                if 'birth_date' in profile_form.cleaned_data:
+                    initial.birth_date = profile_form.cleaned_data['birth_date']
+                else:
+                    initial.birth_date = ''
+            profile_form = ProfileForm(request.POST, request.FILES, instance=initial)
 
-    return render(request, "profile_update.html", {'profile_form': profile_form})
+    return render(request, "profile_update.html", {'profile_form': profile_form, 'orig_img': orig.profile_pic})
 
 
 @login_required
