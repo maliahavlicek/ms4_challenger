@@ -1,9 +1,9 @@
 from django.test import TestCase
+from django.utils import timezone
+
 from .forms import CreateChallengeForm, UpdateChallengeForm
-from datetime import datetime, timedelta, date
+from datetime import timedelta
 from django.core.files.uploadedfile import SimpleUploadedFile
-from .models import Challenge
-import json
 
 
 # Create your tests here.
@@ -18,8 +18,8 @@ class TestCreateChallengeForm(TestCase):
         form = CreateChallengeForm(submission_choices,{
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() + timedelta(days=5)).date(),
-            'end_date': date.today(),
+            'start_date': timezone.now() + timedelta(days=5),
+            'end_date': timezone.now(),
             'example_image': 'challenges/fixtures/challenge_vid.mp4',
         })
         self.assertFalse(form.is_valid())
@@ -31,8 +31,8 @@ class TestCreateChallengeForm(TestCase):
         form = CreateChallengeForm(submission_choices,{
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() - timedelta(days=5)).date(),
-            'end_date': (datetime.now() - timedelta(days=5)).date(),
+            'start_date': (timezone.now() - timedelta(days=5)),
+            'end_date': (timezone.now() - timedelta(days=5)),
             'example_image': 'challenges/fixtures/challenge_vid.mp4',
             'submission_types': ['image'],
         })
@@ -54,8 +54,8 @@ class TestCreateChallengeForm(TestCase):
         data = {
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() - timedelta(days=5)).date(),
-            'end_date': date.today(),
+            'start_date': (timezone.now() - timedelta(days=5)),
+            'end_date': timezone.now(),
             'members': [{"first_name": "first name", "last_name": "last name", "email": "email@email.com", "user": ""}],
             'submission_types': ['image'],
         }
@@ -80,8 +80,8 @@ class TestCreateChallengeForm(TestCase):
         data = {
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() + timedelta(days=5)).date(),
-            'end_date': date.today(),
+            'start_date': timezone.now() + timedelta(days=5),
+            'end_date': timezone.now(),
             'members': '',
         }
         file_data = {
@@ -113,8 +113,8 @@ class TestUpdateChallengeForm(TestCase):
         data = {
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() + timedelta(days=5)).date(),
-            'end_date': date.today(),
+            'start_date': timezone.now() + timedelta(days=5),
+            'end_date': timezone.now(),
             'members': [{"first_name": "first name", "last_name": "last name", "email": "email@email.com", "user": ""}],
         }
         file_data = {
@@ -138,8 +138,8 @@ class TestUpdateChallengeForm(TestCase):
         data = {
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() + timedelta(days=5)).date(),
-            'end_date': date.today(),
+            'start_date': timezone.now() + timedelta(days=5),
+            'end_date': timezone.now(),
             'members': '',
         }
         file_data = {
@@ -155,8 +155,8 @@ class TestUpdateChallengeForm(TestCase):
         form = UpdateChallengeForm({
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() - timedelta(days=5)).date(),
-            'end_date': (datetime.now() - timedelta(days=5)).date(),
+            'start_date': timezone.now() - timedelta(days=5),
+            'end_date': timezone.now() - timedelta(days=5),
         })
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['end_date'], [u'End Date cannot be in the past.'])
@@ -175,8 +175,8 @@ class TestUpdateChallengeForm(TestCase):
         data = {
             'name': 'Challenge 5 name',
             'description': 'Challenge 5 description',
-            'start_date': (datetime.now() - timedelta(days=5)).date(),
-            'end_date': date.today(),
+            'start_date': timezone.now() - timedelta(days=5),
+            'end_date': timezone.now(),
             'members': [{"first_name": "first name", "last_name": "last name", "email": "email@email.com", "user": ""}],
         }
         file_data = {

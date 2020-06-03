@@ -1,8 +1,10 @@
 from django.test import TestCase
+from django.utils import timezone
+
 from .models import Challenge
 from submissions.models import Entry
 from django.core.management import call_command
-from datetime import datetime, date, timedelta
+from datetime import timedelta
 import time
 from django.contrib.auth.models import User
 
@@ -78,8 +80,8 @@ class TestChallenge(TestCase):
             description='test challenge 1 description',
             example_image="challenges/fixtures/challenge_img.jpg",
             example_video="challenges/fixtures/challenge_vid.mp4",
-            start_date=datetime.now(),
-            end_date=(datetime.now() + timedelta(days=5)),
+            start_date=timezone.now(),
+            end_date=(timezone.now() + timedelta(days=5)),
             member_limit=product.max_members_per_challenge,
             video_time_limit=product.video_length_in_seconds,
             submission_storage_cap=product.max_submission_size_in_MB,

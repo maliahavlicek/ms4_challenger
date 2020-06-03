@@ -1,15 +1,14 @@
+from datetime import timedelta
+
 from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import User
-from .models import Challenge
-from submissions.models import Entry
 from django.core.management import call_command
-from .views import all_challenges, create_challenge
+from .views import all_challenges
 from .forms import CreateChallengeForm, UpdateChallengeForm
 from products.models import ServiceLevel
 from checkout.models import Order
 from accounts.models import Profile
 from django.core.files.uploadedfile import SimpleUploadedFile
-from datetime import datetime, date, timedelta
 from django.contrib import auth
 from django.utils import timezone
 
@@ -167,7 +166,7 @@ class TestCreateChallenge(TestCase):
         self.assertContains(response, "Your challenge: Challenge 5 Name was successfully created.")
         self.assertContains(response, "update your member list if you want people to participate")
 
-    def skip_test_create_medium_tier(self):
+    def test_create_medium_tier(self):
         self.client.login(username=self.user2.username, password="testing_1234")
         response = self.client.get('/challenges/create/')
         form = response.context['challenge_form']
@@ -239,15 +238,15 @@ class TestCreateLimits(TestCase):
         self.assertContains(response,
                             'You are at your limit for challenges, please delete one before creating a new one')
 
-    def skip_create_post_stops_cannot_exceed_limit_stops(self):
+    def create_post_stops_cannot_exceed_limit_stops(self):
         # cannot start to add a 6th challenge from post /challenges/create/
         self.client.login(username='testuser_1', password="testing_1234")
         user = auth.get_user(self.client)
         response = self.client.post('/challenges/create/', {
             'name': 'Challenge Medium name',
             'description': 'Challenge Medium description',
-            'start_date': (timezone.now() - timedelta(days=5)),
-            'end_date': timezone.now(),
+            'start_date': (timezone.now() - timedelta(days=5)).date(),
+            'end_date': timezone.now().date(),
             'members': '[{"first_name":"","last_name":"","email":"malia.havlicek@gmail.com","user":""}]',
             'submission_types': ['image', 'audio'],
             'example_image': self.img_file,
@@ -286,8 +285,3 @@ def order(product, user):
     profile.save()
     user = User.objects.get(id=user.id)
     return user
-
-
-# help with time sensitve formatting
-def time_zone_it(value):
-    return value.strftime('%Y-%m-%dT%H:%M.%S%f')[:-5] + "Z"
