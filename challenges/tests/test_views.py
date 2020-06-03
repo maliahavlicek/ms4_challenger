@@ -580,6 +580,49 @@ class TestUpdateChallengeViews(TestCase, AssertHTMLMixin):
         self.assertEqual(members_json_string(orig_members), members_json_string(updated.get_members()))
 
 
+class TestRestrictedAccessChallengeViews(TestCase, AssertHTMLMixin):
+    def setUp(self):
+        # set up 3 base products from json
+        call_command('loaddata', 'products/fixtures/servicelevel.json', verbosity=0)
+        self.factory = RequestFactory()
+        # create 2 users
+        for i in range(1, 3):
+            user = User.objects.create_user(
+                username=f'testuser_{i}', email=f'testuser_{i}t@email.com', password="testing_1234"
+            )
+            # tie Free product to each user
+            user.profile.get_product_level()
+
+        # load challenges from json, assuming user 1 is master of 5 challenges [the limit]
+        call_command('loaddata', 'challenges/fixtures/challenge_views.json', verbosity=0)
+
+        self.client = Client()
+
+    def test_user_cannot_delete_if_not_owner(self):
+        # User 1 is onwer of all challenges, log in as user 2 and try to delete a challenge
+        self.client.login(username='testuser_2', password="testing_1234")
+        user = auth.get_user(self.client)
+
+        # delete
+        response = self.client.get('/challenges/delete/1/', follow=True)
+        self.assertRedirects(response, '/challenges/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+        self.assertContains(response, "Only the challenge master can delete a challenge.")
+        self.assertTemplateUsed('challenges.html')
+
+    def test_user_cannot_update_if_not_owner(self):
+        # User 1 is onwer of all challenges, log in as user 2 and try to delete a challenge
+        self.client.login(username='testuser_2', password="testing_1234")
+        user = auth.get_user(self.client)
+
+        # update 1
+        response = self.client.get('/challenges/update/1/', follow=True)
+        self.assertRedirects(response, '/challenges/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+        self.assertContains(response, "Only the challenge master can update a challenge.")
+        self.assertTemplateUsed('challenges.html')
+
+
 # Helper functions
 def get_names(templates):
     names = []

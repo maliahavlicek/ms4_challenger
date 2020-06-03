@@ -1,3 +1,5 @@
+import sqlite3
+import unittest
 from django.test import TestCase
 from django.utils import timezone
 
@@ -7,9 +9,10 @@ from django.core.management import call_command
 from datetime import timedelta
 import time
 from django.contrib.auth.models import User
+from products.models import ServiceLevel
 
 
-class TestChallenge(TestCase):
+class TestChallengeModel(TestCase):
     """
     Test Challenge Model
     """
@@ -45,11 +48,11 @@ class TestChallenge(TestCase):
             )
             challenge.submissions.add(submission)
 
-    def test_challenge_model(self):
+    def test_challenge_model_closed(self):
         """
         tests for challenges/models.py
         """
-        # pull a closed challenge from DB with 4 members and 4 submissions
+        # pulled a closed challenge from DB with 4 members and 4 submissions
         challenge = Challenge.objects.get(pk=78)
         # verify challenge is closed
         self.assertTrue(challenge.is_closed())
@@ -62,6 +65,10 @@ class TestChallenge(TestCase):
         # verify image name is in string representation of challenge object
         self.assertTrue(challenge.example_image.name in str(challenge))
 
+    def test_challenge_update_delete_model_create(self):
+        """
+        tests for challenges/models.py
+        """
         """
         Create a Challenge
         """
@@ -69,11 +76,11 @@ class TestChallenge(TestCase):
         product = user1.profile.get_product_level()
         orig_challenge_count = len(user1.profile.get_owned_challenges())
         self.assertTrue(product.name, 'Free')
-        submission_types = ['submission_image']
+        submission_types = ['image']
         if 'submission_audio' in product.features:
-            submission_types.append('submission_audio')
+            submission_types.append('audio')
         if 'submission_video' in product.features:
-            submission_types.append('submission_video')
+            submission_types.append('video')
         challenge = Challenge.objects.create(
             owner=user1,
             name='test challenge 1 name',
@@ -133,3 +140,71 @@ class TestChallenge(TestCase):
         # verify challenge is not in database anymore
         challenge = list(Challenge.objects.filter(id=challenge_id))
         self.assertEquals(len(challenge), 0)
+
+
+class TestChallengeModelInitialDB(TestCase):
+    """
+    Test Challenge Model
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        # set up db, order matters because of Many to Many Relationships
+
+        # set up 3 base products from json
+        call_command('loaddata', 'products/fixtures/servicelevel.json', verbosity=0)
+
+        # create 4 users
+        for i in range(1, 5):
+            user = User(
+                username=f'testing_{i}',
+                email=f'testing_{i}@test.com',
+                password='Tester_1234!'
+            )
+            user.save()
+
+    def test_members_exception_handling(self):
+        # make sure if initial set up no massive db errors
+        user1 = User.objects.get(pk=1)
+        product = user1.profile.get_product_level()
+
+        # verify 0 challenges initially
+        self.assertEqual(0, user1.profile.get_owned_challenges().count())
+        self.assertEqual(0, user1.profile.get_member_challenges().count())
+
+        challenge = Challenge.objects.create(
+            owner=user1,
+            name='test challenge 1 name',
+            description='test challenge 1 description',
+            example_image="challenges/fixtures/challenge_img.jpg",
+            example_video="challenges/fixtures/challenge_vid.mp4",
+            start_date=timezone.now(),
+            end_date=(timezone.now() + timedelta(days=5)),
+            member_limit=product.max_members_per_challenge,
+            video_time_limit=product.video_length_in_seconds,
+            submission_storage_cap=product.max_submission_size_in_MB,
+            submission_types=['image'],
+        )
+
+        # verify no members
+        self.assertEqual(0, len(challenge.get_members()))
+
+        # verify no submissions
+        self.assertEqual(0, len(challenge.get_submissions()))
+
+    @unittest.expectedFailure
+    def test_cannot_create_without_owner(self):
+        # expect failure if trying to create a challenge without an owner
+        product = ServiceLevel.objects.get(id=1)
+        challenge = Challenge.objects.create(
+            name='test challenge 1 name',
+            description='test challenge 1 description',
+            example_image="challenges/fixtures/challenge_img.jpg",
+            example_video="challenges/fixtures/challenge_vid.mp4",
+            start_date=timezone.now(),
+            end_date=(timezone.now() + timedelta(days=5)),
+            member_limit=product.max_members_per_challenge,
+            video_time_limit=product.video_length_in_seconds,
+            submission_storage_cap=product.max_submission_size_in_MB,
+            submission_types=['image'],
+        )
