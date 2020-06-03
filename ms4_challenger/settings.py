@@ -213,10 +213,9 @@ REST_FRAMEWORK = {
     ]
 }
 
-# Tell nose to measure coverage on the 'foo' and 'bar' apps
+# DEBUG doesn't use nose so it can run tests in debug mode
 if DEBUG:
-    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-    NOSE_ARGS = []
+    pass
 else:
     # Use nose to run all tests
     TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

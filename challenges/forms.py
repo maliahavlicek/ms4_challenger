@@ -58,19 +58,29 @@ class CreateChallengeForm(forms.Form):
             if isinstance(video_file, S3Boto3StorageFile):
                 # aws storage MIME type check
                 if video_file.obj.content_type not in valid_mime_types:
-                    self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
+                    self.add_error('example_video', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
             else:
                 # local storage MIME type check
                 if video_file.content_type not in valid_mime_types:
-                    self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
+                    self.add_error('example_video', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
             valid_file_extensions = ['.mp4', '.mov']
             ext = os.path.splitext(video_file.name)[1]
             if ext.lower() not in valid_file_extensions:
-                self.add_error('video_file', 'Unacceptable file extension, expecting .mp4 or .mov')
-            size_limit = 429916160
+                self.add_error('example_video', 'Unacceptable file extension, expecting .mp4 or .mov')
+            # limit videos to 50 MB
+            size_limit = 52428800
             if video_file.size > size_limit:
-                self.add_error('video_file', 'Please keep file size under %s. Current size %s' % (
+                self.add_error('example_video', 'Please keep file size under %s. Current size %s' % (
                     filesizeformat(size_limit), filesizeformat(video_file.size)))
+
+    def clean_example_image(self):
+        image_file = self.cleaned_data.get('example_image')
+        if image_file:
+            # limit images to 10 MB
+            size_limit = 10485760
+            if image_file.size > size_limit:
+                self.add_error('example_image', 'Please keep file size under %s. Current size %s' % (
+                    filesizeformat(size_limit), filesizeformat(image_file.size)))
 
     def __init__(self, submission_choices, *args, **kwargs):
         self.submission_choices = submission_choices
@@ -188,10 +198,19 @@ class UpdateChallengeForm(forms.Form):
             ext = os.path.splitext(example_video.name)[1]
             if ext.lower() not in valid_file_extensions:
                 self.add_error('example_video', 'Unacceptable file extension, expecting .mp4 or .mov')
-            size_limit = 429916160
+            # limit videos to 50 MB
+            size_limit = 52428800
             if example_video.size > size_limit:
                 self.add_error('example_video', 'Please keep file size under %s. Current size %s' % (
                     filesizeformat(size_limit), filesizeformat(example_video.size)))
+
+            image_file = self.cleaned_data.get('example_image')
+            if image_file:
+                # limit images to 10 MB
+                size_limit = 10485760
+                if image_file.size > size_limit:
+                    self.add_error('example_image', 'Please keep file size under %s. Current size %s' % (
+                        filesizeformat(size_limit), filesizeformat(image_file.size)))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -204,14 +223,14 @@ class UpdateChallengeForm(forms.Form):
             Row(
                 Column('example_image', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0"><img class="mx-auto img-fluid" src="{{challenge.example_image.url}}" alt="Example Image for challenge." /></div>'),
+                    '<div class="form-group col-md-6 mb-0"><label for="example_image">Example Image</label><img id="example_image" class="mx-auto img-fluid" src="{{challenge.example_image.url}}" alt="Example Image for challenge." /></div>'),
                 css_class='form-row'
             ),
             Row(
                 Column('example_video', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><video controls><source src="{{challenge.example_video.url}}" alt="Example Video for challenge."'
-                    '{% if ".mp4" in challenge.example_video.url %}type="video/mp4"{% elif "mov" in challenge.example_video.url %}type="video/quicktime"{% endif %}>Your browser does not support the vidoe tag</video></div>{% endif %}'),
+                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><label for="example_video">Example Video"</label><video id="example_video" width="100%" height="auto" controls><source src="{{challenge.example_video.url}}"'
+                    'Your browser does not support the HTML5 video tag</video></div>{% endif %}'),
                 css_class='form-row'
             ),
             Row(

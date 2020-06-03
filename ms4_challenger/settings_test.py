@@ -16,3 +16,10 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 SECRET_KEY = "abc123"
+
+# test uses nose to get coverage
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=accounts,challenges,checkout,home,products,ratings,submissions',
+]

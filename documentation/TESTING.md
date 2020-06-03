@@ -2,7 +2,7 @@
 ## Author
 Malia Havlicek
 >## Table of Contents
->- [Back to README](https://github.com/maliahavlicek/ms4_challenger#wireframes)
+>- [Back to README](https://github.com/maliahavlicek/ms4_challenger#testing)
 # Testing
 
 Validation, manual unit, cross browser/cross device, accessibility, travis, coverage, this app has a dash of everything test related.
@@ -60,11 +60,12 @@ I tracked the results on the Accessibility Tab of my [testing doc](https://docs.
 **NOTE** If you want to run these tests, make sure you have cloned this project form [github](https://github.com/maliahavlicek/ms4_challenger) by following the steps in the [local deployment section](https://github.com/maliahavlicek/ms4_challenger#deployment) of the README.md file.
 
 ### Python Tests
-Tests were written for Django views, forms, models. These files are located in each application specific folder and named in the following manner:
+Tests were written for Django views, forms, models. These files are located in each application specific /test folders and named in the following manner:
 
 - test_forms.py - for tests concerning forms
 - test_models.py - for tests concerning models
 - test_views.py - for tests concerning views
+
 
 [django-nose](https://pypi.org/project/django-nose/) was used to help configure and run tests with coverage output. The configurations are stored in the [.coveragerc](https://github.com/maliahavlicek/ms4_challenger/blob/master/.coveragerc) file.
 
@@ -117,6 +118,7 @@ Here are a list of some of the craziness I encountered:
 
 - Takes a while to get to the next page when uploading files - I should add in a file processing status bar so user's know what is going on. The static state of the selected submit button is some visual indicator but I should prevent user input during this wait.
 -  Inefficient Email - I should use a celery task or distributed system to handle emailing users. Right now it's all inline and not done asynchronously thus adding to the time it takes to create or update a challenge.
+- No system timeout - User's login seems to last forever, should auto log users out after half an hour to keep accounts secure
 
 
-- [Back to README](https://github.com/maliahavlicek/ms4_challenger#wireframes)
+- [Back to README](https://github.com/maliahavlicek/ms4_challenger#testing)

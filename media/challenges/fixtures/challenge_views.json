@@ -1,0 +1,107 @@
+[
+{
+  "model": "challenges.challenge",
+  "pk": 1,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 1 name",
+    "description": "Challenge 1 description",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "start_date": "2020-05-16T18:09:24.754Z",
+    "end_date": "2020-05-30T06:00:00Z",
+    "video_time_limit": 0,
+    "submission_storage_cap": 5,
+    "submission_types": "image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 2,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 2 name",
+    "description": "Challenge 2 description",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "start_date": "2020-05-16T18:09:24.754Z",
+    "end_date": "2020-05-30T06:00:00Z",
+    "video_time_limit": 0,
+    "submission_storage_cap": 5,
+    "submission_types": "image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 3,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 3 name",
+    "description": "Challenge 3 description",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "start_date": "2020-05-16T18:09:24.754Z",
+    "end_date": "2020-05-30T06:00:00Z",
+    "submission_storage_cap": 5,
+    "submission_types": "image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 4,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 4 name",
+    "description": "Challenge 4 description",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "start_date": "2020-05-16T18:09:24.754Z",
+    "end_date": "2020-05-30T06:00:00Z",
+    "submission_storage_cap": 5,
+    "submission_types": "image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 5,
+  "fields": {
+    "owner": 1,
+    "name": "Challenge 5 name",
+    "description": "Challenge 5 description",
+    "example_image": "challenges/fixtures/challenge_img.jpg",
+    "example_video": "",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "start_date": "2020-05-16T18:09:24.754Z",
+    "end_date": "2020-05-30T06:00:00Z",
+    "submission_storage_cap": 5,
+    "submission_types": "image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+}
+]

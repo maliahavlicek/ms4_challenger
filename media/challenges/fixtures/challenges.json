@@ -1,0 +1,52 @@
+[
+{
+  "model": "challenges.challenge",
+  "pk": 77,
+  "fields": {
+    "owner": 1,
+    "name": "Find that Americana ",
+    "description": "Search the internet and find an iconic piece of Americana that matches. Yes, that's a BIG hint!",
+    "example_image": "challenges/images/American-Gothic_House.jpg",
+    "example_video": "",
+    "start_date": "2020-05-16T18:09:24.754Z",
+    "end_date": "2020-05-30T06:00:00Z",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "submission_storage_cap": 500,
+    "submission_types": "submission_image",
+    "members": [
+      1
+    ],
+    "submissions": []
+  }
+},
+{
+  "model": "challenges.challenge",
+  "pk": 78,
+  "fields": {
+    "owner": 1,
+    "name": "Paint Like Bob Ross",
+    "description": "Whip out your liquid white, try a bit of wet on wet and remember, there are no mistakes, only happy little accidents.",
+    "example_image": "challenges/images/IMG_20191005_113015844_8oTEZyj.jpg",
+    "example_video": "",
+    "start_date": "2020-05-17T19:11:23.597Z",
+    "end_date": "2020-05-17T19:11:23.597Z",
+    "member_limit": 5,
+    "video_time_limit": 0,
+    "submission_storage_cap": 500,
+    "submission_types": "submission_image",
+    "members": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "submissions": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}
+]
