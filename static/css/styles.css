@@ -237,7 +237,7 @@ a[data-toggle=tooltip] {
 
 /* product imagery Common to Checkout and Product page so not making separate file */
 .product-img-wrap {
-    height: 150px;
+    height: 140px;
     width: 150px;
     margin: 10px auto;
 }
@@ -273,16 +273,29 @@ a[data-toggle=tooltip] {
 }
 
 .card-deck .card {
-    margin: 15px 0;
+    margin: 5px 0;
     flex: none
 }
-/* shore in pricing a bit (=*/
+/* shore in pricing a bit */
 .card-deck .card-header{
     padding: .5rem;
 }
+.card-header h3{
+    margin-bottom: 0;
+}
+.card-deck .card-footer{
+    padding: .5rem .75rem;
+}
 
 .card-deck .card-body{
-    padding: .75rem 1rem;
+    padding: .5rem .75rem;
+}
+
+.card-deck .card:last-of-type{
+    margin-right:0;
+}
+.card-deck .card:first-of-type{
+    margin-left: 0;
 }
 
 
