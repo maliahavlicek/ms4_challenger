@@ -10,7 +10,7 @@ PRODUCT_INCLUDED_FEATURES_CHOICES = [
     ('submission_audio', 'Share Audio Files'),
     ('submission_video', 'Share Video Files'),
     ('accounts_observers', 'Observer Accounts'),
-    ('accounts_managers', 'Multiple Manger Accounts'),
+    ('accounts_managers', 'Multiple Manager Accounts'),
 ]
 
 

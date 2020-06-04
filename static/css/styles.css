@@ -239,7 +239,7 @@ a[data-toggle=tooltip] {
 .product-img-wrap {
     height: 150px;
     width: 150px;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 
 .product-img-wrap.checkout {
@@ -276,6 +276,15 @@ a[data-toggle=tooltip] {
     margin: 15px 0;
     flex: none
 }
+/* shore in pricing a bit (=*/
+.card-deck .card-header{
+    padding: .5rem;
+}
+
+.card-deck .card-body{
+    padding: .75rem 1rem;
+}
+
 
 /* price formatting */
 .card-text.price {
