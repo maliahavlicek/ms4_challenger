@@ -5,7 +5,7 @@ Malia Havlicek
 >- [Back to README](https://github.com/maliahavlicek/ms4_challenger#testing)
 # Testing
 
-Validation, manual unit, cross browser/cross device, accessibility, travis, coverage, this app has a dash of everything test related.
+Validation, manual unit, cross browser/cross device, accessibility, travis, coverage, jasmine, this app has a dash of everything test related.
 
 ## Validation Testing
 - [CSS Validator](https://jigsaw.w3.org/css-validator/) Note, any error associated with root: color variables were ignored. 
@@ -59,6 +59,25 @@ I tracked the results on the Accessibility Tab of my [testing doc](https://docs.
 ## Automated Testing
 **NOTE** If you want to run these tests, make sure you have cloned this project form [github](https://github.com/maliahavlicek/ms4_challenger) by following the steps in the [local deployment section](https://github.com/maliahavlicek/ms4_challenger#deployment) of the README.md file.
 
+### Jasmine Tests
+I wrote automated Tests for the two bits of javascript that are key to the functionality of this website
+
+#### Heights
+Several pages in the site use a function that matches heights based on CSS selectors after page load to make the pages look much more presentable to end users. The home page, the products page and the see all entries pages uses the [utils.js alignItems function](https://github.com/maliahavlicek/ms4_challenger/blob/faf2ff1bc4c404cc862d860159dc58da601f4a30/static/js/utils.js#L5).
+
+<img width="auto" height="auto" src="documentation/testing/testing-jasmine-align-items.png">
+
+HTML page to run alignItems tests from: testing/jasmine/jasmine-heights-testing.html
+Test Specifications: testing/jasmine/spec/test_heights_function.js
+
+#### Members
+The Create Challenge and Update Challenge pages use the functions in the [challenge.js](https://github.com/maliahavlicek/ms4_challenger/blob/faf2ff1bc4c404cc862d860159dc58da601f4a30/challenges/static/js/challenge.js#L16) file to help manage member entry.
+
+<img width="auto" height="auto" src="documentation/testing/testing-jasmine-member-entry.png">
+
+HTML page to run alignItems tests from: testing/jasmine/jasimine-member-testing.html
+Test Specifications: testing/jasmine/spec/test_members_function.js
+
 ### Python Tests
 Tests were written for Django views, forms, models. These files are located in each application specific /test folders and named in the following manner:
 
@@ -67,7 +86,7 @@ Tests were written for Django views, forms, models. These files are located in e
 - test_views.py - for tests concerning views
 
 
-[django-nose](https://pypi.org/project/django-nose/) was used to help configure and run tests with coverage output. The configurations are stored in the [.coveragerc](https://github.com/maliahavlicek/ms4_challenger/blob/master/.coveragerc) file.
+[django-nose](https://pypi.org/project/django-nose/) was used to help configure and run the python tests with coverage output. The configurations are stored in the [.coveragerc](https://github.com/maliahavlicek/ms4_challenger/blob/master/.coveragerc) file.
 
 To run these tests go to the command terminal and:
 1. ```python manage.py test --noinput --settings ms4_challenger.settings_test ```

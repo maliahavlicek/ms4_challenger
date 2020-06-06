@@ -131,6 +131,9 @@ function max_member_messaging() {
         err_mem_list.style.display = "block";
         Array.prototype.forEach.call(member_inputs, function (item) {
             item.style.display = "none";
+            if(item.classList.contains('d-none')){
+                item.classList.remove('d-md-block');
+            }
         });
 
     } else {
@@ -142,6 +145,9 @@ function max_member_messaging() {
         err_mem_list.style.display = "none";
         Array.prototype.forEach.call(member_inputs, function (item) {
             item.style.display = "block";
+            if(item.classList.contains('d-none')){
+                item.classList.add('d-md-block');
+            }
         });
     }
 }

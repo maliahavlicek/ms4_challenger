@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jasmine Testing</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Gijgo scripts for datepickers and timepickers scripts -->
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"></script>
+
+    <!-- Load Jasmine Framework -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.1.0/jasmine.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.1.0/jasmine-html.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.1.0/boot.js"></script>
+
+    <script type="text/javascript" src="https://bowercdn.net/c/jasmine-jquery-2.1.1/lib/jasmine-jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.1.0/jasmine.css">
+    <!-- Scripts being tested have onload ready, so I moved them after the required html, other wise jasmine as throwing
+        "Uncaught Type Error when attempting to pull something off the non-existant DOM" -->
+</head>
+<body>
+<!-- html below is basic dump of member form seen on create challenge page -->
+<div style="display: none;">
+    <div class="form-row form-row">
+        <div class="form-group col-md-12 mb-0">
+            <label>Members</label>
+            <div id="member_list">
+            </div>
+        </div>
+    </div>
+    <div class="form-row form-row">
+        <div class="form-group col-md-12 mb-0">
+            <div class="form-group">
+                <div class="" id="member_list_errors">
+                    <span id="error_member_list" style="display: none;"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group member-entry col-md-3 mb-0 d-none d-md-block" style="display: block;">
+            <div class="form-group">
+                <div class="">
+                    <input class="form-control" id="first_name" type="text" aria-label="first_name" max_length="50"
+                           placeholder="First Name">
+                </div>
+            </div>
+        </div>
+        <div class="form-group member-entry col-md-3 mb-0 d-none d-md-block" style="display: block;">
+            <div class="form-group">
+                <div class="">
+                    <input class="form-control" id="last_name" type="text" aria-label="last name" max_length="50"
+                           placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+        <div class="form-group member-entry col-md-4 mb-0" style="display: block;">
+            <div class="form-group">
+                <div class="">
+                    <input class="form-control member email" id="email" type="email" aria-label="email"
+                           placeholder="Email">
+                    <span id="error_email"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group member-entry col-md-2 mb-0" style="display: block;">
+            <div class="form-group">
+                <div class="">
+                    <a onclick="add_member();" id="add_member" class="form-control btn btn-primary" disabled="false">
+                        <i class="fas fa-user-plus" aria-hidden="true"></i> Member
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row form-row">
+        <div class="col-md ">
+            <input type="hidden" name="members" id="id_members" value="">
+        </div>
+    </div>
+    <div class="form-row form-row">
+        <input type="hidden" id="max_members" value="5">
+    </div>
+</div>
+<!-- Load project scripts -->
+<script type="text/javascript" src="../../challenges/static/js/challenge.js"></script>
+<script type="text/javascript" src="../../static/js/utils.js"></script>
+<!-- Load Tests -->
+<script type="text/javascript" src="spec/test_members_function.js"></script>
+</body>
+
+</html>
