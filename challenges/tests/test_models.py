@@ -1,4 +1,3 @@
-import sqlite3
 import unittest
 from django.test import TestCase
 from django.utils import timezone
