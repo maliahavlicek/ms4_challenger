@@ -223,13 +223,13 @@ class UpdateChallengeForm(forms.Form):
             Row(
                 Column('example_image', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '<div class="form-group col-md-6 mb-0"><label for="example_image">Example Image</label><img id="example_image" class="mx-auto img-fluid" src="{{challenge.example_image.url}}" alt="Example Image for challenge." /></div>'),
+                    '<div class="form-group col-md-6 mb-0"><label style="block" for="current_example_image">Current Example Image</label><img id="current_example_image" class="mx-auto img-fluid" src="{{challenge.example_image.url}}" alt="Example Image for challenge." /></div>'),
                 css_class='form-row'
             ),
             Row(
                 Column('example_video', css_class='form-group col-md-6 mb-0'),
                 HTML(
-                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><label for="example_video">Example Video"</label><video id="example_video" width="100%" height="auto" controls><source src="{{challenge.example_video.url}}"'
+                    '{%if challenge.example_video %}<div class="form-group col-md-6 mb-0"><label style="block" for="current_example_video">Current Example Video</label><video id="current_example_video" width="100%" height="auto" controls><source src="{{challenge.example_video.url}}"'
                     'Your browser does not support the HTML5 video tag</video></div>{% endif %}'),
                 css_class='form-row'
             ),

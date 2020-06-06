@@ -120,6 +120,8 @@ video, audio {
 	border: 1px solid #92a9bf;
     max-height: 100%;
     max-width: 100%;
+    width: auto;
+    height: auto;
 }
 
 /* outline
