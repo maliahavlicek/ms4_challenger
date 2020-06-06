@@ -56,6 +56,7 @@ I know a few people with physical handicaps which makes using a mouse nearly imp
 
 I tracked the results on the Accessibility Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1011tpcN2H_-x_ap1NNLjmoQNoOK4PhQefKWk6F610rE/edit?usp=sharing).
 
+
 ## Automated Testing
 **NOTE** If you want to run these tests, make sure you have cloned this project form [github](https://github.com/maliahavlicek/ms4_challenger) by following the steps in the [local deployment section](https://github.com/maliahavlicek/ms4_challenger#deployment) of the README.md file.
 
@@ -65,7 +66,7 @@ I wrote automated Tests for the two bits of javascript that are key to the funct
 #### Heights
 Several pages in the site use a function that matches heights based on CSS selectors after page load to make the pages look much more presentable to end users. The home page, the products page and the see all entries pages uses the [utils.js alignItems function](https://github.com/maliahavlicek/ms4_challenger/blob/faf2ff1bc4c404cc862d860159dc58da601f4a30/static/js/utils.js#L5).
 
-<img width="auto" height="auto" src="documentation/testing/testing-jasmine-align-items.png">
+<img width="auto" height="auto" src="testing/testing-jasmine-align-items.png">
 
 HTML page to run alignItems tests from: testing/jasmine/jasmine-heights-testing.html
 Test Specifications: testing/jasmine/spec/test_heights_function.js
@@ -73,7 +74,7 @@ Test Specifications: testing/jasmine/spec/test_heights_function.js
 #### Members
 The Create Challenge and Update Challenge pages use the functions in the [challenge.js](https://github.com/maliahavlicek/ms4_challenger/blob/faf2ff1bc4c404cc862d860159dc58da601f4a30/challenges/static/js/challenge.js#L16) file to help manage member entry.
 
-<img width="auto" height="auto" src="documentation/testing/testing-jasmine-member-entry.png">
+<img width="auto" height="auto" src="testing/testing-jasmine-member-entry.png">
 
 HTML page to run alignItems tests from: testing/jasmine/jasimine-member-testing.html
 Test Specifications: testing/jasmine/spec/test_members_function.js
