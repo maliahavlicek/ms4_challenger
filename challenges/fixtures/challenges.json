@@ -13,7 +13,7 @@
     "member_limit": 5,
     "video_time_limit": 0,
     "submission_storage_cap": 500,
-    "submission_types": "submission_image",
+    "submission_types": "image",
     "members": [
       1
     ],
@@ -34,7 +34,7 @@
     "member_limit": 5,
     "video_time_limit": 0,
     "submission_storage_cap": 500,
-    "submission_types": "submission_image",
+    "submission_types": "image",
     "members": [
       1,
       2,

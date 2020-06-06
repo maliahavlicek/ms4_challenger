@@ -1,4 +1,3 @@
-import unittest
 from django.test import TestCase
 from products.models import ServiceLevel
 from django.core.management import call_command
