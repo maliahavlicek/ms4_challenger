@@ -24,7 +24,7 @@ To verify that the application is functional and looks pleasant across various o
 
 Please note: Since flex grid is the basis of CSS IE 11 and ios lower than 11 will not render the app nicely.
 
-These tests are lighter on the functionality with more attention being paid to the layout and console logs:
+These tests are light on the functionality with more attention being paid to the layout and console logs:
 
 The matrix for the browsers, operating systems and screen sizes is as follows:
 
@@ -52,18 +52,22 @@ This snippet grabs all elements in the DOM and outputs offending elements that e
 
 ## Accessibility Testing
 
-I know a few people with physical handicaps which makes using a mouse nearly impossible as well as a couple severely visually impaired people. I try to ensure I build websites that can be used by them. I make use of [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) and [google's lighthouse audit](https://developers.google.com/web/tools/lighthouse) tools to help ensure that the application meets accessibility standards.
+I try to ensure I build websites that can be used by people with vision and hand dexterity impairments. 
 
-I tracked the results on the Accessibility Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1011tpcN2H_-x_ap1NNLjmoQNoOK4PhQefKWk6F610rE/edit?usp=sharing).
+To test accessibility I use a combination of these two tools:
+- [axe](https://chrome.google.com/webstore/detail/axe-web-accessibility-tes/lhdoppojpmngadmnindnejefpokejbdd?hl=en-US) 
+- [google's lighthouse audit](https://developers.google.com/web/tools/lighthouse) 
+
+These tests are manual and are tracked on the Accessibility Tab of my [testing doc](https://docs.google.com/spreadsheets/d/1011tpcN2H_-x_ap1NNLjmoQNoOK4PhQefKWk6F610rE/edit?usp=sharing).
 
 
 ## Automated Testing
 **NOTE** If you want to run these tests, make sure you have cloned this project form [github](https://github.com/maliahavlicek/ms4_challenger) by following the steps in the [local deployment section](https://github.com/maliahavlicek/ms4_challenger#deployment) of the README.md file.
 
 ### Jasmine Tests
-I wrote automated Tests for the two bits of javascript that are key to the functionality of this website
+I wrote automated tests for the two bits of javascript that are key to the functionality of this website:
 
-#### Heights
+#### alignItems
 Several pages in the site use a function that matches heights based on CSS selectors after page load to make the pages look much more presentable to end users. The home page, the products page and the see all entries pages uses the [utils.js alignItems function](https://github.com/maliahavlicek/ms4_challenger/blob/faf2ff1bc4c404cc862d860159dc58da601f4a30/static/js/utils.js#L5).
 
 <img width="auto" height="auto" src="testing/testing-jasmine-align-items.png">
@@ -122,17 +126,17 @@ The most painful bugs always seem to show up right before you submit your projec
 
 Here are a list of some of the craziness I encountered:
 
-|| Short Name                                  | Description                                                                                                                 | Resolution                                                                                                                                                                                                                                        |   |   |
-|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|---|
-| Bad settings.py again                       | I lost track of how many times 5-10? I checked in my settings.py with if not DEBUG around either storage or testing engines | On June 2nd I talked to a co-worker and finally figured out how to use a settings_test.py file to override some of the settings.py values.                                                                                                        |   |   |
-| Account Profile Update error = empty form   | User updates profile but misses birthdate field. Avatar and interests are gone. Even if successfully set.                   | 1. form create with an instance=request.user.profile<br>2. If it's a POST use the request.POST data,<br>3. If post and invalid, check the changed items and use the cleaned data<br>4. If not changed but not in cleaned data, then make it empty |   |   |
-| Ratings on top of Entry image on iOs safari | Only in safari ipads, iphones and macbooks were the ratings not showing below the entry.                                    | It's a loading thing and on page Ready jQuery for safari had image heights of 0. Added a timeout function before resizing.                                                                                                                        |   |   |
-| Misaligned Columns on Product Pages         | Bootstrap cards would match card title, body and footer but not things in body. It looked wonky                             | Read up that bootstrap cards are not 100% flexbox, so added jQuery to match heights based on class names.                                                                                                                                         |   |   |
-| 500 error in production, local Django error | I got a dreaded yellow syntax error of doom when showing things off to my mentor during my mid-project review.              | Entries were made before the model changed to required image, some images were being displayed without an if image check first. This caused me to create custom 404 and 500 pages.                                                                |   |   |
-| Create Challenge Not respecting User Dates  | User selected dates are totally ignored and both start and end dates are today, update works fine                           | Data model had auto_add_now=True, which ignores any other inputs, set default=auto_add_now                                                                                                                                                        |   |   |
-| Heroku 405 error on rating/send post        | Had X-CSRFToken in fetch heading, had Host set up, works great locally, but Heroku had console errors                       | Updated settings.py with REST_FRAMEWORK and set up DEFAULT_PERMISSION_CLASSES and DEFAULT_AUTHENTICATION_CLASSES                                                                                                                                  |   |   |
-| Update Challenge goes to 500                | Update a challenge with a video, but don't change the video when updating gave a 500 error in heroku.                       | AWS vs Local Storage content_type is in a different spot. I added and instance check like  ```isinstance(example_video, S3Boto3StorageFile):``` around audio and video file uploads. ImageType fields doesn't run into this issue.                |   |   |
-| Update Profile, service level product lost  | When updating the profile, you come back to the service level page and there is 1/ __ challenges being reported.            | Need to update request with updated user otherwise product level is lost.                                                                                                                                                                         |   |   |
+| Short Name                                  | Description                                                                                                                     | Resolution                                                                                                                                                                                                                                        |
+|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Bad settings.py again                       | I lost track of how many times 5-10? I checked in my settings.py <br>with if not DEBUG around either storage or testing engines | On June 2nd I talked to a co-worker and finally figured out how to use <br>a settings_test.py file to override some of the settings.py values.                                                                                                    |
+| Account Profile Update error = empty form   | User updates profile but misses birthdate field. Avatar and <br>interests are gone. Even if successfully set.                   | 1. form create with an instance=request.user.profile<br>2. If it's a POST use the request.POST data,<br>3. If post and invalid, check the changed items and use the cleaned data<br>4. If not changed but not in cleaned data, then make it empty |
+| Ratings on top of Entry image on iOs safari | Only in safari ipads, iphones and macbooks were the ratings not<br>showing below the entry.                                     | It's a loading thing and on page Ready jQuery for safari had image <br>heights of 0. Added a timeout function before resizing.                                                                                                                    |
+| Misaligned Columns on Product Pages         | Bootstrap cards would match card title, body and footer but not <br>things in body. It looked wonky                             | Read up that bootstrap cards are not 100% flexbox, so added jQuery to<br> match heights based on class names.                                                                                                                                     |
+| 500 error in production, local Django error | I got a dreaded yellow syntax error of doom when showing things <br>off to my mentor during my mid-project review.              | Entries were made before the model changed to required image, some <br>images were being displayed without an if image check first. This caused<br>me to create custom 404 and 500 pages.                                                         |
+| Create Challenge Not respecting User Dates  | User selected dates are totally ignored and both start and end <br>dates are today, update works fine                           | Data model had auto_add_now=True, which ignores any other inputs, set <br>default=auto_add_now                                                                                                                                                    |
+| Heroku 405 error on rating/send post        | Had X-CSRFToken in fetch heading, had Host set up, works great <br>locally, but Heroku had console errors                       | Updated settings.py with REST_FRAMEWORK and set up <br>DEFAULT_PERMISSION_CLASSES and DEFAULT_AUTHENTICATION_CLASSES                                                                                                                              |
+| Update Challenge goes to 500                | Update a challenge with a video, but don't change the video when <br>updating gave a 500 error in heroku.                       | AWS vs Local Storage content_type is in a different spot. I added and <br>instance check like  ```isinstance(example_video, S3Boto3StorageFile):``` <br>around audio and video file uploads. ImageType fields doesn't run into <br>this issue.    |
+| Update Profile, service level product lost  | When updating the profile, you come back to the service level <br>page and there is 1/ __ challenges being reported.            | Need to update request with updated user otherwise product level is lost.                                                                                                                                                                         |
 
 #### Outstanding Defects
 
