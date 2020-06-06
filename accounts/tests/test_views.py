@@ -5,7 +5,7 @@ from django.contrib import auth
 from accounts.models import Tag
 from datetime import datetime, timedelta
 from django.core.management import call_command
-from accounts.views import user_profile, update_profile
+from accounts.views import user_profile
 
 
 class TestUnauthorizedViews(TestCase):

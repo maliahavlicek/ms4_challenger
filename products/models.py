@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from multiselectfield import MultiSelectField
-from django.utils.timezone import now
 
 PRODUCT_INCLUDED_FEATURES_CHOICES = [
     ('group_emails', 'Group Emails'),
