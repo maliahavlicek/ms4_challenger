@@ -13,6 +13,9 @@ class Rating(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return "{0} by {1}".format(self.rating, self.reviewer.username)
+
 
 # Create your models here.
 class RatingInput(models.Model):
@@ -23,6 +26,9 @@ class RatingInput(models.Model):
     reviewer = models.PositiveIntegerField()
     entry_id = models.PositiveIntegerField()
 
+    def __str__(self):
+        return str(self.rating)
+
 
 class TotalTrophies(models.Model):
     """
@@ -30,3 +36,6 @@ class TotalTrophies(models.Model):
     """
     trophies = models.DecimalField(validators=[MinValueValidator(0), MaxValueValidator(10000)], max_digits=5, decimal_places=2)
     entry_id = models.CharField(max_length=32)
+
+    def __str__(self):
+        return str(self.trophies)

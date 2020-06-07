@@ -22,6 +22,10 @@ def all_submissions(request, challenge_id):
         messages.warning(request, "Only a member or the challenge master can see the submissions to a challenge.")
         return redirect(reverse('challenges'))
 
+    if user != challenge.owner and not challenge.is_closed():
+        messages.warning(request, "You will be able to see all entries once the challenge closes.")
+        return redirect(reverse('challenges'))
+
     submissions = challenge.get_submissions()
     return render(request, "submissions.html", {
         "challenge": challenge,

@@ -21,14 +21,14 @@ def send(request):
         challenge = entry.challenge_set.first()
         members = challenge.get_members()
         # need to make sure user belongs to challenge entry is part of
-        user = User.objects.get(id=serializer.data['reviewer'])
+        user = User.objects.filter(id=serializer.data['reviewer']).first()
         if user in members or challenge.owner == user:
             # check if entry has a rating by the reviewer
-            if entry.ratings.count() > 0 and entry.ratings.get(reviewer=user):
+            if entry.ratings.count() > 0 and entry.ratings.filter(reviewer=user).count() > 0:
                 # updating
                 rating = entry.ratings.get(reviewer=user)
-                rating.rating=serializer.data['rating']
-                rating.updated_date=utc.localize(datetime.today())
+                rating.rating = serializer.data['rating']
+                rating.updated_date = utc.localize(datetime.today())
                 rating.save()
             else:
                 # creating

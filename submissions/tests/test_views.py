@@ -401,7 +401,7 @@ class TestUpdateEntryAccess(TestCase):
             description='test user 2 challenge 1 description',
             example_image="challenges/fixtures/challenge_img.jpg",
             example_video="challenges/fixtures/challenge_vid.mp4",
-            start_date=timezone.now(),
+            start_date=timezone.now() - timedelta(days=1),
             end_date=(timezone.now() + timedelta(days=5)),
             member_limit=user2.profile.product_level.max_members_per_challenge,
             video_time_limit=user2.profile.product_level.video_length_in_seconds,
@@ -739,10 +739,79 @@ class TestUpdateEntry(TestCase):
         self.assertContains(response, "You updated your entry for: " + challenge.name.title())
 
 
-# helper function to simulate formatting expected on challenges
-def date_str(challenge):
-    date_format = '%B %-m, %Y'
-    return_str = challenge.start_date.strftime(date_format)
-    if return_str != challenge.end_date.strftime(date_format):
-        return_str += " - " + challenge.end_date.strftime(date_format)
-    return return_str
+class TestAllEntries(TestCase):
+    """
+    Tests for All Entries View
+    """
+
+    @classmethod
+    def setUp(self):
+        # set up 3 base products from json
+        call_command('loaddata', 'products/fixtures/servicelevel.json', verbosity=0)
+        self.factory = RequestFactory()
+        # create 4 users
+        for i in range(1, 4):
+            user = User.objects.create_user(
+                username=f'testuser_{i}', email=f'testuser_{i}t@email.com', password="testing_1234"
+            )
+            # tie Free product to each user
+            user.profile.get_product_level()
+
+        # create a challenge under user2 that's currently open with user 1, no submissions
+        user1 = User.objects.get(username='testuser_1')
+        user2 = User.objects.get(username='testuser_2')
+        user3 = User.objects.get(username='testuser_3')
+        challenge1 = Challenge.objects.create(
+            owner=user1,
+            name='test user 1 owner, user 2 and user 3 as members',
+            description='test description',
+            example_image="challenges/fixtures/challenge_img.jpg",
+            example_video="challenges/fixtures/challenge_vid.mp4",
+            start_date=timezone.now() - timedelta(days=1),
+            end_date=(timezone.now() + timedelta(days=5)),
+            member_limit=user2.profile.product_level.max_members_per_challenge,
+            video_time_limit=user2.profile.product_level.video_length_in_seconds,
+            submission_storage_cap=user2.profile.product_level.max_submission_size_in_MB,
+            submission_types='image',
+        )
+        challenge1.members.add(user2)
+        challenge1.members.add(user3)
+        self.challenge1 = challenge1
+
+        submission2 = Entry.objects.create(
+            user=user2,
+            title='Image Submission for user 2',
+            image_file='submissions/fixtures/entry_img_2.jpg'
+        )
+        challenge1.submissions.add(submission2)
+
+        submission3 = Entry.objects.create(
+            user=user3,
+            title='Image Submission for user 3',
+            image_file='submissions/fixtures/entry_img_3.jpg'
+        )
+        challenge1.submissions.add(submission3)
+
+    def test_open_owner_can_see_entries(self):
+        self.client.login(username='testuser_1', password="testing_1234")
+        user = auth.get_user(self.client)
+        response = self.client.get('/submissions/1/', follow=True)
+        self.assertTemplateUsed(response, 'submissions.html')
+        self.assertContains(response, 'Entries for:')
+
+    def test_open_member_cannot_see_entries(self):
+        self.client.login(username='testuser_2', password="testing_1234")
+        user = auth.get_user(self.client)
+        response = self.client.get('/submissions/1/', follow=True)
+        self.assertRedirects(response, '/challenges/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+        self.assertContains(response, 'You will be able to see all entries once the challenge closes.')
+
+    def test_unauthenticated_cannot_see_entries(self):
+        # need to be logged in to see all entries page
+        response = self.client.get('/submissions/1/', follow=True)
+        expected_redirect = '/accounts/login/?next=/submissions/1/'
+        self.assertRedirects(response, expected_redirect)
+
+
+
