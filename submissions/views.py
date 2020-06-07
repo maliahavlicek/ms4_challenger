@@ -53,7 +53,7 @@ def create_submission(request, challenge_id):
 
     # make sure now falls within submission window (between start and end date)
     if challenge.start_date.date() > utc.localize(datetime.today()).date():
-        messages.warning(request, challenge.name.title() + ": hasn't started yet.")
+        messages.warning(request, challenge.name.title() + ": has not started yet.")
         return redirect(reverse('challenges'))
 
     if challenge.end_date.date() < utc.localize(datetime.today()).date():
@@ -94,6 +94,9 @@ def create_submission(request, challenge_id):
             # add submission to challenge
             challenge.submissions.add(entry)
 
+            # add success message
+            messages.success(request, "You added an entry to: " + challenge.name.title())
+
             # send flow to challenges list page
             return redirect(reverse('challenges'))
 
@@ -107,6 +110,15 @@ def create_submission(request, challenge_id):
 def update_submission(request, challenge_id):
     """Show Prepopulated Submission Entry form for a particular challenge to user"""
     challenge = Challenge.objects.get(id=challenge_id)
+
+    members = challenge.get_members()
+    # need to make sure user belongs to challenge
+    user = request.user
+
+    if user not in members:
+        messages.warning(request, "Only a member can update an entry for this challenge.")
+        return redirect(reverse('challenges'))
+
     # see if user already has a submission
     try:
         entry = Entry.objects.get(challenge=challenge, user=request.user)
@@ -120,7 +132,7 @@ def update_submission(request, challenge_id):
 
     # make sure now falls within submission window (between start and end date)
     if challenge.start_date.date() > utc.localize(datetime.today()).date():
-        messages.warning(request, challenge.name.title() + ": hasn't started yet.")
+        messages.warning(request, challenge.name.title() + ": has not started yet.")
         return redirect(reverse('challenges'))
 
     if challenge.end_date.date() < utc.localize(datetime.today()).date():
@@ -176,6 +188,9 @@ def update_submission(request, challenge_id):
                 entry.image_file = request.FILES['image_file']
             # save entry so changes commit to DB
             entry.save()
+
+            # add success message
+            messages.success(request, "You updated your entry for: " + challenge.name.title())
 
             # send flow to challenges list page
             return redirect(reverse('challenges'))

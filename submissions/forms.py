@@ -6,6 +6,7 @@ import os
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 from storages.backends.s3boto3 import S3Boto3StorageFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 FILE_SIZE_TO_BYTES = {
     2.5: 2621440,
@@ -53,8 +54,8 @@ class CreateEntryForm(forms.Form):
                 # aws storage MIME type check
                 if audio_file.obj.content_type not in valid_mime_types:
                     self.add_error('audio_file', 'Unsupported file type, expecting audio/mp3 or audio/mpeg.')
-            else:
-                # local storage MIME type check
+            elif isinstance(audio_file, SimpleUploadedFile):
+                # SimpleUploader MIME type check
                 if audio_file.content_type not in valid_mime_types:
                     self.add_error('audio_file', 'Unsupported file type, expecting audio/mp3 or audio/mpeg.')
             valid_file_extensions = ['.mp3']
@@ -74,8 +75,8 @@ class CreateEntryForm(forms.Form):
                 # aws storage MIME type check
                 if video_file.obj.content_type and video_file.obj.content_type not in valid_mime_types:
                     self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
-            else:
-                # local storage MIME type check
+            elif isinstance(video_file, SimpleUploadedFile):
+                # SimpleUploader MIME type check
                 if video_file.content_type not in valid_mime_types:
                     self.add_error('video_file', 'Unsupported file type, expecting video/mp4 or video/quicktime.')
 
