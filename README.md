@@ -943,7 +943,7 @@ No website can be created without the community resources found on the web. Sear
 - [Vitor Freitas](https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html) - Thank you so much for documenting how use the Messages Framework.
 - [Anil Zaimi](https://azmind.com/bootstrap-carousel-multiple-items/) - For blogging about how to have multiple cards in a bootstrap carousel
 
-### Reviewers
+### Reviewersƒ
 A special thanks goes out to those brave people who took the time to review this project. It's huge and time consuming, but it wouldn't be where it is without you.
 - [Tim White](https://www.linkedin.com/in/timlwhite/) - co-worker & mentor extraordinaire on and off for the past 14 years
 - [Preston Freeman](https://www.linkedin.com/in/prestongfreeman/) -co-worker & willing to test websites not work related
