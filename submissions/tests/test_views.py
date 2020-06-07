@@ -1,20 +1,15 @@
 from datetime import timedelta
 from django.test import TestCase, Client, RequestFactory
-from with_asserts.mixin import AssertHTMLMixin
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from submissions.forms import CreateEntryForm
 from challenges.models import Challenge
-from products.models import ServiceLevel
 from submissions.models import Entry
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib import auth
 from django.urls import reverse
-from django.http import HttpResponseRedirect
 from django.utils import timezone
-from submissions.views import all_submissions, create_submission, update_submission
-import lxml.html
-import json
+from submissions.views import create_submission, update_submission, delete_submission
 
 
 class TestCreateEntryAccess(TestCase):
@@ -372,6 +367,39 @@ class TestCreateEntry(TestCase):
         self.assertTemplateUsed('challenges.html')
         self.assertContains(response, 'video entry name'.title())
         self.assertContains(response, "You added an entry to: " + challenge.name.title())
+
+    def test_create_delete(self):
+        # create an entry then delete it
+        self.client.login(username='testuser_1', password="testing_1234")
+        user = auth.get_user(self.client)
+        challenge = self.challenge3
+        orig_submissions = len(challenge.get_submissions())
+        with open(
+                "challenges/fixtures/challenge_vid.mp4",
+                "rb",
+        ) as f:
+            vid_content = f.read()
+        vid_file = SimpleUploadedFile(
+            "challenge.mp4", vid_content, content_type="video/mp4"
+        )
+
+        response = self.client.post('/submissions/create/3/', {
+            'title': 'video entry name',
+            'video_file': vid_file,
+            'submission_size_limit': 7,
+            'submission_time_limit': self.challenge1.video_time_limit,
+        }, follow=True)
+        # make sure count went up when added
+        self.assertEqual(int(orig_submissions + 1), len(challenge.get_submissions()))
+
+        # now delete that entry
+        entry = Entry.objects.filter(challenge=challenge, user=user).first()
+        url = reverse(delete_submission, args=[entry.id])
+        response = self.client.get(url, follow=True)
+        self.assertRedirects(response, '/challenges/', status_code=302, target_status_code=200,
+                             msg_prefix='', fetch_redirect_response=True)
+
+        self.assertEqual(orig_submissions, len(challenge.get_submissions()))
 
 
 class TestUpdateEntryAccess(TestCase):
