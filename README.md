@@ -29,7 +29,6 @@ Submit Entry
 
 <a href="https://mmh-challenger.s3.us-east-2.amazonaws.com/media/how_to_videos/submit_entry.mp4" target="_blank"><img width="350" height="auto" src="documentation/tutorial/submit_entry_vid_screen_shot.png"></a>
 
-
 ## Table of Contents
 >- [UX](#ux)
 >  * [Goals](#goals)
@@ -120,6 +119,8 @@ Submit Entry
 >  * [Content](#content)
 >  * [Media](#media)
 >  * [Acknowledgements](#acknowledgements)
+>    + [Reviewers](#reviewers)
+>    + [Family](#family)
 
 # UX
 
@@ -159,6 +160,8 @@ Challenge Master Goals are:
 - Keep track of user self-tagging to be aligned to make informed decisions about cross-selling and ad space revenue
 - Keep track of user feature requests to make informed decisions on improvements and enhancements so my site stays ahead of the crowd
 
+[Back To Table of Contents](#table-of-contents)
+
 ## User Stories
 As a member of Challenger's website, I expect/want/need:
 - To find a challenge easily, I want the email I receive to take me to the correct challenge immediately
@@ -180,9 +183,13 @@ As a member of Challenger's website, I expect/want/need:
 - To update an existing challenge because my description wasn't clear or I uploaded the wrong file
 - To report abusive content anonymously so I don't see offensive things and minors don't either 
 
+[Back To Table of Contents](#table-of-contents)
+
 ## Wireframes
 This product aims to deliver a private small team feel similar to [teamsnap](https://teamsnap.com) and the ability to quickly view and like items similar to [instagram](https://www.instagram.com/). I started wireframes early in the design process while flipping between the two pre-existing apps. Then tackled some tough user interaction like adding members before I invested several hours to mock-ups and fine-tuning the user experience. Once I had a handle on the scope of challenges, I utilized Balsamiq to create [detailed mockups](documentation/WIREFRAMES.md) like the one below:
 [![view Balsamiq deck](documentation/mockups/Challenges_Member%20List.png)](documentation/WIREFRAMES.md)
+
+[Back To Table of Contents](#table-of-contents)
 
 ## Design Choices
 
@@ -217,6 +224,8 @@ Titles, navigation links and buttons use the [Orbitron](https://fonts.google.com
 The base font size is 18px to accommodate for a wider age range of users. [Exo](https://fonts.google.com/?query=orbitron&selection.family=Exo) is a bit easier to read than Orbitron but it has a futuristic feel to it to help carry out the space travel theme. 
 
 ![Exo](documentation/Exo-Base-Font.png "Exo")
+
+[Back To Table of Contents](#table-of-contents)
 
 ### Image Choice
 
@@ -258,6 +267,8 @@ If viewed on desktop the rails are filled with a star field image that slowly tr
 The order history is held in an accordion that has animation to expose and hide it's contents.
 
 The See All Entries view has an animated carousel that auto plays unless it's being interacted with.
+
+[Back To Table of Contents](#table-of-contents)
 
 # Features
 
@@ -382,6 +393,8 @@ Django's messaging is used throughout the site. To provide consistent user actio
 
 Messages are set in [views.py](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/challenges/views.py#L46) files before redirecting or rendering templates.
 
+[Back To Table of Contents](#table-of-contents)
+
 ### Home Page
 The Home page displays verbiage about why the site exists and what needs it meets. It also provides tutorials to help users get familiar with the site quickly. Authentication is not required to see this page.
 
@@ -395,6 +408,8 @@ Once a user is logged in the current product associated with their account will 
 <img width="350" height="auto" src="documentation/pages/ms4-challenger-product-page.png">
 
 To keep a consistent look of the price object on the checkout page as well as the products list page, a custom [filter](https://github.com/maliahavlicek/ms4_challenger/blob/64c67ed7a8494ca82a74af87d9f834000b1e50d9/products/templatetags/products_tags.py#L9) was made so a ton of tedious HTML didn't have to be repeated.
+
+[Back To Table of Contents](#table-of-contents)
 
 ### Login Page
 The login page is the front door for the authenticated user experience. It has a password reset and registration link so users that can't remember their password or those new to the site that want to join do not have to hunt and search for those options.
@@ -412,6 +427,8 @@ The Registration Page provides a way for users to sign up for access to the auth
 The profile page is a one stop shop account overview page. Users can initiate a password reset, make changes to their user information, update their profile, change their service level and see their order history.
 
 <img width="350" height="auto" src="documentation/pages/ms4-challenger-profile.png" >
+
+[Back To Table of Contents](#table-of-contents)
 
 ### Change User Info Page
 
@@ -437,6 +454,8 @@ Payment details are whipped from the page before a status it passed onto the bac
 
 At this point, the stripe payment collection is only in test most, so for success provide a future expiry date and ```4242424242424242``` as the Credit Card Number.
 
+[Back To Table of Contents](#table-of-contents)
+
 ### Challenges Page
 One could have guessed that the challenges page would be the most complex of the site. It's the hub of activity.
 When the user lands on the page they are presented 3 tabs. 
@@ -449,6 +468,8 @@ The first and default displayed tab on the challenges page is the member's tab. 
 All the data on the Member tab is ordered by Challenge End Date from most future to most recent in past, then by name ascending.
 
 There are many iterations of what users might see on this tab. There are 2 main states of a challenge:
+
+[Back To Table of Contents](#table-of-contents)
 
 ##### Open
 
@@ -475,6 +496,8 @@ or audio file:
 
 <img width="350" height="auto" src="documentation/pages/challenges/member-list/challenges-member-open-with-audio-entry.png">
 
+[Back To Table of Contents](#table-of-contents)
+
 ##### Closed
 If the end date has passed, the presentation of the member recap changes slightly. The challenge member will see a button labeled SEE ENTRIES which is the portal to review other's entries if any were made.
 
@@ -488,6 +511,8 @@ If they did not submit an entry their recap-entry box will be empty.
 The Challenges Master tab is similar to the Member's content except the user is the owner of the challenge and has update and delete authority. It shows additional buttons to edit or delete a challenge as well as recaps the number of members and submissions for each challenge the user is a master of. If there are submissions, the SEE ENTRIES gateway button to all entries for the challenge will be displayed.
 
 <img width="350" height="auto" src="documentation/pages/ms4-challenger-master-tab.png">
+
+[Back To Table of Contents](#table-of-contents)
 
 #### Create Challenge Tab
 The create challenge tab's treatment is conditional. If the user is at their limit of challenges, they cannot create a new challenge. They are provided a recap screen with some directions about how to free up challenges or raise their limit.
@@ -507,6 +532,7 @@ Adding members is optional. But if you add them, they are bound by your service 
 
 If you create a challenge, you will be messaged at the top of the challenges page if invites were sent or if you need to add members. If a user isn't in the system yet, no worries, their account is auto created, they receive a welcome email with an automatically generated password. They then receive a follow up invite to join the challenge email. 
 
+[Back To Table of Contents](#table-of-contents)
 
 #### Welcome to Challenger Email
 If a user is auto created via being added as a member to a challenge, a welcoming email with their username and password.
@@ -531,6 +557,8 @@ The only unmodifiable attribute is the submission type. The submission type is n
 
 New users will receive an initial email as if the challenge was newly created.
 
+[Back To Table of Contents](#table-of-contents)
+
 #### Challenge Updated Email
 Existing users that were retained through the update process will receive an update email where the changes will be highlighted in read if they were contextual in nature:
 
@@ -553,6 +581,8 @@ File size limits and extensions are driven by the challenge owner's service leve
 <img width="350" height="auto" src="documentation/pages/ms4-challenger-create-entry.png">
 
 Currently most image types are accepted. For videos only .mp4 and .mov files are allowed. Only .mp3 files are accepted for audio at this point in time. If a user uploads the wrong file type, they will receive direction about what file types and sizes are expected.
+
+[Back To Table of Contents](#table-of-contents)
 
 ### Re-submit Entry Page
 One the user designated as the entry owner can update an entry. You can find your entries on the Member's tab and if the challenge isn't closed you can re-submit it. After the challenge is closed, you can only delete your entries.
@@ -577,6 +607,8 @@ If users have forgotten their passwords, they can request an email to be sent to
 When a user has requested a password reset, they are presented a restyled Django Admin screen letting them know to expect an emil.
 
 <img width="350" height="auto" src="documentation/pages/ms4-challenger-password-reset-sent.png">
+
+[Back To Table of Contents](#table-of-contents)
 
 ### Reset Password Email
 To ensure the correct user receives a password reset link, Django sends an email to that user rather than providing one in screen. A future enhancement would be a two stage recovery associated with a stricter registration process.
@@ -625,6 +657,8 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [Django](https://docs.djangoproject.com/en/3.0/) Object Relational Mapper, HTML templating, URL routing, Form validation, Authentication, Admin and Security, does a lot of the heavy lifting for a website without much developer input 
 - [Markdown](https://www.markdownguide.org/) Documentation within the readme was generated using markdown
 
+[Back To Table of Contents](#table-of-contents)
+
 ## Framework & Extensions
 
 - [dj-database-url](https://pypi.org/project/dj-database-url/) - allows use of environment variable for database connections
@@ -671,6 +705,7 @@ This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Pos
 - [pip](https://pip.pypa.io/en/stable/installing/) - used to install python extensions for this project
 - [django-nose](https://pypi.org/project/django-nose/) - used to help configure and run tests with coverage output
 
+[Back To Table of Contents](#table-of-contents)
 
 ## APIs
 
@@ -706,7 +741,12 @@ Sites with ownership rules and roles opens a site up to hacking especially if yo
    - File size limits are checked before a user successfully uploads a file
 1. Account Management
   - when a user updates their username or email, the system is crosschecked for uniqueness of values
+1. Ratings
+  - You have to be a member of the challenge to rate a submission
+  - Users can change their ratings all the time, but they only have one entry in the system so they cannot stack the aggregate rating in their own or a friend's favor
    
+[Back To Table of Contents](#table-of-contents)
+
 # Testing
 
 Validation, manual unit, cross browser/cross device, accessibility, travis, coverage, this app has a dash of everything test related. See the separate [TESTING.md](documentation/TESTING.md) file for the details.
@@ -806,6 +846,8 @@ If any of the following are unfamiliar, please click on their associated links a
     python manage.py collectstatic
     ```
 
+[Back To Table of Contents](#table-of-contents)
+
 ## Heroku
 
 To run this application in a cloud environment to allow visibility to external users, you can deploy the code to Heroku. If you wish to do the same, follow the steps below. Please note this section assumes you have succeeded at running the application in your local environment first.
@@ -873,6 +915,8 @@ To run this application in a cloud environment to allow visibility to external u
 1. If you have errors, look at the logs for your application, most common errors are forgetting to add the hostname and  disabling collectstatic.
 1. Once your application is running, you may want to update the Deployment method from Manual to Automatic.
 
+[Back To Table of Contents](#table-of-contents)
+
 # Credits
 
 No website can be created without the community resources found on the web. Searching [stackoverflow](https://stackoverflow.com/) and [GeeksfoGeeks](https://www.geeksforgeeks.org/) and reading blog about triumphs and fails has helped create this site. A special shout out for the articles that solved specific issues vs syntax questions can be found in the acknowledgements section.
@@ -898,3 +942,13 @@ No website can be created without the community resources found on the web. Sear
 - [pypi.org](https://pypi.org/) - used to search for plugins that would help with form presentation and many other inquiries
 - [Vitor Freitas](https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html) - Thank you so much for documenting how use the Messages Framework.
 - [Anil Zaimi](https://azmind.com/bootstrap-carousel-multiple-items/) - For blogging about how to have multiple cards in a bootstrap carousel
+
+### Reviewers
+A special thanks goes out to those brave people who took the time to review this project. It's huge and time consuming, but it wouldn't be where it is without you.
+- [Tim White](https://www.linkedin.com/in/timlwhite/) - co-worker & mentor extraordinaire on and off for the past 14 years
+- [Preston Freeman](https://www.linkedin.com/in/prestongfreeman/) -co-worker & willing to test websites not work related
+- [Maripia Kuti](https://www.linkedin.com/in/mpiakuti2020/) - code institute peer & friend
+
+### Family
+The Gjerapic Boys - I have ignored you this past month working on this project. It's over guys. Let's go play, and yes, I'll finally fold the laundry.
+![Gjerapic Boys](https://ca.slack-edge.com/T024FSPSL-UGFHRD2JJ-5696dc19a360-512)

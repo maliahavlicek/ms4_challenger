@@ -2,7 +2,26 @@
 ## Author
 Malia Havlicek
 >## Table of Contents
+>- [Challenger TESTING](#challenger-testing)
+>  * [Author](#author)
+>  * [Table of Contents](#table-of-contents)
+>- [Testing](#testing)
+>  * [Validation Testing](#validation-testing)
+>  * [Unit Testing](#unit-testing)
+>  * [Cross Browser/Cross Device Verification](#cross-browsercross-device-verification)
+>  * [Accessibility Testing](#accessibility-testing)
+>  * [Automated Testing](#automated-testing)
+>    + [Jasmine Tests](#jasmine-tests)
+>      - [alignItems](#alignitems)
+>      - [Members](#members)
+>    + [Python Tests](#python-tests)
+>    + [Travis](#travis)
+>    + [Defect Tracking](#defect-tracking)
+>      - [Noteworthy Bugs](#noteworthy-bugs)
+>      - [Outstanding Defects](#outstanding-defects)
+>
 >- [Back to README](https://github.com/maliahavlicek/ms4_challenger#testing)
+
 # Testing
 
 Validation, manual unit, cross browser/cross device, accessibility, travis, coverage, jasmine, this app has a dash of everything test related.
@@ -90,6 +109,7 @@ Tests were written for Django views, forms, models. These files are located in e
 - test_models.py - for tests concerning models
 - test_views.py - for tests concerning views
 
+Overal
 
 [django-nose](https://pypi.org/project/django-nose/) was used to help configure and run the python tests with coverage output. The configurations are stored in the [.coveragerc](https://github.com/maliahavlicek/ms4_challenger/blob/master/.coveragerc) file.
 
@@ -107,7 +127,13 @@ When coverage was first configured and integrated on May 18, 2020 it was at 25%:
 
 ![First Coverage](testing/coverage_2020-05-18.png)
 
-Clicking on the items with less than 100% coverage helped identify holes in my test coverage and allowed me to get cover up to TODO level.
+Clicking on the items with less than 100% coverage helped identify holes in my test coverage and allowed me to get cover up to 80% of the code.
+
+On June 6, 2020, the resting coverage was up to 80%:
+
+![Final Coverage](testing/testing-coverage-06.06.2020.png)
+
+Yes 123 test cases is a lot. This is a huge app and I am not a tester by nature, but I wanted to become more efficient at writing test cases and learn how not to daisy chain them together. Ideally this set would be scoped down to the more fragile code pieces, but they did help identify a few fringe defects I would have left in the code otherwise.
 
 ### Travis
 Travis was used throughout the unit testing of this project to provide continuous integration testing when pushing code to GitHub. Travis basically runs the command ```python manage.py test --noinput --settings ms4_challenger.settings_test``` against a python 3.7 environment built with the requirements.txt file. It's configured via the [.travis.yml](https://github.com/maliahavlicek/ms4_challenger/blob/master/.travis.yml) file.
@@ -116,10 +142,13 @@ Heroku settings for this project were configured to only allow deployment when t
 
 ![First Insight Report](testing/travis_insights2020-05-18.png)
 
+As of June 6, 2020, travis success rates for the ms4_challenger app had stabilized with a higher success rate and higher deployment rate.
+
+![First Insight Report](testing/travis-final-06-06-2020.png)
+
 ### Defect Tracking
 Once I finished the initial layout of my file structure and had roughed in the base html, I began tracking [defects](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing) in a google sheet. They ranged from severely horrible coding errors, to the realization that my features were not 100% defined and I could make the user experience better.
 [![defects](testing/defect_tracking.png "defect list")](https://docs.google.com/spreadsheets/d/161VXfe9ELN-CZMsHYaJfk8WoItRxhoAkscJhY_fMjdc/edit?usp=sharing)
-
 
 #### Noteworthy Bugs
 The most painful bugs always seem to show up right before you submit your project or have a meeting with your mentor. Everything works fine in your local and oops, you checked in a bad settings.py file, or suddenly heroku is off because of file storage differences between production and your local environment.
