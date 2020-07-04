@@ -10,7 +10,6 @@
 {% endblock %}
 {% block main_content %}
     <form method="post" enctype="multipart/form-data" novalidate>
-        {% csrf_token %}
         {% crispy profile_form %}
     </form>
 {% endblock %}

@@ -13,7 +13,6 @@
 {% block main_content %}
     {% localtime on %}
         <form class="challenge_entry" method="post" enctype="multipart/form-data" novalidate>
-            {% csrf_token %}
             {% crispy challenge_form %}
         </form>
     {% endlocaltime %}

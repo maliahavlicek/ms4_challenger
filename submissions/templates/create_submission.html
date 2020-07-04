@@ -18,7 +18,6 @@
             </div>
             <div class="{% if 'image' not in challenge.submission_types %} image-hide {% endif %}{% if 'audio' not in challenge.submission_types %} audio-hide {% endif %}{% if 'video' not in challenge.submission_types %} video-hide {% endif %}">
                 <form method="post" enctype="multipart/form-data" novalidate>
-                    {% csrf_token %}
                     {% crispy form %}
                 </form>
             </div>
