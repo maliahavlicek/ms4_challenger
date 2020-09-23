@@ -131,7 +131,7 @@ function max_member_messaging() {
         err_mem_list.style.display = "block";
         Array.prototype.forEach.call(member_inputs, function (item) {
             item.style.display = "none";
-            if(item.classList.contains('d-none')){
+            if (item.classList.contains('d-none')) {
                 item.classList.remove('d-md-block');
             }
         });
@@ -145,7 +145,7 @@ function max_member_messaging() {
         err_mem_list.style.display = "none";
         Array.prototype.forEach.call(member_inputs, function (item) {
             item.style.display = "block";
-            if(item.classList.contains('d-none')){
+            if (item.classList.contains('d-none')) {
                 item.classList.add('d-md-block');
             }
         });
@@ -173,7 +173,7 @@ function objectPropInArray(list, prop, val) {
 function ValidateEmail(value) {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (value.match(mailformat)) {
-        document.getElementById('email').classList.remove('is-invalid');
+    //document.getElementById('email').classList.remove('is-invalid');
         document.getElementById('error_email').classList.remove('invalid-feedback');
         document.getElementById('error_email').innerHTML = '';
         return true;
