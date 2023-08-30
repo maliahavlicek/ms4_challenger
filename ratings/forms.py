@@ -18,3 +18,6 @@ class CreateRatingForm(forms.Form):
 
 
 
+
+
+if input.isnumeric()
