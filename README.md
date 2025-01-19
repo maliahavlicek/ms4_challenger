@@ -10,7 +10,7 @@ Malia Havlicek
 
 ## Project Overview
 
-[![ms4-challenger](documentation/ResponsiveScreenShot.png "MS4-Challenger App")](http://ms4-challenger.herokuapp.com/)
+![ms4-challenger](documentation/ResponsiveScreenShot.png "MS4-Challenger App")
 
 Challenger provides a way for small groups to test each other with friendly competitions based on common skill sets and interests. Whether you are teaching music lessons, coaching a soccer team or just a group of friends trying to top each other, this forum allows you to quickly set up a group, designate a master of ceremonies and define the limits of the challenge. Members then can load up a video or image of their results. The master of ceremonies can privately grade submissions and peers can rate each others' efforts. Members with a subscription service provide private links to families and fiends of their videos. 
 
@@ -646,6 +646,7 @@ Initial Database Structure Considerations, an [ERD](https://mmh-challenger.s3.us
 # Technologies Used
 
 This project was developed using Pycharm's IDE. Python 3.7, Django 3.0 and a Postgres Databased served up via Heroku are the core components. 
+Heroku has since replaced the free options for DBs, thus the deployment steps may not work as expected.
 
 ## Programming Languages
 
